@@ -12,6 +12,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private float dashCooldown = 0.7f;
     [SerializeField] private float dashCoyoteTime = 0.1f;
 
+    [Header("Dash Collision")]
+    [SerializeField] private string dashingLayer = "Dashing";
+
     [Header("Sprite Facing")]
     [SerializeField] private SpriteRenderer bodySprite;
     [SerializeField] private bool spriteFacesLeftByDefault = false;
@@ -33,6 +36,8 @@ public class Movement : MonoBehaviour
     private Vector2 dashDir;
     private Vector2 lastMoveDir;
     private float timeSinceMoved;
+    private int defaultLayer;
+    private int dashingLayerIndex;
 
     void Awake()
     {
@@ -45,6 +50,9 @@ public class Movement : MonoBehaviour
             bodySprite = GetComponentInChildren<SpriteRenderer>();
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
+
+        defaultLayer = gameObject.layer;
+        dashingLayerIndex = LayerMask.NameToLayer(dashingLayer);
     }
 
     public void OnMove(InputValue value)
@@ -73,6 +81,7 @@ public class Movement : MonoBehaviour
         isDashing = true;
         dashTimer = dashDuration;
         cooldownTimer = dashCooldown;
+        SetLayerRecursive(dashingLayerIndex >= 0 ? dashingLayerIndex : defaultLayer);
     }
 
     void Update()
@@ -97,7 +106,10 @@ public class Movement : MonoBehaviour
         {
             dashTimer -= Time.fixedDeltaTime;
             if (dashTimer <= 0f)
+            {
                 isDashing = false;
+                SetLayerRecursive(defaultLayer);
+            }
             else
             {
                 rb.MovePosition(rb.position + dashSpeed * Time.fixedDeltaTime * dashDir);
@@ -106,6 +118,13 @@ public class Movement : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * moveInput);
+    }
+
+    void SetLayerRecursive(int layer)
+    {
+        gameObject.layer = layer;
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>(true))
+            col.gameObject.layer = layer;
     }
 
     Vector2 AimDirection()
