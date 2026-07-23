@@ -24,7 +24,7 @@ public abstract class EnemyBase : MonoBehaviour
         agent.updateUpAxis = false;
         agent.speed = moveSpeed;
         agent.stoppingDistance = 0.5f;
-        
+
         health = maxHealth;
         currAttackCooldown = 0f;
     }
@@ -52,9 +52,9 @@ public abstract class EnemyBase : MonoBehaviour
         Move();
     }
 
-    void Update() {
+    /*void Update() {
         agent.destination = target.position;
-    }
+    }*/
 
     protected abstract void Move();
 
