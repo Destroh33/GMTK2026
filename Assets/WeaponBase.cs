@@ -4,6 +4,7 @@ public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected float cooldown = 0.4f;
 
+    // test comment
     private float cooldownTimer;
 
     protected virtual void Update()
