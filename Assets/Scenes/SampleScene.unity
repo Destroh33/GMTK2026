@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowerEnemy
   maxHealth: 10
-  moveSpeed: 5
+  moveSpeed: 2
   contactDamage: 1
 --- !u!1 &834489578
 GameObject:
@@ -1179,6 +1179,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  attackCooldown: 1
 --- !u!1 &1296250642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,10 +2140,11 @@ MonoBehaviour:
   playerCenter: {fileID: 377299305}
   hitRange: 0.6
   hitRadius: 0.5
+  damage: 1
   knockbackForce: 50
   hittableLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1281
 --- !u!95 &2080323569
 Animator:
   serializedVersion: 7

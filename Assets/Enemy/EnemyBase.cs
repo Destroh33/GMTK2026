@@ -7,21 +7,25 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected int maxHealth = 10;
     [SerializeField] protected float moveSpeed = 0.5f;
     [SerializeField] protected int contactDamage = 1;
+    [SerializeField] protected float attackCooldown = 1f;
 
     protected int health;
     protected Rigidbody2D rb;
     protected Transform target;
+    protected float currAttackCooldown;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
+        currAttackCooldown = 0f;
     }
 
     void OnEnable()
     {
         health = maxHealth;
         target = PlayerRef.Instance?.transform;
+        currAttackCooldown = 0f;
     }
 
     void FixedUpdate()
@@ -32,6 +36,10 @@ public abstract class EnemyBase : MonoBehaviour
             
             if (target == null) return;
         }
+
+        // Decrease attack cooldown if present
+        if (currAttackCooldown > 0) currAttackCooldown -= Time.deltaTime;
+        else if (currAttackCooldown < 0) currAttackCooldown = 0f;
 
         Move();
     }
@@ -51,12 +59,30 @@ public abstract class EnemyBase : MonoBehaviour
         Destroy(gameObject);
     }
 
+    protected virtual void AttackPlayer(PlayerHealth p)
+    {
+        // Ignore if on cooldown
+        if (currAttackCooldown > 0) return;
+
+        p.TakeDamage(contactDamage);
+        currAttackCooldown = attackCooldown;
+    }
+
     protected virtual void OnCollisionEnter2D(Collision2D col)
     {
         // Collision with player
         if (col.collider.TryGetComponent<PlayerHealth>(out PlayerHealth p))
         {
-            p.TakeDamage(contactDamage);
+            AttackPlayer(p);
+        }
+    }
+
+    protected virtual void OnCollisionStay2D(Collision2D col)
+    {
+        // Collision with player
+        if (col.collider.TryGetComponent<PlayerHealth>(out PlayerHealth p))
+        {
+            AttackPlayer(p);
         }
     }
 
