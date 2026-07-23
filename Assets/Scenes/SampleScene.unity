@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowerEnemy
   maxHealth: 10
-  moveSpeed: 5
+  moveSpeed: 2
   contactDamage: 1
 --- !u!1 &1296250642
 GameObject:
@@ -2075,6 +2075,7 @@ MonoBehaviour:
   playerCenter: {fileID: 377299305}
   hitRange: 0.6
   hitRadius: 0.5
+  damage: 1
   knockbackForce: 50
   hittableLayers:
     serializedVersion: 2

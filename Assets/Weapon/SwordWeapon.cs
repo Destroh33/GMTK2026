@@ -7,6 +7,7 @@ public class SwordWeapon : WeaponBase
     [SerializeField] private Transform playerCenter;
     [SerializeField] private float hitRange = 1.2f;
     [SerializeField] private float hitRadius = 1.1f;
+    [SerializeField] private int damage = 1;
     [SerializeField] private float knockbackForce = 10f;
     [SerializeField] private LayerMask hittableLayers;
 
@@ -35,6 +36,11 @@ public class SwordWeapon : WeaponBase
             Vector2 away = ((Vector2)hit.transform.position - origin).normalized;
             if (away.sqrMagnitude < 0.0001f) away = aimDir.normalized;
             hit.attachedRigidbody.AddForce(away * knockbackForce, ForceMode2D.Impulse);
+
+            if (hit.TryGetComponent<EnemyBase>(out EnemyBase e))
+            {
+                e.TakeDamage(damage);
+            }
         }
     }
 
