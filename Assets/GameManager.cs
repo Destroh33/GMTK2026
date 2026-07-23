@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float startTime = 30f * 60f;
     [SerializeField] private float countdownSpeed = 1f;
-    [SerializeField] private List<Wave> waves = new List<Wave>();]
+    [SerializeField] private List<Wave> waves = new List<Wave>();
     [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
 
     public float TimeRemaining { get; private set; }
