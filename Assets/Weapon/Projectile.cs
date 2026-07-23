@@ -2,6 +2,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float lifetime = 3f;
+    [SerializeField] private int damage = 1;
 
     private Vector2 velocity;
     private bool launched;
@@ -21,5 +22,15 @@ public class Projectile : MonoBehaviour
     {
         if (launched)
             transform.position += (Vector3)(velocity * Time.deltaTime);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        // Projectile hit an enemy
+        if (col.collider.TryGetComponent<EnemyBase>(out var e))
+        {
+            e.TakeDamage(damage);
+            Destroy(gameObject);
+        }
     }
 }

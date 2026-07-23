@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8751074580384285562}
   - component: {fileID: -8969140046927969816}
   - component: {fileID: 2283480510332886540}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bullet
-  m_TagString: Untagged
+  m_TagString: PlayerProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   lifetime: 5
+  damage: 1
 --- !u!50 &-8969140046927969816
 Rigidbody2D:
   serializedVersion: 5
