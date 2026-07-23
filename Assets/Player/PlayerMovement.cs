@@ -5,12 +5,15 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeedModifier = 1f; //used by powerup to multiply base movespeed
 
     [Header("Dodge Roll / Dash")]
     [SerializeField] private float dashSpeed = 12f;
+    [SerializeField] private float dashSpeedModifier = 1f; //used by powerup to multiply base dash speed
     [SerializeField] private float dashDuration = 0.15f;
     [SerializeField] private float dashCooldown = 0.7f;
     [SerializeField] private float dashCoyoteTime = 0.1f;
+
 
     [Header("Dash Collision")]
     [SerializeField] private string dashingLayer = "Dashing";
@@ -112,12 +115,12 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                rb.MovePosition(rb.position + dashSpeed * Time.fixedDeltaTime * dashDir);
+                rb.MovePosition(rb.position + dashSpeed * dashSpeedModifier * Time.fixedDeltaTime * dashDir);
                 return;
             }
         }
 
-        rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * moveInput);
+        rb.MovePosition(rb.position + moveSpeed * moveSpeedModifier * Time.fixedDeltaTime * moveInput);
     }
 
     void SetLayerRecursive(int layer)
@@ -142,5 +145,15 @@ public class PlayerMovement : MonoBehaviour
 
         bool aimRight = x > 0f;
         bodySprite.flipX = spriteFacesLeftByDefault ? aimRight : !aimRight;
+    }
+
+    public void ModifyMoveSpeed(float factor)
+    {
+        moveSpeedModifier *= factor;   
+    }
+
+    public void ModifyDashSpeed(float factor)
+    {
+        dashSpeedModifier *= factor;
     }
 }
