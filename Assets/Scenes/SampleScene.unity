@@ -1115,6 +1115,7 @@ MonoBehaviour:
   maxHealth: 10
   moveSpeed: 2
   contactDamage: 1
+  attackCooldown: 1
 --- !u!1 &1296250642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,7 +2080,7 @@ MonoBehaviour:
   knockbackForce: 50
   hittableLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1281
 --- !u!95 &2080323569
 Animator:
   serializedVersion: 7
