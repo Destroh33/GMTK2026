@@ -469,7 +469,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 5
+  moveSpeedModifier: 1
   dashSpeed: 12
+  dashSpeedModifier: 1
   dashDuration: 0.15
   dashCooldown: 0.7
   dashCoyoteTime: 0.1
@@ -955,6 +957,7 @@ GameObject:
   - component: {fileID: 640173705}
   - component: {fileID: 640173708}
   - component: {fileID: 640173709}
+  - component: {fileID: 640173710}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -970,7 +973,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640173704}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1058,7 +1061,7 @@ Transform:
   m_GameObject: {fileID: 640173704}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.42, y: 2.17, z: 0}
+  m_LocalPosition: {x: 5.79, y: 2.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1115,6 +1118,29 @@ MonoBehaviour:
   maxHealth: 10
   moveSpeed: 2
   contactDamage: 1
+  attackCooldown: 1
+--- !u!195 &640173710
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640173704}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &834489578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +1188,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: fffd17675c5e3b2458719b9563f22093, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &834489580
 Transform:
@@ -1179,7 +1205,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  attackCooldown: 1
+--- !u!1 &1086927601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1086927603}
+  - component: {fileID: 1086927602}
+  m_Layer: 0
+  m_Name: NavMesh Modifier Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1086927602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086927601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifierVolume
+  m_SerializedVersion: 0
+  m_Size: {x: 4, y: 3, z: 4}
+  m_Center: {x: 0, y: 1, z: 0}
+  m_Area: 0
+  m_AffectedAgents: ffffffff
+--- !u!4 &1086927603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086927601}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.49, y: 1.60381, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1296250642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2213,3 +2287,4 @@ SceneRoots:
   - {fileID: 470948379}
   - {fileID: 640173707}
   - {fileID: 834489580}
+  - {fileID: 1086927603}

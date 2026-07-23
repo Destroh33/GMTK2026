@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.AI;
 
-[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(Rigidbody2D))]
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("Enemy Stats")]
@@ -10,13 +11,20 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected float attackCooldown = 1f;
 
     protected int health;
-    protected Rigidbody2D rb;
+    //protected Rigidbody2D rb;
+    protected NavMeshAgent agent;
     protected Transform target;
     protected float currAttackCooldown;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        //rb = GetComponent<Rigidbody2D>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.speed = moveSpeed;
+        agent.stoppingDistance = 0.5f;
+        
         health = maxHealth;
         currAttackCooldown = 0f;
     }
@@ -42,6 +50,10 @@ public abstract class EnemyBase : MonoBehaviour
         else if (currAttackCooldown < 0) currAttackCooldown = 0f;
 
         Move();
+    }
+
+    void Update() {
+        agent.destination = target.position;
     }
 
     protected abstract void Move();
