@@ -22,6 +22,11 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void Heal(int amount)
+    {
+        if (health > maxHealth) health = maxHealth;
+    }
+
     private void Die()
     {
         // TODO

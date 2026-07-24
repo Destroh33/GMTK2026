@@ -4,6 +4,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private float lifetime = 3f;
     [SerializeField] private int damage = 1;
+    [SerializeField] private float knockbackForce = 4f;
     [SerializeField] private GameObject aoePrefab;
 
     private Vector2 velocity;
@@ -32,7 +33,7 @@ public class Projectile : MonoBehaviour
         EnemyBase hitEnemy = null;
         if (col.collider.TryGetComponent<EnemyBase>(out var e))
         {
-            e.TakeDamage(damage);
+            e.TakeDamage(damage, velocity.normalized * knockbackForce);
             hitEnemy = e;
         }
 

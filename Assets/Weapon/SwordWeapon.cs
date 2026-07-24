@@ -35,11 +35,14 @@ public class SwordWeapon : WeaponBase
             if (hit.attachedRigidbody == null) continue;
             Vector2 away = ((Vector2)hit.transform.position - origin).normalized;
             if (away.sqrMagnitude < 0.0001f) away = aimDir.normalized;
-            hit.attachedRigidbody.AddForce(away * knockbackForce, ForceMode2D.Impulse);
 
             if (hit.TryGetComponent<EnemyBase>(out EnemyBase e))
             {
-                e.TakeDamage(damage);
+                e.TakeDamage(damage, away * knockbackForce);
+            }
+            else
+            {
+                hit.attachedRigidbody.AddForce(away * knockbackForce, ForceMode2D.Impulse);
             }
         }
     }
