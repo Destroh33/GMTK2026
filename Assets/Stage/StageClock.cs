@@ -4,7 +4,9 @@ using UnityEngine;
 public class StageClock : MonoBehaviour
 {
     [SerializeField] private GameObject secondHand;
+    private Rigidbody2D secondHandRB;
     [SerializeField] private GameObject minuteHand;
+    private Rigidbody2D minuteHandRB;
 
     [SerializeField] float timeScale;
     [SerializeField] private float totalTimer;
@@ -18,7 +20,7 @@ public class StageClock : MonoBehaviour
     [SerializeField] private bool secondHandRotatingClockwise;
     [SerializeField] private bool minuteHandRotatingClockwise;
 
-
+    //public static Vector2 VelocityVec;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,6 +28,9 @@ public class StageClock : MonoBehaviour
         timerLeft = totalTimer;
         currentSecSpeed = defaultHandSpeed;
         currentMinSpeed = defaultHandSpeed;
+
+        secondHandRB = secondHand.GetComponent<Rigidbody2D>();
+        minuteHandRB = minuteHand.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -36,6 +41,11 @@ public class StageClock : MonoBehaviour
 
     private void FixedUpdate()
     {
+        secondHandRB.AddTorque(currentSecSpeed * timeScale, ForceMode2D.Force);
+        minuteHandRB.AddTorque(currentMinSpeed * timeScale, ForceMode2D.Force);
+
+        secondHandRB.angularVelocity = Mathf.Clamp(secondHandRB.angularVelocity, 0, maxHandSpeed);
+        minuteHandRB.angularVelocity = Mathf.Clamp(minuteHandRB.angularVelocity, 0, maxHandSpeed);
 
     }
 
@@ -44,13 +54,9 @@ public class StageClock : MonoBehaviour
         return timerLeft > 0f;
     }
 
-    public void RotateSecondsHand() 
-    {
-    
-    }
 
-    public void RotateMinutesHand()
+    public void SetTimeScale(float newTimeScale) 
     {
-
+        timeScale = newTimeScale;
     }
 }
