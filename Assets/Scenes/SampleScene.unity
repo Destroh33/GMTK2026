@@ -162,7 +162,7 @@ MonoBehaviour:
   - {fileID: 1624950173}
   - {fileID: 1308595807}
   - {fileID: 900674786}
-  autoStart: 1
+  autoStart: 0
   initialDelay: 2
 --- !u!4 &50074618
 Transform:
