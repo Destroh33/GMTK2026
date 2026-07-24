@@ -45,14 +45,9 @@ public class ClockHand : MonoBehaviour
         {
             reverseTimer -= dt;
         }
-        else
-        {
-            float target = -Mathf.Abs(baseSpeed);
-            if (rb.angularVelocity > target)
-                rb.AddTorque(-driveTorque * dt, ForceMode2D.Force);
-        }
-
-        rb.angularVelocity = Mathf.Clamp(rb.angularVelocity, -maxSpeed, maxSpeed);
+        
+        // Removed manual AddTorque and speed clamping here 
+        // because StageClock now manages continuous rotation via HingeJoint2D motors.
     }
 
     public bool TryStrike(Vector2 hitPoint, Vector2 attackDir)

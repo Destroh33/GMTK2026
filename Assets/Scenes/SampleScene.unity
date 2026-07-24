@@ -155,8 +155,8 @@ MonoBehaviour:
     spawns:
     - enemyPrefab: {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
       count: 20
-    spawnDuration: 10
-    intermission: 5
+    spawnDuration: 8
+    intermission: 4
   spawnPoints:
   - {fileID: 1312304867}
   - {fileID: 1624950173}
@@ -570,7 +570,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  dashEndMomentum: 0.75
+  dashEndMomentum: 0.55
   dashInputBufferTime: 0.12
   dashingLayer: Dashing
   bodySprite: {fileID: 0}
@@ -1159,6 +1159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageClock
   secondHand: {fileID: 770000016}
   minuteHand: {fileID: 770000026}
+  timeScale: 1
+  currentSecSpeed: 0
+  currentMinSpeed: 0
+  defaultHandSpeed: 0
   secondHandBonus: 15
   minuteHandBonus: 45
   maxBonusesPerWave: 6
@@ -2316,6 +2320,141 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1001 &2000530657
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3370404206276418732, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Name
+      value: Clock
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.02776
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1683
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: minuteHand
+      value: 
+      objectReference: {fileID: 2000530660}
+    - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: secondHand
+      value: 
+      objectReference: {fileID: 2000530661}
+    - target: {fileID: 5764407296486626184, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.009122491
+      objectReference: {fileID: 0}
+    - target: {fileID: 6190722011946274746, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.03785324
+      objectReference: {fileID: 0}
+    - target: {fileID: 6190722011946274746, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.04756871
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5796022922310609500, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2000530661}
+    - targetCorrespondingSourceObject: {fileID: 6940318963816761586, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2000530660}
+  m_SourcePrefab: {fileID: 100100000, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+--- !u!1 &2000530658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6940318963816761586, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+  m_PrefabInstance: {fileID: 2000530657}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2000530659 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5796022922310609500, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+  m_PrefabInstance: {fileID: 2000530657}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2000530660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000530658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockHand
+  baseSpeed: 30
+  maxSpeed: 220
+  driveTorque: 400
+  strikeImpulse: 260
+  reverseDuration: 2.5
+  strikeCooldown: 0.25
+  minTangentDot: 0.25
+  pushForce: 14
+  pushRadiusScale: 1
+--- !u!114 &2000530661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000530659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockHand
+  baseSpeed: 60
+  maxSpeed: 220
+  driveTorque: 400
+  strikeImpulse: 260
+  reverseDuration: 2.5
+  strikeCooldown: 0.25
+  minTangentDot: 0.25
+  pushForce: 14
+  pushRadiusScale: 1
 --- !u!1 &2047901497
 GameObject:
   m_ObjectHideFlags: 0
@@ -3278,3 +3417,4 @@ SceneRoots:
   - {fileID: 50074618}
   - {fileID: 1007832031}
   - {fileID: 770000002}
+  - {fileID: 2000530657}
