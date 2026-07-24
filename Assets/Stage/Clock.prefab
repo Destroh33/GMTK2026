@@ -170,15 +170,14 @@ MonoBehaviour:
   secondHand: {fileID: 5796022922310609500}
   minuteHand: {fileID: 6940318963816761586}
   timeScale: 1
-  totalTimer: 30
-  timerLeft: 0
   currentSecSpeed: 0
   currentMinSpeed: 0
-  defaultSecHandSpeed: 10
-  defaultMinHandSpeed: 5
-  maxHandSpeed: 100
-  secondHandRotatingClockwise: 1
-  minuteHandRotatingClockwise: 1
+  defaultHandSpeed: 0
+  secondHandBonus: 15
+  minuteHandBonus: 45
+  maxBonusesPerWave: 6
+  falloffPerBonus: 0.85
+  minBonusMultiplier: 0.25
 --- !u!1 &5796022922310609500
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +190,7 @@ GameObject:
   - component: {fileID: 4119247867435091439}
   - component: {fileID: 8332110016494966222}
   - component: {fileID: 5764407296486626184}
+  - component: {fileID: 3460052227762345938}
   m_Layer: 0
   m_Name: second hand
   m_TagString: Untagged
@@ -326,6 +326,52 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!61 &3460052227762345938
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5796022922310609500}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6940318963816761586
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +384,7 @@ GameObject:
   - component: {fileID: 5040794888382309226}
   - component: {fileID: 6801665684355768079}
   - component: {fileID: 6190722011946274746}
+  - component: {fileID: 7733595080079028551}
   m_Layer: 0
   m_Name: minute hand
   m_TagString: Untagged
@@ -473,3 +520,49 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!61 &7733595080079028551
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940318963816761586}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
