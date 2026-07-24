@@ -1127,7 +1127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &770000002
 Transform:
   m_ObjectHideFlags: 0
@@ -2333,6 +2333,18 @@ PrefabInstance:
       value: Clock
       objectReference: {fileID: 0}
     - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.02776
       objectReference: {fileID: 0}
@@ -2372,6 +2384,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: minuteHand
       value: 
@@ -2380,17 +2396,29 @@ PrefabInstance:
       propertyPath: secondHand
       value: 
       objectReference: {fileID: 2000530661}
+    - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: currentMinSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: currentSecSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: defaultHandSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5764407296486626184, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.009122491
+      value: 0.00912251
       objectReference: {fileID: 0}
     - target: {fileID: 6190722011946274746, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.03785324
+      value: -0.0378534
       objectReference: {fileID: 0}
     - target: {fileID: 6190722011946274746, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.04756871
+      value: 0.04756872
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

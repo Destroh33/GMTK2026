@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 8332110016494966222}
   - component: {fileID: 5764407296486626184}
   - component: {fileID: 3460052227762345938}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: second hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 6801665684355768079}
   - component: {fileID: 6190722011946274746}
   - component: {fileID: 7733595080079028551}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: minute hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

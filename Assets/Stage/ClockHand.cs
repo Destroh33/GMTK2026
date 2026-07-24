@@ -19,6 +19,9 @@ public class ClockHand : MonoBehaviour
     [SerializeField] private float pushForce = 14f;
     [SerializeField] private float pushRadiusScale = 1f;
 
+    [Header("Player Damage")]
+    [SerializeField] private int damageDealt = 1;
+
     public event Action<ClockHand> OnStruckBackwards;
 
     public bool IsReversed => reverseTimer > 0f;
@@ -91,5 +94,14 @@ public class ClockHand : MonoBehaviour
         float speedFactor = Mathf.Clamp01(Mathf.Abs(rb.angularVelocity) / Mathf.Max(1f, maxSpeed));
 
         other.AddForce(tangent * (pushForce * pushRadiusScale * speedFactor), ForceMode2D.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        PlayerHealth p = collision.gameObject.GetComponent<PlayerHealth>();
+        if (p != null) 
+        {
+            p.TakeDamage(damageDealt);
+        }
     }
 }
