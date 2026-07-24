@@ -42,7 +42,7 @@ public class SwordWeapon : WeaponBase
             }
             else if (hit.attachedRigidbody.TryGetComponent<ClockHand>(out ClockHand hand))
             {
-                hand.TryStrike(hit.ClosestPoint(center), aimDir);
+                hand.TryStrike(hit.ClosestPoint(center), origin);
             }
             else
             {

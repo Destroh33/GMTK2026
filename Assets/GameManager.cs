@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float startTime = 30f * 60f;
     [SerializeField] private float countdownSpeed = 1f;
 
+    public float StartTime => startTime;
+
     [Header("Waves")]
     [SerializeField] private List<Wave> waves = new List<Wave>();
     [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
@@ -251,12 +253,24 @@ public class GameManager : MonoBehaviour
         return point != null ? point.position : Vector3.zero;
     }
 
+    /// <summary>
+    /// Adjust the remaining time. Positive adds, negative subtracts. Clamped at 0 (and at
+    /// startTime on the high end). Used by clock-hand strikes to reward/penalize the player.
+    /// Fires OnTimeExpired if a subtraction runs time out.
+    /// </summary>
     public void AddTime(float seconds)
     {
-        TimeRemaining += seconds;
-        if (TimeRemaining > 0f && !TimerRunning)
+        bool wasRunning = TimerRunning;
+        TimeRemaining = Mathf.Max(0f, TimeRemaining + seconds);
+
+        if (TimeRemaining > 0f)
         {
             TimerRunning = true;
+        }
+        else if (wasRunning)
+        {
+            TimerRunning = false;
+            OnTimeExpired?.Invoke();
         }
     }
 

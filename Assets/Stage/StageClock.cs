@@ -1,27 +1,22 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StageClock : MonoBehaviour
 {
     [Header("Hands")]
     [SerializeField] private ClockHand secondHand;
-    private Rigidbody2D secondHandRB;
     private HingeJoint2D secondHandJoint;
-    
+
     [SerializeField] private ClockHand minuteHand;
-    private Rigidbody2D minuteHandRB;
     private HingeJoint2D minuteHandJoint;
 
     [Header("Rotation Settings")]
-    [SerializeField] float timeScale = 1f;
-    [SerializeField] private float currentSecSpeed;
-    [SerializeField] private float currentMinSpeed;
-    [SerializeField] private float defaultHandSpeed;
+    [SerializeField] private float defaultHandSpeed = 30f;
+    [SerializeField] private float timeScale = 1f;
+    [SerializeField] private float motorTorque = 1000f;
+    [SerializeField] private bool clockwiseIsPositiveMotor = true;
+    [SerializeField] private float minuteHandSpeedRatio = 1f / 12f;
 
-    private bool secondHandRotatingClockwise = true;
-    private bool minuteHandRotatingClockwise = true;
-
-    [Header("Time Restored Per Strike")]
+    [Header("Time Per Strike")]
     [SerializeField] private float secondHandBonus = 15f;
     [SerializeField] private float minuteHandBonus = 45f;
 
@@ -34,60 +29,45 @@ public class StageClock : MonoBehaviour
 
     void Start()
     {
-        currentSecSpeed = defaultHandSpeed;
-        currentMinSpeed = defaultHandSpeed;
-
         if (secondHand != null)
         {
-            secondHandRB = secondHand.GetComponent<Rigidbody2D>();
             secondHandJoint = secondHand.GetComponent<HingeJoint2D>();
             if (secondHandJoint != null) secondHandJoint.useMotor = true;
         }
 
         if (minuteHand != null)
         {
-            minuteHandRB = minuteHand.GetComponent<Rigidbody2D>();
             minuteHandJoint = minuteHand.GetComponent<HingeJoint2D>();
             if (minuteHandJoint != null) minuteHandJoint.useMotor = true;
         }
+
+        if (defaultHandSpeed <= 0f)
+            defaultHandSpeed = 30f;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        // Use Check against IsReversed directly from the hand scripts to know exactly when a strike's reverse duration is active
-        if (secondHand != null) secondHandRotatingClockwise = !secondHand.IsReversed;
-        if (minuteHand != null) minuteHandRotatingClockwise = !minuteHand.IsReversed;
+        float sweepSign = clockwiseIsPositiveMotor ? 1f : -1f;
+        float clockwiseSpeed = sweepSign * defaultHandSpeed * timeScale;
 
-        // In Unity 2D, negative angular velocity is clockwise.
-        int dirSec = secondHandRotatingClockwise ? -1 : 1;
-        int dirMin = minuteHandRotatingClockwise ? -1 : 1;
-
-        if (secondHandJoint != null)
-        {
-            JointMotor2D secMotor = secondHandJoint.motor;
-            secMotor.motorSpeed = currentSecSpeed * timeScale * dirSec;
-            secMotor.maxMotorTorque = 1000f; // Adjusted so it can potentially be reversed by hits
-            secondHandJoint.motor = secMotor;
-        }
-
-        if (minuteHandJoint != null)
-        {
-            JointMotor2D minMotor = minuteHandJoint.motor;
-            minMotor.motorSpeed = currentMinSpeed * timeScale * dirMin;
-            minMotor.maxMotorTorque = 1000f;
-            minuteHandJoint.motor = minMotor;
-        }
+        DriveHand(secondHandJoint, clockwiseSpeed);
+        DriveHand(minuteHandJoint, clockwiseSpeed * minuteHandSpeedRatio);
     }
 
-    public void SetTimeScale(float newTimeScale) 
+    void DriveHand(HingeJoint2D joint, float speed)
     {
-        timeScale = newTimeScale;
+        if (joint == null) return;
+
+        JointMotor2D m = joint.motor;
+        m.motorSpeed = speed;
+        m.maxMotorTorque = motorTorque;
+        joint.motor = m;
     }
 
     void OnEnable()
     {
-        if (secondHand != null) secondHand.OnStruckBackwards += HandleSecondHandStruck;
-        if (minuteHand != null) minuteHand.OnStruckBackwards += HandleMinuteHandStruck;
+        if (secondHand != null) secondHand.OnStruck += HandleSecondHandStruck;
+        if (minuteHand != null) minuteHand.OnStruck += HandleMinuteHandStruck;
 
         if (GameManager.Instance != null)
             GameManager.Instance.OnWaveStarted += HandleWaveStarted;
@@ -95,32 +75,30 @@ public class StageClock : MonoBehaviour
 
     void OnDisable()
     {
-        if (secondHand != null) secondHand.OnStruckBackwards -= HandleSecondHandStruck;
-        if (minuteHand != null) minuteHand.OnStruckBackwards -= HandleMinuteHandStruck;
+        if (secondHand != null) secondHand.OnStruck -= HandleSecondHandStruck;
+        if (minuteHand != null) minuteHand.OnStruck -= HandleMinuteHandStruck;
 
         if (GameManager.Instance != null)
             GameManager.Instance.OnWaveStarted -= HandleWaveStarted;
     }
 
-    void HandleWaveStarted(int waveIndex)
-    {
-        bonusesAwarded = 0;
-    }
+    void HandleWaveStarted(int waveIndex) => bonusesAwarded = 0;
 
-    void HandleSecondHandStruck(ClockHand hand) => AwardTime(secondHandBonus);
+    void HandleSecondHandStruck(ClockHand hand, float kick) => ApplyStrikeTime(secondHandBonus);
 
-    void HandleMinuteHandStruck(ClockHand hand) => AwardTime(minuteHandBonus);
+    void HandleMinuteHandStruck(ClockHand hand, float kick) => ApplyStrikeTime(minuteHandBonus);
 
-    void AwardTime(float baseAmount)
+    void ApplyStrikeTime(float baseAmount)
     {
         if (GameManager.Instance == null) return;
         if (maxBonusesPerWave > 0 && bonusesAwarded >= maxBonusesPerWave) return;
 
         float multiplier = Mathf.Max(minBonusMultiplier, Mathf.Pow(falloffPerBonus, bonusesAwarded));
         GameManager.Instance.AddTime(baseAmount * multiplier);
-
         bonusesAwarded++;
     }
+
+    public void SetTimeScale(float newTimeScale) => timeScale = newTimeScale;
 
     public bool IsTimeLeft()
     {

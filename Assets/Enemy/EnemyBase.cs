@@ -99,7 +99,7 @@ public abstract class EnemyBase : MonoBehaviour
         Move();
 
         // Turn off health bar after 3 seconds
-        if (timeSinceDamage > 3 && healthBar.activeSelf)
+        if (healthBar != null && timeSinceDamage > 3 && healthBar.activeSelf)
         {
             healthBar.SetActive(false);
         }
@@ -116,11 +116,6 @@ public abstract class EnemyBase : MonoBehaviour
     public virtual void TakeDamage(int amount)
     {
         TakeDamage(amount, Vector2.zero);
-        timeSinceDamage = 0;
-        
-        // Turn on and update health bar
-        healthBar.SetActive(true);
-        healthFill.fillAmount = (float)health / maxHealth;
     }
 
     public virtual void TakeDamage(int amount, Vector2 knockbackImpulse)
@@ -128,6 +123,7 @@ public abstract class EnemyBase : MonoBehaviour
         if (!IsAlive) return;
 
         health -= amount;
+        timeSinceDamage = 0;
 
         if (health <= 0)
         {
@@ -135,8 +131,16 @@ public abstract class EnemyBase : MonoBehaviour
             return;
         }
 
+        UpdateHealthBar();
+
         if (knockbackImpulse.sqrMagnitude > 0.0001f)
             ApplyKnockback(knockbackImpulse);
+    }
+
+    void UpdateHealthBar()
+    {
+        if (healthBar != null) healthBar.SetActive(true);
+        if (healthFill != null) healthFill.fillAmount = (float)health / maxHealth;
     }
 
     public virtual void ApplyKnockback(Vector2 impulse)

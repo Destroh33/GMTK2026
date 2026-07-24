@@ -167,14 +167,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827199728d9dc9a439838b0f54674353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageClock
-  secondHand: {fileID: 5796022922310609500}
-  minuteHand: {fileID: 6940318963816761586}
+  secondHand: {fileID: 0}
+  minuteHand: {fileID: 0}
+  defaultHandSpeed: 30
   timeScale: 1
-  currentSecSpeed: 0
-  currentMinSpeed: 0
-  defaultHandSpeed: 0
+  motorTorque: 10000
+  clockwiseIsPositiveMotor: 1
+  minuteHandSpeedRatio: 0.083333336
   secondHandBonus: 15
   minuteHandBonus: 45
+  forwardStrikeSubtracts: 1
   maxBonusesPerWave: 6
   falloffPerBonus: 0.85
   minBonusMultiplier: 0.25
