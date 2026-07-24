@@ -20,8 +20,6 @@ public class StageClock : MonoBehaviour
     [SerializeField] private bool secondHandRotatingClockwise;
     [SerializeField] private bool minuteHandRotatingClockwise;
 
-    //public static Vector2 VelocityVec;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,19 +31,34 @@ public class StageClock : MonoBehaviour
         minuteHandRB = minuteHand.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
-        secondHandRB.AddTorque(currentSecSpeed * timeScale, ForceMode2D.Force);
-        minuteHandRB.AddTorque(currentMinSpeed * timeScale, ForceMode2D.Force);
+        int dirSec = secondHandRotatingClockwise ? 1 : -1;
+        int dirMin = minuteHandRotatingClockwise ? 1 : -1;
 
-        secondHandRB.angularVelocity = Mathf.Clamp(secondHandRB.angularVelocity, 0, maxHandSpeed);
-        minuteHandRB.angularVelocity = Mathf.Clamp(minuteHandRB.angularVelocity, 0, maxHandSpeed);
+        secondHandRB.AddTorque(currentSecSpeed * timeScale * dirSec, ForceMode2D.Force);
+        minuteHandRB.AddTorque(currentMinSpeed * timeScale * dirMin, ForceMode2D.Force);
+
+        secondHandRB.angularVelocity = Mathf.Clamp(secondHandRB.angularVelocity, -maxHandSpeed, maxHandSpeed);
+        minuteHandRB.angularVelocity = Mathf.Clamp(minuteHandRB.angularVelocity, -maxHandSpeed, maxHandSpeed);
+
+        if (dirSec > 0)
+        {
+            timerLeft -= Time.fixedDeltaTime;
+        }
+        else 
+        {
+            timerLeft += Time.fixedDeltaTime;
+        }
+
+        if (dirMin > 0)
+        {
+            //do nothing
+        }
+        else 
+        {
+            timerLeft += Time.fixedDeltaTime * 60f; //tune this?
+        }
 
     }
 
