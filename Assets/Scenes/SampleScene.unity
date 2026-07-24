@@ -1357,6 +1357,7 @@ MonoBehaviour:
   minTangentDot: 0.25
   pushForce: 14
   pushRadiusScale: 1
+  damageDealt: 1
 --- !u!1 &770000020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,6 +1547,7 @@ MonoBehaviour:
   minTangentDot: 0.25
   pushForce: 18
   pushRadiusScale: 1
+  damageDealt: 1
 --- !u!1 &900674785
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,6 +2464,7 @@ MonoBehaviour:
   minTangentDot: 0.25
   pushForce: 14
   pushRadiusScale: 1
+  damageDealt: 1
 --- !u!114 &2000530661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2483,6 +2486,7 @@ MonoBehaviour:
   minTangentDot: 0.25
   pushForce: 14
   pushRadiusScale: 1
+  damageDealt: 1
 --- !u!1 &2047901497
 GameObject:
   m_ObjectHideFlags: 0

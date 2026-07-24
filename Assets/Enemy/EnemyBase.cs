@@ -116,11 +116,6 @@ public abstract class EnemyBase : MonoBehaviour
     public virtual void TakeDamage(int amount)
     {
         TakeDamage(amount, Vector2.zero);
-        timeSinceDamage = 0;
-        
-        // Turn on and update health bar
-        healthBar.SetActive(true);
-        healthFill.fillAmount = (float)health / maxHealth;
     }
 
     public virtual void TakeDamage(int amount, Vector2 knockbackImpulse)
@@ -128,7 +123,8 @@ public abstract class EnemyBase : MonoBehaviour
         if (!IsAlive) return;
 
         health -= amount;
-
+        timeSinceDamage = 0;
+        
         if (health <= 0)
         {
             Die();
@@ -137,6 +133,10 @@ public abstract class EnemyBase : MonoBehaviour
 
         if (knockbackImpulse.sqrMagnitude > 0.0001f)
             ApplyKnockback(knockbackImpulse);
+
+        // Turn on and update health bar
+        healthBar.SetActive(true);
+        healthFill.fillAmount = (float)health / maxHealth;
     }
 
     public virtual void ApplyKnockback(Vector2 impulse)
