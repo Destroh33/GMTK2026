@@ -1,80 +1,151 @@
 using UnityEngine;
-using UnityEngine.AI;
 
-//[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public abstract class EnemyBase : MonoBehaviour
 {
+    public enum State { Chasing, Knockback, Stunned }
+
     [Header("Enemy Stats")]
     [SerializeField] protected int maxHealth = 10;
-    [SerializeField] protected float moveSpeed = 0.5f;
+    [SerializeField] protected float moveSpeed = 2f;
     [SerializeField] protected int contactDamage = 1;
     [SerializeField] protected float attackCooldown = 1f;
 
+    [Header("Movement Feel")]
+    [SerializeField] protected float acceleration = 30f;
+
+    [Header("Knockback")]
+    [SerializeField] protected float knockbackExitSpeed = 1.5f;
+    [SerializeField] protected float maxKnockbackDuration = 0.6f;
+    [SerializeField] protected float knockbackDrag = 6f;
+
     protected int health;
-    //protected Rigidbody2D rb;
-    protected NavMeshAgent agent;
+    protected Rigidbody2D rb;
     protected Transform target;
     protected float currAttackCooldown;
 
-    void Awake()
+    protected State state = State.Chasing;
+    float stateTimer;
+
+    public State CurrentState => state;
+    public bool IsAlive => health > 0;
+
+    protected virtual void Awake()
     {
-        //rb = GetComponent<Rigidbody2D>();
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-        agent.speed = moveSpeed;
-        agent.stoppingDistance = 0.5f;
+        rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
+        rb.freezeRotation = true;
 
         health = maxHealth;
         currAttackCooldown = 0f;
     }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         health = maxHealth;
-        target = PlayerRef.Instance?.transform;
+        target = PlayerRef.Instance != null ? PlayerRef.Instance.transform : null;
         currAttackCooldown = 0f;
+        state = State.Chasing;
+        stateTimer = 0f;
     }
 
     void FixedUpdate()
     {
-        // Try to fetch PlayerRef if null
-        if (target == null) {
-            target = PlayerRef.Instance != null ? PlayerRef.Instance.transform : null;
-            
-            if (target == null) return;
+        float dt = Time.fixedDeltaTime;
+
+        if (currAttackCooldown > 0f)
+        {
+            currAttackCooldown -= dt;
+            if (currAttackCooldown < 0f) currAttackCooldown = 0f;
         }
 
-        // Decrease attack cooldown if present
-        if (currAttackCooldown > 0) currAttackCooldown -= Time.deltaTime;
-        else if (currAttackCooldown < 0) currAttackCooldown = 0f;
+        switch (state)
+        {
+            case State.Knockback:
+                stateTimer -= dt;
+                rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, Vector2.zero, knockbackDrag * dt);
+                if (stateTimer <= 0f || rb.linearVelocity.magnitude <= knockbackExitSpeed)
+                    state = State.Chasing;
+                return;
+
+            case State.Stunned:
+                stateTimer -= dt;
+                rb.linearVelocity = Vector2.zero;
+                if (stateTimer <= 0f) state = State.Chasing;
+                return;
+        }
+
+        if (target == null)
+        {
+            target = PlayerRef.Instance != null ? PlayerRef.Instance.transform : null;
+            if (target == null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                return;
+            }
+        }
 
         Move();
     }
 
-    /*void Update() {
-        agent.destination = target.position;
-    }*/
-
     protected abstract void Move();
+
+    protected void MoveInDirection(Vector2 direction)
+    {
+        Vector2 desired = direction * moveSpeed;
+        rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, desired, acceleration * Time.fixedDeltaTime);
+    }
 
     public virtual void TakeDamage(int amount)
     {
+        TakeDamage(amount, Vector2.zero);
+    }
+
+    public virtual void TakeDamage(int amount, Vector2 knockbackImpulse)
+    {
+        if (!IsAlive) return;
+
         health -= amount;
 
-        if (health <= 0) Die();
+        if (health <= 0)
+        {
+            Die();
+            return;
+        }
+
+        if (knockbackImpulse.sqrMagnitude > 0.0001f)
+            ApplyKnockback(knockbackImpulse);
+    }
+
+    public virtual void ApplyKnockback(Vector2 impulse)
+    {
+        if (!IsAlive) return;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(impulse, ForceMode2D.Impulse);
+
+        state = State.Knockback;
+        stateTimer = maxKnockbackDuration;
+    }
+
+    public virtual void ApplyStun(float duration)
+    {
+        if (!IsAlive || duration <= 0f) return;
+
+        rb.linearVelocity = Vector2.zero;
+        state = State.Stunned;
+        stateTimer = Mathf.Max(stateTimer, duration);
     }
 
     public virtual void Die()
     {
-        // TODO
+        // TODO: death VFX / drops
         Destroy(gameObject);
     }
 
     protected virtual void AttackPlayer(PlayerHealth p)
     {
-        // Ignore if on cooldown
-        if (currAttackCooldown > 0) return;
+        if (currAttackCooldown > 0f) return;
 
         p.TakeDamage(contactDamage);
         currAttackCooldown = attackCooldown;
@@ -82,20 +153,13 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected virtual void OnCollisionEnter2D(Collision2D col)
     {
-        // Collision with player
         if (col.collider.TryGetComponent<PlayerHealth>(out PlayerHealth p))
-        {
             AttackPlayer(p);
-        }
     }
 
     protected virtual void OnCollisionStay2D(Collision2D col)
     {
-        // Collision with player
         if (col.collider.TryGetComponent<PlayerHealth>(out PlayerHealth p))
-        {
             AttackPlayer(p);
-        }
     }
-
 }
