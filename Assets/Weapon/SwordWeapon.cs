@@ -40,6 +40,10 @@ public class SwordWeapon : WeaponBase
             {
                 e.TakeDamage(damage, away * knockbackForce);
             }
+            else if (hit.attachedRigidbody.TryGetComponent<ClockHand>(out ClockHand hand))
+            {
+                hand.TryStrike(hit.ClosestPoint(center), aimDir);
+            }
             else
             {
                 hit.attachedRigidbody.AddForce(away * knockbackForce, ForceMode2D.Impulse);

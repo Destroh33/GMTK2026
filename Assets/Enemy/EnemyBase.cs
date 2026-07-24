@@ -26,9 +26,12 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected State state = State.Chasing;
     float stateTimer;
+    bool died;
 
     public State CurrentState => state;
     public bool IsAlive => health > 0;
+
+    public event System.Action<EnemyBase> OnDied;
 
     protected virtual void Awake()
     {
@@ -47,6 +50,7 @@ public abstract class EnemyBase : MonoBehaviour
         currAttackCooldown = 0f;
         state = State.Chasing;
         stateTimer = 0f;
+        died = false;
     }
 
     void FixedUpdate()
@@ -139,6 +143,11 @@ public abstract class EnemyBase : MonoBehaviour
 
     public virtual void Die()
     {
+        if (died) return;
+        died = true;
+
+        OnDied?.Invoke(this);
+
         // TODO: death VFX / drops
         Destroy(gameObject);
     }

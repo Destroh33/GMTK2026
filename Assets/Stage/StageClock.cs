@@ -1,75 +1,63 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StageClock : MonoBehaviour
 {
-    [SerializeField] private GameObject secondHand;
-    private Rigidbody2D secondHandRB;
-    [SerializeField] private GameObject minuteHand;
-    private Rigidbody2D minuteHandRB;
+    [Header("Hands")]
+    [SerializeField] private ClockHand secondHand;
+    [SerializeField] private ClockHand minuteHand;
 
-    [SerializeField] float timeScale;
-    [SerializeField] private float totalTimer;
-    [SerializeField] public float timerLeft;
+    [Header("Time Restored Per Strike")]
+    [SerializeField] private float secondHandBonus = 15f;
+    [SerializeField] private float minuteHandBonus = 45f;
 
-    [SerializeField] private float currentSecSpeed;
-    [SerializeField] private float currentMinSpeed;
-    [SerializeField] private float defaultHandSpeed;
-    [SerializeField] private float maxHandSpeed;
+    [Header("Diminishing Returns")]
+    [SerializeField] private int maxBonusesPerWave = 6;
+    [SerializeField] private float falloffPerBonus = 0.85f;
+    [SerializeField] private float minBonusMultiplier = 0.25f;
 
-    [SerializeField] private bool secondHandRotatingClockwise;
-    [SerializeField] private bool minuteHandRotatingClockwise;
+    int bonusesAwarded;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
-        timerLeft = totalTimer;
-        currentSecSpeed = defaultHandSpeed;
-        currentMinSpeed = defaultHandSpeed;
+        if (secondHand != null) secondHand.OnStruckBackwards += HandleSecondHandStruck;
+        if (minuteHand != null) minuteHand.OnStruckBackwards += HandleMinuteHandStruck;
 
-        secondHandRB = secondHand.GetComponent<Rigidbody2D>();
-        minuteHandRB = minuteHand.GetComponent<Rigidbody2D>();
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnWaveStarted += HandleWaveStarted;
     }
 
-    private void FixedUpdate()
+    void OnDisable()
     {
-        int dirSec = secondHandRotatingClockwise ? 1 : -1;
-        int dirMin = minuteHandRotatingClockwise ? 1 : -1;
+        if (secondHand != null) secondHand.OnStruckBackwards -= HandleSecondHandStruck;
+        if (minuteHand != null) minuteHand.OnStruckBackwards -= HandleMinuteHandStruck;
 
-        secondHandRB.AddTorque(currentSecSpeed * timeScale * dirSec, ForceMode2D.Force);
-        minuteHandRB.AddTorque(currentMinSpeed * timeScale * dirMin, ForceMode2D.Force);
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnWaveStarted -= HandleWaveStarted;
+    }
 
-        secondHandRB.angularVelocity = Mathf.Clamp(secondHandRB.angularVelocity, -maxHandSpeed, maxHandSpeed);
-        minuteHandRB.angularVelocity = Mathf.Clamp(minuteHandRB.angularVelocity, -maxHandSpeed, maxHandSpeed);
+    void HandleWaveStarted(int waveIndex)
+    {
+        bonusesAwarded = 0;
+    }
 
-        if (dirSec > 0)
-        {
-            timerLeft -= Time.fixedDeltaTime;
-        }
-        else 
-        {
-            timerLeft += Time.fixedDeltaTime;
-        }
+    void HandleSecondHandStruck(ClockHand hand) => AwardTime(secondHandBonus);
 
-        if (dirMin > 0)
-        {
-            //do nothing
-        }
-        else 
-        {
-            timerLeft += Time.fixedDeltaTime * 60f; //tune this?
-        }
+    void HandleMinuteHandStruck(ClockHand hand) => AwardTime(minuteHandBonus);
 
+    void AwardTime(float baseAmount)
+    {
+        if (GameManager.Instance == null) return;
+        if (maxBonusesPerWave > 0 && bonusesAwarded >= maxBonusesPerWave) return;
+
+        float multiplier = Mathf.Max(minBonusMultiplier, Mathf.Pow(falloffPerBonus, bonusesAwarded));
+        GameManager.Instance.AddTime(baseAmount * multiplier);
+
+        bonusesAwarded++;
     }
 
     public bool IsTimeLeft()
     {
-        return timerLeft > 0f;
-    }
-
-
-    public void SetTimeScale(float newTimeScale) 
-    {
-        timeScale = newTimeScale;
+        return GameManager.Instance != null && GameManager.Instance.TimeRemaining > 0f;
     }
 }

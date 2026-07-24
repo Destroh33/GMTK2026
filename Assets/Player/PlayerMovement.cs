@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float moveSpeedModifier = 1f; //used by powerup to multiply base movespeed
+    [SerializeField] private float acceleration = 60f;
+    [SerializeField] private float deceleration = 45f;
+    [SerializeField] private float turnBoost = 1.6f;
 
     [Header("Dodge Roll / Dash")]
     [SerializeField] private float dashSpeed = 12f;
@@ -13,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 0.15f;
     [SerializeField] private float dashCooldown = 0.7f;
     [SerializeField] private float dashCoyoteTime = 0.1f;
+    [SerializeField] private AnimationCurve dashSpeedCurve = new AnimationCurve(
+        new Keyframe(0f, 1.35f), new Keyframe(0.6f, 1f), new Keyframe(1f, 0.55f));
+    [SerializeField] private float dashEndMomentum = 0.55f;
+    [SerializeField] private float dashInputBufferTime = 0.12f;
 
 
     [Header("Dash Collision")]
@@ -41,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
     private float timeSinceMoved;
     private int defaultLayer;
     private int dashingLayerIndex;
+    private Vector2 velocity;
+    private float dashBufferTimer;
 
     void Awake()
     {
@@ -75,7 +84,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputValue value)
     {
-        if (!value.isPressed || isDashing || cooldownTimer > 0f) return;
+        if (!value.isPressed) return;
+        dashBufferTimer = dashInputBufferTime;
+        TryStartDash();
+    }
+
+    void TryStartDash()
+    {
+        if (isDashing || cooldownTimer > 0f) return;
 
         bool hasDir = moveInput.sqrMagnitude > 0.01f || timeSinceMoved <= dashCoyoteTime;
         if (!hasDir) return;
@@ -84,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         dashTimer = dashDuration;
         cooldownTimer = dashCooldown;
+        dashBufferTimer = 0f;
         SetLayerRecursive(dashingLayerIndex >= 0 ? dashingLayerIndex : defaultLayer);
     }
 
@@ -91,6 +108,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (cooldownTimer > 0f)
             cooldownTimer -= Time.deltaTime;
+
+        if (dashBufferTimer > 0f)
+        {
+            dashBufferTimer -= Time.deltaTime;
+            TryStartDash();
+        }
 
         timeSinceMoved += Time.deltaTime;
 
@@ -105,22 +128,37 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        float dt = Time.fixedDeltaTime;
+
         if (isDashing)
         {
-            dashTimer -= Time.fixedDeltaTime;
-            if (dashTimer <= 0f)
+            dashTimer -= dt;
+
+            if (dashTimer > 0f)
             {
-                isDashing = false;
-                SetLayerRecursive(defaultLayer);
-            }
-            else
-            {
-                rb.MovePosition(rb.position + dashSpeed * dashSpeedModifier * Time.fixedDeltaTime * dashDir);
+                float t = 1f - Mathf.Clamp01(dashTimer / dashDuration);
+                float speed = dashSpeed * dashSpeedModifier * dashSpeedCurve.Evaluate(t);
+                velocity = dashDir * speed;
+                rb.MovePosition(rb.position + velocity * dt);
                 return;
             }
+
+            isDashing = false;
+            SetLayerRecursive(defaultLayer);
+            velocity = dashDir * (dashSpeed * dashSpeedModifier * dashEndMomentum);
         }
 
-        rb.MovePosition(rb.position + moveSpeed * moveSpeedModifier * Time.fixedDeltaTime * moveInput);
+        Vector2 target = moveInput * (moveSpeed * moveSpeedModifier);
+        bool hasInput = moveInput.sqrMagnitude > 0.01f;
+
+        float rate = hasInput ? acceleration : deceleration;
+
+        if (hasInput && Vector2.Dot(velocity, target) < 0f)
+            rate *= turnBoost;
+
+        velocity = Vector2.MoveTowards(velocity, target, rate * dt);
+
+        rb.MovePosition(rb.position + velocity * dt);
     }
 
     void SetLayerRecursive(int layer)
