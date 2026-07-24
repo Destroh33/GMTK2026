@@ -19,6 +19,9 @@ public class ClockHand : MonoBehaviour
     [SerializeField] private float pushForce = 14f;
     [SerializeField] private float pushRadiusScale = 1f;
 
+    [Header("Player Damage")]
+    [SerializeField] private int damageDealt = 1;
+
     public event Action<ClockHand> OnStruckBackwards;
 
     public bool IsReversed => reverseTimer > 0f;
@@ -45,9 +48,6 @@ public class ClockHand : MonoBehaviour
         {
             reverseTimer -= dt;
         }
-        
-        // Removed manual AddTorque and speed clamping here 
-        // because StageClock now manages continuous rotation via HingeJoint2D motors.
     }
 
     public bool TryStrike(Vector2 hitPoint, Vector2 attackDir)
@@ -91,5 +91,19 @@ public class ClockHand : MonoBehaviour
         float speedFactor = Mathf.Clamp01(Mathf.Abs(rb.angularVelocity) / Mathf.Max(1f, maxSpeed));
 
         other.AddForce(tangent * (pushForce * pushRadiusScale * speedFactor), ForceMode2D.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        PlayerHealth p = collision.gameObject.GetComponent<PlayerHealth>();
+        if (p != null) 
+        {
+            p.TakeDamage(damageDealt);
+        }
+
+        if (IsReversed && collision.gameObject.GetComponent<EnemyBase>()) 
+        {
+            collision.gameObject.GetComponent<EnemyBase>().TakeDamage(damageDealt); //MAKE THIS TUNED PROPERLY - DESIGNED TO DAMAGE ENEMIES WHEN ITS BEEN HIT BACK
+        }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class EnemyBase : MonoBehaviour
@@ -19,7 +20,12 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected float maxKnockbackDuration = 0.6f;
     [SerializeField] protected float knockbackDrag = 6f;
 
+    [Header("UI")]
+    [SerializeField] protected GameObject healthBar;
+    [SerializeField] protected Image healthFill;
+
     protected int health;
+    protected float timeSinceDamage;
     protected Rigidbody2D rb;
     protected Transform target;
     protected float currAttackCooldown;
@@ -56,6 +62,7 @@ public abstract class EnemyBase : MonoBehaviour
     void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
+        timeSinceDamage += dt;
 
         if (currAttackCooldown > 0f)
         {
@@ -90,6 +97,12 @@ public abstract class EnemyBase : MonoBehaviour
         }
 
         Move();
+
+        // Turn off health bar after 3 seconds
+        if (timeSinceDamage > 3 && healthBar.activeSelf)
+        {
+            healthBar.SetActive(false);
+        }
     }
 
     protected abstract void Move();
@@ -103,6 +116,11 @@ public abstract class EnemyBase : MonoBehaviour
     public virtual void TakeDamage(int amount)
     {
         TakeDamage(amount, Vector2.zero);
+        timeSinceDamage = 0;
+        
+        // Turn on and update health bar
+        healthBar.SetActive(true);
+        healthFill.fillAmount = (float)health / maxHealth;
     }
 
     public virtual void TakeDamage(int amount, Vector2 knockbackImpulse)
