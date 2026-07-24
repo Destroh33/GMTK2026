@@ -48,9 +48,6 @@ public class ClockHand : MonoBehaviour
         {
             reverseTimer -= dt;
         }
-        
-        // Removed manual AddTorque and speed clamping here 
-        // because StageClock now manages continuous rotation via HingeJoint2D motors.
     }
 
     public bool TryStrike(Vector2 hitPoint, Vector2 attackDir)
@@ -102,6 +99,11 @@ public class ClockHand : MonoBehaviour
         if (p != null) 
         {
             p.TakeDamage(damageDealt);
+        }
+
+        if (IsReversed && collision.gameObject.GetComponent<EnemyBase>()) 
+        {
+            collision.gameObject.GetComponent<EnemyBase>().TakeDamage(damageDealt); //MAKE THIS TUNED PROPERLY - DESIGNED TO DAMAGE ENEMIES WHEN ITS BEEN HIT BACK
         }
     }
 }
