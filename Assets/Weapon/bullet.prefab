@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46dd06d35be47a6499f97f029368ac9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  lifetime: 5
+  lifetime: 2.5
   damage: 1
   aoePrefab: {fileID: 1973442208828381589, guid: 9beba49973a018a439953ecb1aa52193, type: 3}
 --- !u!50 &-8969140046927969816

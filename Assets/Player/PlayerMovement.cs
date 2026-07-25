@@ -4,17 +4,17 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 4f;
     [SerializeField] private float moveSpeedModifier = 1f; //used by powerup to multiply base movespeed
     [SerializeField] private float acceleration = 60f;
     [SerializeField] private float deceleration = 45f;
     [SerializeField] private float turnBoost = 1.6f;
 
     [Header("Dodge Roll / Dash")]
-    [SerializeField] private float dashSpeed = 12f;
+    [SerializeField] private float dashSpeed = 11f;
     [SerializeField] private float dashSpeedModifier = 1f; //used by powerup to multiply base dash speed
     [SerializeField] private float dashDuration = 0.15f;
-    [SerializeField] private float dashCooldown = 0.7f;
+    [SerializeField] private float dashCooldown = 0.9f;
     [SerializeField] private float dashCoyoteTime = 0.1f;
     [SerializeField] private AnimationCurve dashSpeedCurve = new AnimationCurve(
         new Keyframe(0f, 1.35f), new Keyframe(0.6f, 1f), new Keyframe(1f, 0.55f));
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         dashDir = lastMoveDir;
         isDashing = true;
         dashTimer = dashDuration;
-        cooldownTimer = dashCooldown;
+        cooldownTimer = dashCooldown * PlayerStats.Mult(StatId.BodyDashCooldown);
         dashBufferTimer = 0f;
         SetLayerRecursive(dashingLayerIndex >= 0 ? dashingLayerIndex : defaultLayer);
     }
@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
             if (dashTimer > 0f)
             {
                 float t = 1f - Mathf.Clamp01(dashTimer / dashDuration);
-                float speed = dashSpeed * dashSpeedModifier * dashSpeedCurve.Evaluate(t);
+                float speed = DashSpeed() * dashSpeedCurve.Evaluate(t);
                 velocity = dashDir * speed;
                 rb.MovePosition(rb.position + velocity * dt);
                 return;
@@ -145,10 +145,10 @@ public class PlayerMovement : MonoBehaviour
 
             isDashing = false;
             SetLayerRecursive(defaultLayer);
-            velocity = dashDir * (dashSpeed * dashSpeedModifier * dashEndMomentum);
+            velocity = dashDir * (DashSpeed() * dashEndMomentum);
         }
 
-        Vector2 target = moveInput * (moveSpeed * moveSpeedModifier);
+        Vector2 target = moveInput * MoveSpeed();
         bool hasInput = moveInput.sqrMagnitude > 0.01f;
 
         float rate = hasInput ? acceleration : deceleration;
@@ -185,9 +185,19 @@ public class PlayerMovement : MonoBehaviour
         bodySprite.flipX = spriteFacesLeftByDefault ? aimRight : !aimRight;
     }
 
+    float MoveSpeed()
+    {
+        return moveSpeed * moveSpeedModifier * PlayerStats.Mult(StatId.BodyMoveSpeed);
+    }
+
+    float DashSpeed()
+    {
+        return dashSpeed * dashSpeedModifier * PlayerStats.Mult(StatId.BodyDashSpeed);
+    }
+
     public void ModifyMoveSpeed(float factor)
     {
-        moveSpeedModifier *= factor;   
+        moveSpeedModifier *= factor;
     }
 
     public void ModifyDashSpeed(float factor)

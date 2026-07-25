@@ -6,9 +6,9 @@ using UnityEngine.Internal;
 public class AOE : MonoBehaviour
 {
 
-    [SerializeField] private float lifetime = 3f;
-    [SerializeField] private float size = 1.0f;
-    [SerializeField] private float tickInterval = 1.0f;
+    [SerializeField] private float lifetime = 1.5f;
+    [SerializeField] private float size = 0.8f;
+    [SerializeField] private float tickInterval = 1.2f;
     [SerializeField] private int damage = 1;
     [SerializeField] private CircleCollider2D col;
 
@@ -24,6 +24,11 @@ public class AOE : MonoBehaviour
 
     public void Init(EnemyBase hitEnemy = null)
     {
+        damage = PlayerStats.Damage(damage, StatId.GunBlastDamage);
+        size *= PlayerStats.Mult(StatId.GunBlastSize);
+        lifetime *= PlayerStats.Mult(StatId.GunBlastLifetime);
+        tickInterval *= PlayerStats.Mult(StatId.GunBlastTickRate);
+
         // change size of aoe
         transform.localScale = Vector3.one * size;
 

@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6eca58916a81f41adc22e5cc82682e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AOE
-  lifetime: 3
-  size: 1.5
-  tickInterval: 1
+  lifetime: 1.5
+  size: 0.8
+  tickInterval: 1.2
   damage: 1
   col: {fileID: 0}
