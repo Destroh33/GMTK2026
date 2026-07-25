@@ -1570,6 +1570,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3452309587475125127, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: bulletSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: minuteHand
       value: 
@@ -1601,6 +1605,14 @@ PrefabInstance:
     - target: {fileID: 6190722011946274746, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.04756872
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773165975672491602, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778916548071143843, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
