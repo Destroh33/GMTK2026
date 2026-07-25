@@ -12,7 +12,14 @@ public class Flash : MonoBehaviour
     [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected Material flashMaterial;
     [SerializeField] protected float flashDuration = 0.05f;
+
+    [Header("Tint Details")]
+    [SerializeField] protected Color tintColor = Color.red;
+
+    [SerializeField] protected float tintDuration = 0.05f;
     private Coroutine flashCoroutine { get; set; }
+    private Coroutine tintCoroutine { get; set; }
+
     protected Color baseColor { get; set; }
     protected Material originalMaterial;
     protected virtual void SetFlashInfo()
@@ -42,6 +49,22 @@ public class Flash : MonoBehaviour
         yield return new WaitForSeconds(flashDuration);
         spriteRenderer.material = originalMaterial;
         flashCoroutine = null;
+    }
+
+    public void TintEntity()
+    {
+        if (tintCoroutine != null)
+        {
+            StopCoroutine(tintCoroutine);
+        }
+        tintCoroutine = StartCoroutine(TintingEntity());
+    }
+    private IEnumerator TintingEntity()
+    {
+        spriteRenderer.color = tintColor;
+        yield return new WaitForSeconds(tintDuration);
+        spriteRenderer.color = baseColor;
+        tintCoroutine = null;
     }
 }
 
