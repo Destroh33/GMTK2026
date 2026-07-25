@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float aimLookAhead = 1.4f;
     [SerializeField] private float aimLookAheadSmoothTime = 0.35f;
     [SerializeField] private float maxAimDistance = 6f;
+
+    private Vector3 screenShakeOffset = Vector3.zero;
+    private Coroutine screenShakeCoroutine;
 
     Camera cam;
     Vector3 followVelocity;
@@ -74,7 +78,7 @@ public class CameraFollow : MonoBehaviour
             smoothed.y = Mathf.Round(smoothed.y * pixelsPerUnit) / pixelsPerUnit;
         }
 
-        transform.position = smoothed;
+        transform.position = smoothed + screenShakeOffset;
     }
 
     Vector2 DesiredAimOffset(Vector2 targetPos)
@@ -101,5 +105,28 @@ public class CameraFollow : MonoBehaviour
         aimOffsetVelocity = Vector2.zero;
         followVelocity = Vector3.zero;
         transform.position = new Vector3(anchor.x, anchor.y, transform.position.z);
+    }
+
+    public void ScreenShake(float duration, float intensity)
+    {
+        if (screenShakeCoroutine != null)
+        {
+            StopCoroutine(screenShakeCoroutine);
+        }
+        screenShakeCoroutine = StartCoroutine(ScreenShaker(duration, intensity));
+    }
+
+    private IEnumerator ScreenShaker(float duration, float intensity)
+    {
+        float elapsed = 0.0f;
+        while (elapsed < duration)
+        {
+            float strength = Mathf.Lerp(intensity, 0f, elapsed/duration);
+            screenShakeOffset = Random.insideUnitCircle * strength;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        screenShakeOffset = Vector3.zero;
+        screenShakeCoroutine = null;
     }
 }
