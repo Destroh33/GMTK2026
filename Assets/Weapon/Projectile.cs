@@ -2,9 +2,9 @@ using NUnit.Framework;
 using UnityEngine;
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float lifetime = 3f;
+    [SerializeField] private float lifetime = 2.5f;
     [SerializeField] private int damage = 1;
-    [SerializeField] private float knockbackForce = 4f;
+    [SerializeField] private float knockbackForce = 3f;
     [SerializeField] private GameObject aoePrefab;
 
     private Vector2 velocity;
@@ -18,7 +18,10 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, lifetime);
+        damage = PlayerStats.Damage(damage, StatId.GunProjectileDamage);
+        knockbackForce *= PlayerStats.Mult(StatId.GunProjectileKnockback);
+
+        Destroy(gameObject, lifetime * PlayerStats.Mult(StatId.GunProjectileLifetime));
     }
 
     void Update()

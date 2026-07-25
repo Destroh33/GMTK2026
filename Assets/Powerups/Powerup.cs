@@ -2,38 +2,61 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    [SerializeField] PowerupData data;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private UpgradePathData data;
+    [SerializeField] private SpriteRenderer tintTarget;
+    [SerializeField] private float bobHeight = 0.15f;
+    [SerializeField] private float bobSpeed = 2f;
+
+    public UpgradePathData Data => data;
+
+    PowerupSpawner owner;
+    Vector3 basePosition;
+    float bobOffset;
+
+    void Awake()
     {
-        
+        if (tintTarget == null) tintTarget = GetComponentInChildren<SpriteRenderer>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Player")
-        {
-            PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
-            PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-            switch(data.type)
-            {
-                case PowerupType.Heal:
-                    playerHealth.Heal((int)data.factor); //heal expects int
-                    break;
-                case PowerupType.MoveSpeed:
-                    playerMovement.ModifyMoveSpeed(data.factor);
-                    break;
-                case PowerupType.DashSpeed:
-                    playerMovement.ModifyDashSpeed(data.factor);
-                    break;
-                case PowerupType.FireRate:
-                    ///implement later
-                    break;
-                case PowerupType.Damage:
-                    //implement later
-                    break;
-            }
+    void Start()
+    {
+        basePosition = transform.position;
+        bobOffset = Random.Range(0f, Mathf.PI * 2f);
+        ApplyTint();
+    }
 
-            Destroy(gameObject);
-        }
+    void Update()
+    {
+        if (bobHeight <= 0f) return;
+
+        float y = Mathf.Sin(Time.time * bobSpeed + bobOffset) * bobHeight;
+        transform.position = basePosition + new Vector3(0f, y, 0f);
+    }
+
+    public void Init(UpgradePathData pathData, PowerupSpawner spawner)
+    {
+        data = pathData;
+        owner = spawner;
+        basePosition = transform.position;
+        ApplyTint();
+    }
+
+    void ApplyTint()
+    {
+        if (tintTarget != null && data != null) tintTarget.color = data.tint;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag("Player")) return;
+        if (data == null) return;
+
+        if (PlayerStats.Instance != null)
+            PlayerStats.Instance.Upgrade(data);
+
+        if (owner != null)
+            owner.NotifyClaimed(this);
+
+        Destroy(gameObject);
     }
 }

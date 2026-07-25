@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 377299309}
   - component: {fileID: 377299310}
   - component: {fileID: 377299311}
+  - component: {fileID: 377299312}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -527,15 +528,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469bcb27d5fedf64ea07410d68d7222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 5
+  moveSpeed: 4
   moveSpeedModifier: 1
   acceleration: 60
   deceleration: 45
   turnBoost: 1.6
-  dashSpeed: 15
+  dashSpeed: 11
   dashSpeedModifier: 1
   dashDuration: 0.15
-  dashCooldown: 0.7
+  dashCooldown: 0.9
   dashCoyoteTime: 0.1
   dashSpeedCurve:
     serializedVersion: 2
@@ -588,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38029791f67549b5b90308b7d4cf054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 8
+  maxHealth: 5
 --- !u!114 &377299311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +602,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a9a13b8b7c34488ac6b7f775bf5558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRef
+--- !u!114 &377299312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377299299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e2b9d0a1f3c4b5d6e7f8a9b0c1d2e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  paths:
+  - {fileID: 11400000, guid: a1b2c3d4e5f60718293a4b5c6d7e8f90, type: 2}
+  - {fileID: 11400000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 2}
+  - {fileID: 11400000, guid: c3d4e5f60718293a4b5c6d7e8f90a1b2, type: 2}
 --- !u!1 &421713814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,6 +1501,89 @@ Transform:
   - {fileID: 900674786}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1290011500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1290011501}
+  - component: {fileID: 1290011502}
+  m_Layer: 0
+  m_Name: PowerupSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1290011501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290011500}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1290011504}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1290011502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290011500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c8b9e0a2f3b4c5d6e7f8a9b0c1d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerupSpawner
+  powerupPrefab: {fileID: 4411000000000000004, guid: d4e5f60718293a4b5c6d7e8f90a1b2c3, type: 3}
+  paths:
+  - {fileID: 11400000, guid: a1b2c3d4e5f60718293a4b5c6d7e8f90, type: 2}
+  - {fileID: 11400000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 2}
+  - {fileID: 11400000, guid: c3d4e5f60718293a4b5c6d7e8f90a1b2, type: 2}
+  spawnAnchor: {fileID: 1290011504}
+  horizontalSpacing: 2
+--- !u!1 &1290011503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1290011504}
+  m_Layer: 0
+  m_Name: PowerupSpawnAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1290011504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290011503}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 7.56, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1290011501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1296250642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,9 +2072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a2b3c4d5e6470010000000000000c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunWeapon
-  cooldown: 0.25
+  cooldown: 0.45
   projectilePrefab: {fileID: 2274377172074072589, guid: b6048cdda1f053e4b871f7e38578991e, type: 3}
-  projectileSpeed: 12
+  projectileSpeed: 9
   firePoint: {fileID: 522337507}
 --- !u!1 &1821651719
 GameObject:
@@ -2234,10 +2334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClockHand
-  strikeKickSpeed: 260
+  strikeJumpDegrees: 40
   reverseDuration: 2.5
   strikeCooldown: 0.25
-  minTangentDot: 0.25
   damageDealt: 1
 --- !u!114 &2000530661
 MonoBehaviour:
@@ -2251,10 +2350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClockHand
-  strikeKickSpeed: 260
+  strikeJumpDegrees: 40
   reverseDuration: 2.5
   strikeCooldown: 0.25
-  minTangentDot: 0.25
   damageDealt: 1
 --- !u!1 &2037452639
 GameObject:
@@ -3258,13 +3356,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a2b3c4d5e6470010000000000000c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwordWeapon
-  cooldown: 0.4
+  cooldown: 0.5
   swingAnimator: {fileID: 2080323569}
   playerCenter: {fileID: 377299305}
-  hitRange: 0.6
-  hitRadius: 0.5
+  hitLength: 0.9
+  hitWidth: 0.7
+  hitDuration: 0.3
+  hitboxFollowsAim: 1
   damage: 1
-  knockbackForce: 5
+  knockbackForce: 4
   hittableLayers:
     serializedVersion: 2
     m_Bits: 5377
@@ -3341,3 +3441,4 @@ SceneRoots:
   - {fileID: 2000530657}
   - {fileID: 2037452644}
   - {fileID: 769394983}
+  - {fileID: 1290011501}

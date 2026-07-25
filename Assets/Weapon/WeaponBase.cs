@@ -21,9 +21,11 @@ public abstract class WeaponBase : MonoBehaviour
     public void TryUse(Vector2 aimDir)
     {
         if (cooldownTimer > 0f) return;
-        cooldownTimer = cooldown;
+        cooldownTimer = cooldown * CooldownMultiplier();
         Use(aimDir);
     }
+
+    protected virtual float CooldownMultiplier() => 1f;
 
     protected abstract void Use(Vector2 aimDir);
 }
