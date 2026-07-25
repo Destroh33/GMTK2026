@@ -29,7 +29,10 @@ public class PowerupSpawner : MonoBehaviour
     void OnDisable()
     {
         if (subscribed && GameManager.Instance != null)
-            GameManager.Instance.OnWaveCleared -= HandleWaveCleared;
+        {
+            GameManager.Instance.OnFloorCleared -= HandleFloorCleared;
+            GameManager.Instance.OnRunReset -= HandleRunReset;
+        }
 
         subscribed = false;
         SetSelectionPending(false);
@@ -39,13 +42,19 @@ public class PowerupSpawner : MonoBehaviour
     {
         if (subscribed || GameManager.Instance == null) return;
 
-        GameManager.Instance.OnWaveCleared += HandleWaveCleared;
+        GameManager.Instance.OnFloorCleared += HandleFloorCleared;
+        GameManager.Instance.OnRunReset += HandleRunReset;
         subscribed = true;
     }
 
-    void HandleWaveCleared(int waveIndex)
+    void HandleFloorCleared(int floorIndex)
     {
         SpawnChoice();
+    }
+
+    void HandleRunReset()
+    {
+        ClearActive();
     }
 
     public void SpawnChoice()
@@ -120,6 +129,8 @@ public class PowerupSpawner : MonoBehaviour
 
         active.Clear();
         SetSelectionPending(false);
+
+        GameManager.Instance?.AdvanceToNextFloor();
     }
 
     void ClearActive()

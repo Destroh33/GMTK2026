@@ -28,6 +28,8 @@ public class PlayerHealth : PlayerBehaviors
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         baseColor = spriteRenderer.color;
+        originalMaterial = spriteRenderer.material;
+        flashMaterial = Resources.Load<Material>("Materials/WhiteFlash");
     }
 
     void Start()
@@ -45,14 +47,19 @@ public class PlayerHealth : PlayerBehaviors
         if (subscribed && PlayerStats.Instance != null)
             PlayerStats.Instance.OnPathUpgraded -= HandlePathUpgraded;
 
+        if (subscribed && GameManager.Instance != null)
+            GameManager.Instance.OnRunReset -= HandleRunReset;
+
         subscribed = false;
     }
 
     void TrySubscribe()
     {
-        if (subscribed || PlayerStats.Instance == null) return;
+        if (subscribed) return;
+        if (PlayerStats.Instance == null || GameManager.Instance == null) return;
 
         PlayerStats.Instance.OnPathUpgraded += HandlePathUpgraded;
+        GameManager.Instance.OnRunReset += HandleRunReset;
         subscribed = true;
     }
 
@@ -67,6 +74,12 @@ public class PlayerHealth : PlayerBehaviors
 
         if (delta > 0f) health += delta;
         if (health > currentMax) health = currentMax;
+    }
+
+    void HandleRunReset()
+    {
+        currentMax = maxHealth;
+        health = currentMax;
     }
 
     public void TakeDamage(float amount)
@@ -87,6 +100,6 @@ public class PlayerHealth : PlayerBehaviors
 
     private void Die()
     {
-        // TODO
+        GameManager.Instance?.HandlePlayerDied();
     }
 }

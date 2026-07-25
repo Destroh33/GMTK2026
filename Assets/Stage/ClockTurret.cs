@@ -38,7 +38,7 @@ public class ClockTurret : MonoBehaviour
     {
         while (true)
         {
-            while (GameManager.Instance != null && GameManager.Instance.AwaitingPowerupChoice)
+            while (gameManager != null && gameManager.ClockFrozen)
                 yield return null;
 
             target = (Vector2)playerpos.position + (Random.onUnitCircle * precisionCurve.Evaluate(distFromPlayer));

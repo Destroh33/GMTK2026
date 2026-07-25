@@ -41,18 +41,9 @@ public class ClockHand : MonoBehaviour
         return rb.position;
     }
 
-    public void Freeze()
-    {
-        if (rb != null) rb.angularVelocity = 0f;
-    }
-
     void FixedUpdate()
     {
-        if (GameManager.Instance != null && GameManager.Instance.AwaitingPowerupChoice)
-        {
-            Freeze();
-            return;
-        }
+        if (GameManager.Instance != null && GameManager.Instance.ClockFrozen) return;
 
         float dt = Time.fixedDeltaTime;
         if (cooldownTimer > 0f) cooldownTimer -= dt;
@@ -64,6 +55,9 @@ public class ClockHand : MonoBehaviour
 
     public bool TryStrike(Vector2 hitPoint, Vector2 playerPos)
     {
+        // wont hit if waiting for next floor to start
+        if (GameManager.Instance != null && !GameManager.Instance.TimerRunning) return false;
+
         if (cooldownTimer > 0f) return false;
 
         Vector2 pivot = Pivot();
