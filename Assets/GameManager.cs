@@ -287,6 +287,9 @@ public class GameManager : MonoBehaviour
             if (overrule)
             {
                 StopCoroutine(gameSpeedCoroutine);
+            } else
+            {
+                return;
             }
         }
         gameSpeedCoroutine = StartCoroutine(GameSpeeder(speed, duration));
