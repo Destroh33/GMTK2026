@@ -4,6 +4,7 @@ public class PlayerHealth : PlayerBehaviors
 {
     [Header("Health")]
     [SerializeField] int maxHealth = 8;
+    [Header("Stun")]
     [SerializeField] float hitStunTime = 0.5f;
     [SerializeField] float hitStunStrength = 0.1f;
 
