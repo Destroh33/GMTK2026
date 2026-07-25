@@ -301,7 +301,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = speed;
         while (elapsed < duration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            if(SettingsButton.Instance == null || !SettingsButton.Instance.gamePaused)
+            {
+                elapsed += Time.unscaledDeltaTime;
+            }
             yield return null;
         }
         Time.timeScale = 1;

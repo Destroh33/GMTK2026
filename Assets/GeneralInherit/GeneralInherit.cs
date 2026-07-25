@@ -113,7 +113,10 @@ public class VignetteController : Flash
             vignette.color.value = color;
             while (elapsed < duration)
             {
-                elapsed += Time.unscaledDeltaTime;
+                if(SettingsButton.Instance == null || !SettingsButton.Instance.gamePaused)
+                {
+                    elapsed += Time.unscaledDeltaTime;
+                }
                 float t = 1f - Mathf.Clamp01(elapsed / duration);
                 vignette.intensity.value = intensity * vignetteIntensityCurve.Evaluate(t);
                 yield return null;
