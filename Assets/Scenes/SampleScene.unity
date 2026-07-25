@@ -356,7 +356,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   startTime: 1800
   countdownSpeed: 10
-  floors: []
+  floors:
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
+  - name: 
+    waves: []
   spawnPoints:
   - {fileID: 1312304867}
   - {fileID: 1624950173}
@@ -1299,7 +1323,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 14
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1408,6 +1432,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 550232228}
+  - component: {fileID: 550232229}
   m_Layer: 0
   m_Name: ClockFaceManager
   m_TagString: Untagged
@@ -1442,6 +1467,31 @@ Transform:
   - {fileID: 1969888243}
   m_Father: {fileID: 1839235922}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &550232229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550232227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fddbcfe010aa495194904120b90b101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloorChildSequencer
+  floorChildren:
+  - {fileID: 1956079653}
+  - {fileID: 432714867}
+  - {fileID: 656365779}
+  - {fileID: 922508954}
+  - {fileID: 709426960}
+  - {fileID: 309691328}
+  - {fileID: 1063633652}
+  - {fileID: 1804526815}
+  - {fileID: 1310643045}
+  - {fileID: 237269811}
+  - {fileID: 1058890830}
+  - {fileID: 1969888242}
 --- !u!1 &553498067
 GameObject:
   m_ObjectHideFlags: 0
@@ -3548,8 +3598,12 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8187945253649955455, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.08051529
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187945253649955455, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.037
+      value: -0.00141
       objectReference: {fileID: 0}
     - target: {fileID: 8187945253649955455, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_LocalPosition.y
