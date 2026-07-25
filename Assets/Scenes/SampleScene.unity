@@ -153,8 +153,10 @@ MonoBehaviour:
   waves:
   - name: Wave 1
     spawns:
-    - enemyPrefab: {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-      count: 20
+    - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+      count: 7
+    - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+      count: 6
     spawnDuration: 8
     intermission: 4
   spawnPoints:
