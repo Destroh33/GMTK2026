@@ -10,16 +10,29 @@ public class Flash : MonoBehaviour
 {
     [Header("Flash Details")]
     [SerializeField] protected SpriteRenderer spriteRenderer;
-    [SerializeField] protected Color flashColor = Color.red;
+    [SerializeField] protected Material flashMaterial;
     [SerializeField] protected float flashDuration = 0.05f;
+
+    [Header("Tint Details")]
+    [SerializeField] protected Color tintColor = Color.red;
+
+    [SerializeField] protected float tintDuration = 0.05f;
     private Coroutine flashCoroutine { get; set; }
+    private Coroutine tintCoroutine { get; set; }
+
     protected Color baseColor { get; set; }
+    protected Material originalMaterial;
     protected virtual void SetFlashInfo()
     {
         if(spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             baseColor = spriteRenderer.color;
+            originalMaterial = spriteRenderer.material;
+        }
+        if(flashMaterial == null)
+        {
+            flashMaterial = Resources.Load<Material>("Materials/WhiteFlash");
         }
     }
     public void FlashEntity()
@@ -32,10 +45,26 @@ public class Flash : MonoBehaviour
     }
     private IEnumerator FlashingEntity()
     {
-        spriteRenderer.color = flashColor;
+        spriteRenderer.material = flashMaterial;
         yield return new WaitForSeconds(flashDuration);
-        spriteRenderer.color = baseColor;
+        spriteRenderer.material = originalMaterial;
         flashCoroutine = null;
+    }
+
+    public void TintEntity()
+    {
+        if (tintCoroutine != null)
+        {
+            StopCoroutine(tintCoroutine);
+        }
+        tintCoroutine = StartCoroutine(TintingEntity());
+    }
+    private IEnumerator TintingEntity()
+    {
+        spriteRenderer.color = tintColor;
+        yield return new WaitForSeconds(tintDuration);
+        spriteRenderer.color = baseColor;
+        tintCoroutine = null;
     }
 }
 

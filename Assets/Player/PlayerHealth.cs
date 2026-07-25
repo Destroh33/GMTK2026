@@ -28,6 +28,8 @@ public class PlayerHealth : PlayerBehaviors
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         baseColor = spriteRenderer.color;
+        originalMaterial = spriteRenderer.material;
+        flashMaterial = Resources.Load<Material>("Materials/WhiteFlash");
     }
 
     void Start()
