@@ -76,7 +76,8 @@ public class VignetteController : Flash
         );*/
     private Vignette vignette;
     private Coroutine vignetteCoroutine { get; set; }
-    float originalVignetteIntensity { get; set; }
+    private float originalVignetteIntensity { get; set; }
+    private Color originalVignetteColor { get; set; }
     protected virtual void SetVignetteInfo()
     {
         if (volume == null)
@@ -87,23 +88,29 @@ public class VignetteController : Flash
         if (vignette != null)
         {
             originalVignetteIntensity = vignette.intensity.value;
+            originalVignetteColor = vignette.color.value;
         }
     }
 
-    public void DoVignette(float intensity = 0.35f, float duration = 1.5f)
+    public void DoVignette(float intensity = 0.35f, float duration = 1.5f, Color? color = null)
     {
+        if (color == null)
+        {
+            color = new Color32(255, 65, 65, 255);
+        }
         if (vignetteCoroutine != null)
         {
             StopCoroutine(vignetteCoroutine);
         }
-        vignetteCoroutine = StartCoroutine(PlayVignette(intensity, duration));
+        vignetteCoroutine = StartCoroutine(PlayVignette(intensity, duration, (Color)color));
     }
 
-    private IEnumerator PlayVignette(float intensity, float duration)
+    private IEnumerator PlayVignette(float intensity, float duration, Color color)
     {
         if (vignette != null)
         {
             float elapsed = 0f;
+            vignette.color.value = color;
             while (elapsed < duration)
             {
                 elapsed += Time.unscaledDeltaTime;
@@ -112,6 +119,7 @@ public class VignetteController : Flash
                 yield return null;
             }
             vignette.intensity.value = originalVignetteIntensity;
+            vignette.color.value = originalVignetteColor;
         }
         vignetteCoroutine = null;
     }
