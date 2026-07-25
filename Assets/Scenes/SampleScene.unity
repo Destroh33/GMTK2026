@@ -1582,8 +1582,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a1b2c3d4e5f60718293a4b5c6d7e8f90, type: 2}
   - {fileID: 11400000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 2}
   - {fileID: 11400000, guid: c3d4e5f60718293a4b5c6d7e8f90a1b2, type: 2}
+  - {fileID: 11400000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a4, type: 2}
   spawnAnchor: {fileID: 1290011504}
-  horizontalSpacing: 2
+  horizontalSpacing: 5
+  rareChanceScale: 1
+  maxRarePerWave: -1
 --- !u!1 &1290011503
 GameObject:
   m_ObjectHideFlags: 0
@@ -3191,10 +3194,6 @@ PrefabInstance:
       propertyPath: dashSpeedCurve.m_Curve.Array.data[2].tangentMode
       value: 34
       objectReference: {fileID: 0}
-    - target: {fileID: 8484373067454661272, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
-      propertyPath: projectilePrefab
-      value: 
-      objectReference: {fileID: 2274377172074072589, guid: 94ef7e32314723747a7d7f9b3dc2b31d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

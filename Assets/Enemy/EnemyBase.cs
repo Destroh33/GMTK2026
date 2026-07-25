@@ -7,9 +7,9 @@ public abstract class EnemyBase : EnemyBehaviors
     public enum State { Chasing, Knockback, Stunned }
 
     [Header("Enemy Stats")]
-    [SerializeField] protected int maxHealth = 10;
+    [SerializeField] protected float maxHealth = 10f;
     [SerializeField] protected float moveSpeed = 2f;
-    [SerializeField] protected int contactDamage = 1;
+    [SerializeField] protected float contactDamage = 1f;
     [SerializeField] protected float attackCooldown = 1f;
 
     [Header("Movement Feel")]
@@ -24,7 +24,7 @@ public abstract class EnemyBase : EnemyBehaviors
     [SerializeField] protected GameObject healthBar;
     [SerializeField] protected Image healthFill;
 
-    protected int health;
+    protected float health;
     protected float timeSinceDamage;
     protected Rigidbody2D rb;
     protected Transform target;
@@ -35,9 +35,37 @@ public abstract class EnemyBase : EnemyBehaviors
     bool died;
 
     public State CurrentState => state;
-    public bool IsAlive => health > 0;
+    public bool IsAlive => health > 0f;
 
     public event System.Action<EnemyBase> OnDied;
+
+    public static event System.Action<EnemyBase> OnAnyDied;
+
+    float tarTimer;
+    float tarSlow = 1f;
+    float tarAmp = 1f;
+
+    public bool IsTarred => tarTimer > 0f;
+    protected float TarSpeedMultiplier => tarTimer > 0f ? tarSlow : 1f;
+    public float TarDamageAmp => tarTimer > 0f ? tarAmp : 1f;
+
+    public void ApplyTar(float slowMultiplier, float damageAmp, float duration)
+    {
+        if (!IsAlive || duration <= 0f) return;
+
+        if (tarTimer <= 0f)
+        {
+            tarSlow = slowMultiplier;
+            tarAmp = damageAmp;
+        }
+        else
+        {
+            tarSlow = Mathf.Min(tarSlow, slowMultiplier);
+            tarAmp = Mathf.Max(tarAmp, damageAmp);
+        }
+
+        tarTimer = Mathf.Max(tarTimer, duration);
+    }
 
     protected virtual void Awake()
     {
@@ -59,12 +87,17 @@ public abstract class EnemyBase : EnemyBehaviors
         state = State.Chasing;
         stateTimer = 0f;
         died = false;
+        tarTimer = 0f;
+        tarSlow = 1f;
+        tarAmp = 1f;
     }
 
     protected virtual void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
         timeSinceDamage += dt;
+
+        if (tarTimer > 0f) tarTimer -= dt;
 
         if (currAttackCooldown > 0f)
         {
@@ -111,23 +144,26 @@ public abstract class EnemyBase : EnemyBehaviors
 
     protected void MoveInDirection(Vector2 direction)
     {
-        Vector2 desired = direction * moveSpeed;
+        Vector2 desired = direction * moveSpeed * TarSpeedMultiplier;
         rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, desired, acceleration * Time.fixedDeltaTime);
     }
 
-    public virtual void TakeDamage(int amount)
+    public virtual void TakeDamage(float amount)
     {
         TakeDamage(amount, Vector2.zero);
     }
 
-    public virtual void TakeDamage(int amount, Vector2 knockbackImpulse)
+    public virtual void TakeDamage(float amount, Vector2 knockbackImpulse)
     {
         if (!IsAlive) return;
+
+        if (tarTimer > 0f && tarAmp > 1f)
+            amount *= tarAmp;
 
         health -= amount;
         timeSinceDamage = 0;
 
-        if (health <= 0)
+        if (health <= 0f)
         {
             Die();
             return;
@@ -144,7 +180,7 @@ public abstract class EnemyBase : EnemyBehaviors
     void UpdateHealthBar()
     {
         if (healthBar != null) healthBar.SetActive(true);
-        if (healthFill != null) healthFill.fillAmount = (float)health / maxHealth;
+        if (healthFill != null) healthFill.fillAmount = maxHealth > 0f ? health / maxHealth : 0f;
     }
 
     public virtual void ApplyKnockback(Vector2 impulse)
@@ -173,6 +209,7 @@ public abstract class EnemyBase : EnemyBehaviors
         died = true;
 
         OnDied?.Invoke(this);
+        OnAnyDied?.Invoke(this);
 
         // TODO: death VFX / drops
         Destroy(gameObject);

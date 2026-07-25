@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GunPath
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePathData
   path: 1
-  displayName: Gun
+  displayName: Garlic Gun
   tint: {r: 0.36, g: 0.72, b: 1, a: 1}
   maxLevel: 8
   growths:
@@ -44,3 +44,8 @@ MonoBehaviour:
   - stat: 18
     perLevel: 0.12
     inverse: 1
+  rareDisplayName: Gooey Garlic
+  rareDescription: Enemies slow down and take more damage
+  rareTint: {r: 0.35, g: 0.28, b: 0.45, a: 1}
+  rareChance: 0.25
+  rareMaxLevel: 1

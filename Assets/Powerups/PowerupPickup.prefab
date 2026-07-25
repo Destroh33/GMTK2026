@@ -78,7 +78,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7, y: 0.7}
+  m_Size: {x: 1.6, y: 1.6}
   m_EdgeRadius: 0
 --- !u!114 &4411000000000000004
 MonoBehaviour:
@@ -96,6 +96,19 @@ MonoBehaviour:
   tintTarget: {fileID: 4411000000000000007}
   bobHeight: 0.15
   bobSpeed: 2
+  rareScale: 1.35
+  rarePulseSpeed: 6
+  rarePulseAmount: 0.08
+  tooltip:
+    show: 1
+    offset: {x: 0, y: 0.85, z: 0}
+    fontSize: 2.2
+    width: 4.5
+    height: 1.5
+    showRareDescription: 1
+    promptKey: E
+    titleColor: {r: 1, g: 1, b: 1, a: 1}
+    sortingOrder: 20
 --- !u!1 &4411000000000000005
 GameObject:
   m_ObjectHideFlags: 0

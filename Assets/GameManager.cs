@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public int AliveEnemyCount => aliveEnemies.Count;
     public int PendingSpawnCount => spawnQueue.Count;
     public int WaveCount => waves.Count;
+    public bool AwaitingPowerupChoice { get; private set; }
 
     public event Action OnTimeExpired;
     public event Action<int> OnWaveStarted;
@@ -98,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateTimer()
     {
-        if (!TimerRunning) return;
+        if (!TimerRunning || AwaitingPowerupChoice) return;
 
         TimeRemaining -= Time.deltaTime * countdownSpeed;
 
@@ -112,6 +113,8 @@ public class GameManager : MonoBehaviour
 
     void UpdateWaves()
     {
+        if (AwaitingPowerupChoice) return;
+
         switch (CurrentWaveState)
         {
             case WaveState.Intermission:
@@ -275,6 +278,16 @@ public class GameManager : MonoBehaviour
     public void SetCountdownSpeed(float speed)
     {
         countdownSpeed = speed;
+    }
+
+    public void BeginPowerupSelection()
+    {
+        AwaitingPowerupChoice = true;
+    }
+
+    public void EndPowerupSelection()
+    {
+        AwaitingPowerupChoice = false;
     }
 
     public void PauseTimer() => TimerRunning = false;

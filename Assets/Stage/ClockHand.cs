@@ -10,7 +10,7 @@ public class ClockHand : MonoBehaviour
     [SerializeField] private float strikeCooldown = 0.25f;
 
     [Header("Player Interaction")]
-    [SerializeField] private int damageDealt = 1;
+    [SerializeField] private float damageDealt = 1f;
 
     public event Action<ClockHand, float> OnStruck;
 
@@ -41,8 +41,19 @@ public class ClockHand : MonoBehaviour
         return rb.position;
     }
 
+    public void Freeze()
+    {
+        if (rb != null) rb.angularVelocity = 0f;
+    }
+
     void FixedUpdate()
     {
+        if (GameManager.Instance != null && GameManager.Instance.AwaitingPowerupChoice)
+        {
+            Freeze();
+            return;
+        }
+
         float dt = Time.fixedDeltaTime;
         if (cooldownTimer > 0f) cooldownTimer -= dt;
         if (reverseTimer > 0f) reverseTimer -= dt;

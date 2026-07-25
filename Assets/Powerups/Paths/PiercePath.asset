@@ -10,24 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f3a1c2d4e5b6a7c8d9e0f1a2b3c4d5e, type: 3}
-  m_Name: BodyPath
+  m_Name: PiercePath
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePathData
-  path: 2
-  displayName: Body
-  tint: {r: 0.45, g: 1, b: 0.55, a: 1}
+  path: 3
+  displayName: Pineapple Gun
+  tint: {r: 1, g: 0.35, b: 0.35, a: 1}
   maxLevel: 8
   growths:
-  - stat: 21
-    perLevel: 0.08
-    inverse: 0
-  - stat: 22
-    perLevel: 0.08
-    inverse: 0
-  - stat: 23
-    perLevel: 0.12
+  - stat: 30
+    perLevel: 0.16
     inverse: 1
-  rareDisplayName: Bloodlust
-  rareDescription: Kills stack damage and move speed
-  rareTint: {r: 1, g: 0.32, b: 0.32, a: 1}
+  - stat: 31
+    perLevel: 0.1
+    inverse: 0
+  - stat: 32
+    perLevel: 0.3
+    inverse: 0
+  - stat: 33
+    perLevel: 0.15
+    inverse: 0
+  - stat: 34
+    perLevel: 0.12
+    inverse: 0
+  rareDisplayName: Cone Shot
+  rareDescription: More pineapples
+  rareTint: {r: 1, g: 0.85, b: 0.25, a: 1}
   rareChance: 0.25
   rareMaxLevel: 1

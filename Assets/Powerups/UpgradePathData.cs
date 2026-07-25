@@ -7,6 +7,7 @@ public enum UpgradePath
     Sword = 0,
     Gun = 1,
     Body = 2,
+    Pierce = 3,
 }
 
 public enum StatId
@@ -30,6 +31,12 @@ public enum StatId
     BodyMoveSpeed = 21,
     BodyDashSpeed = 22,
     BodyDashCooldown = 23,
+
+    PierceCooldown = 30,
+    PierceSpeed = 31,
+    PierceDamage = 32,
+    PierceKnockback = 33,
+    PierceLifetime = 34,
 }
 
 [Serializable]
@@ -55,4 +62,12 @@ public class UpgradePathData : ScriptableObject
     public Color tint = Color.white;
     public int maxLevel = 10;
     public List<StatGrowth> growths = new List<StatGrowth>();
+
+    [Header("Rare Upgrade")]
+    public string rareDisplayName;
+    [TextArea] public string rareDescription;
+    public Color rareTint = new Color(1f, 0.85f, 0.25f, 1f);
+
+    [Range(0f, 1f)] public float rareChance = 0.25f;
+    [Min(0)] public int rareMaxLevel = 3;
 }

@@ -8,10 +8,22 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private List<UpgradePathData> paths = new List<UpgradePathData>();
 
-    public event Action<UpgradePath, int> OnPathUpgraded;
+    public event Action<UpgradePath, int, bool> OnPathUpgraded;
 
     readonly Dictionary<UpgradePath, int> levels = new Dictionary<UpgradePath, int>();
+    readonly Dictionary<UpgradePath, int> rareLevels = new Dictionary<UpgradePath, int>();
     readonly Dictionary<StatId, float> cache = new Dictionary<StatId, float>();
+
+    static readonly HashSet<StatId> damageStats = new HashSet<StatId>
+    {
+        StatId.SwordDamage,
+        StatId.GunProjectileDamage,
+        StatId.GunBlastDamage,
+        StatId.PierceDamage,
+    };
+
+    public float BuffDamageMult { get; set; } = 1f;
+    public float BuffMoveSpeedMult { get; set; } = 1f;
 
     void Awake()
     {
@@ -35,33 +47,60 @@ public class PlayerStats : MonoBehaviour
         return levels.TryGetValue(path, out int level) ? level : 0;
     }
 
+    public int GetRareLevel(UpgradePath path)
+    {
+        return rareLevels.TryGetValue(path, out int level) ? level : 0;
+    }
+
     public bool CanUpgrade(UpgradePathData data)
     {
         if (data == null) return false;
         return GetLevel(data.path) < data.maxLevel;
     }
 
-    public void Upgrade(UpgradePathData data)
+    public bool CanUpgradeRare(UpgradePathData data)
+    {
+        if (data == null) return false;
+        return GetRareLevel(data.path) < data.rareMaxLevel;
+    }
+
+    public bool CanOffer(UpgradePathData data)
+    {
+        return CanUpgrade(data) || CanUpgradeRare(data);
+    }
+
+    public void Upgrade(UpgradePathData data, bool rare)
     {
         if (data == null) return;
 
         if (!paths.Contains(data)) paths.Add(data);
 
-        int level = Mathf.Min(GetLevel(data.path) + 1, data.maxLevel);
-        levels[data.path] = level;
+        if (rare)
+        {
+            rareLevels[data.path] = Mathf.Min(GetRareLevel(data.path) + 1, data.rareMaxLevel);
+        }
+        else
+        {
+            levels[data.path] = Mathf.Min(GetLevel(data.path) + 1, data.maxLevel);
+            Recalculate();
+        }
 
-        Recalculate();
-        OnPathUpgraded?.Invoke(data.path, level);
+        OnPathUpgraded?.Invoke(data.path, rare ? GetRareLevel(data.path) : GetLevel(data.path), rare);
     }
 
     public float Multiplier(StatId stat)
     {
-        return cache.TryGetValue(stat, out float m) ? m : 1f;
+        float m = cache.TryGetValue(stat, out float cached) ? cached : 1f;
+
+        if (damageStats.Contains(stat)) m *= BuffDamageMult;
+        else if (stat == StatId.BodyMoveSpeed) m *= BuffMoveSpeedMult;
+
+        return m;
     }
 
-    public int ScaleDamage(int baseDamage, StatId stat)
+    public float ScaleDamage(float baseDamage, StatId stat)
     {
-        return Mathf.Max(1, Mathf.FloorToInt(baseDamage * Multiplier(stat) + 0.5f));
+        return baseDamage * Multiplier(stat);
     }
 
     void Recalculate()
@@ -89,8 +128,13 @@ public class PlayerStats : MonoBehaviour
         return Instance != null ? Instance.Multiplier(stat) : 1f;
     }
 
-    public static int Damage(int baseDamage, StatId stat)
+    public static float Damage(float baseDamage, StatId stat)
     {
         return Instance != null ? Instance.ScaleDamage(baseDamage, stat) : baseDamage;
+    }
+
+    public static int Rare(UpgradePath path)
+    {
+        return Instance != null ? Instance.GetRareLevel(path) : 0;
     }
 }

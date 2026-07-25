@@ -4,14 +4,12 @@ public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected float cooldown = 0.4f;
 
-    // test comment
-    private float cooldownTimer;
+    private float nextUseTime;
 
-    protected virtual void Update()
-    {
-        if (cooldownTimer > 0f)
-            cooldownTimer -= Time.deltaTime;
-    }
+    public float CooldownRemaining => Mathf.Max(0f, nextUseTime - Time.time);
+    public bool IsReady => Time.time >= nextUseTime;
+
+    protected virtual void Update() { }
 
     public void SetActiveWeapon(bool active)
     {
@@ -20,8 +18,9 @@ public abstract class WeaponBase : MonoBehaviour
 
     public void TryUse(Vector2 aimDir)
     {
-        if (cooldownTimer > 0f) return;
-        cooldownTimer = cooldown * CooldownMultiplier();
+        if (!IsReady) return;
+
+        nextUseTime = Time.time + cooldown * CooldownMultiplier();
         Use(aimDir);
     }
 

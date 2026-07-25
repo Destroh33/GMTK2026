@@ -38,6 +38,9 @@ public class ClockTurret : MonoBehaviour
     {
         while (true)
         {
+            while (GameManager.Instance != null && GameManager.Instance.AwaitingPowerupChoice)
+                yield return null;
+
             target = (Vector2)playerpos.position + (Random.onUnitCircle * precisionCurve.Evaluate(distFromPlayer));
             Vector2 direction = target - (Vector2)transform.position;
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);

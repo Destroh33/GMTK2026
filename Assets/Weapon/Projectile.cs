@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] BulletType type;
     [SerializeField] private float lifetime = 2.5f;
-    [SerializeField] private int damage = 1;
+    [SerializeField] private float damage = 1f;
     [SerializeField] private float knockbackForce = 3f;
     [SerializeField] private GameObject aoePrefab;
     [SerializeField] private LayerMask staticWallLayer;
@@ -19,6 +19,10 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody2D rb;
     private Collider2D myCollider;
+
+    StatId DamageStat => type == BulletType.piercing ? StatId.PierceDamage : StatId.GunProjectileDamage;
+    StatId KnockbackStat => type == BulletType.piercing ? StatId.PierceKnockback : StatId.GunProjectileKnockback;
+    StatId LifetimeStat => type == BulletType.piercing ? StatId.PierceLifetime : StatId.GunProjectileLifetime;
 
     public void Reflect(Vector2 newDir)
     {
@@ -43,10 +47,10 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
-        damage = PlayerStats.Damage(damage, StatId.GunProjectileDamage);
-        knockbackForce *= PlayerStats.Mult(StatId.GunProjectileKnockback);
+        damage = PlayerStats.Damage(damage, DamageStat);
+        knockbackForce *= PlayerStats.Mult(KnockbackStat);
 
-        Destroy(gameObject, lifetime * PlayerStats.Mult(StatId.GunProjectileLifetime));
+        Destroy(gameObject, lifetime * PlayerStats.Mult(LifetimeStat));
     }
 
     // Update() has been completely removed. 

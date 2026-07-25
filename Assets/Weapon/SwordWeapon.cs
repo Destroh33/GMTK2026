@@ -8,15 +8,21 @@ public class SwordWeapon : WeaponBase
     [SerializeField] private Transform playerCenter;
 
     [Header("Hitbox")]
-    [SerializeField] private float hitLength = 0.9f;
-    [SerializeField] private float hitWidth = 0.7f;
+    [SerializeField] private float hitLength = 1.35f;
+    [SerializeField] private float hitWidth = 1.05f;
     [SerializeField] private float hitDuration = 0.3f;
     [SerializeField] private bool hitboxFollowsAim = true;
 
     [Header("Damage")]
-    [SerializeField] private int damage = 1;
+    [SerializeField] private float damage = 3f;
     [SerializeField] private float knockbackForce = 4f;
     [SerializeField] private LayerMask hittableLayers;
+
+    [Header("Riposte")]
+    [SerializeField] private LayerMask riposteLayers;
+    [SerializeField] private float riposteSizeBonusPerLevel = 0.3f;
+    [SerializeField] private float riposteBaseDamage = 2f;
+    [SerializeField] private float riposteDamagePerLevel = 2f;
 
     private static readonly int SwingHash = Animator.StringToHash("swing");
 
@@ -74,7 +80,7 @@ public class SwordWeapon : WeaponBase
         float reach = PlayerStats.Mult(StatId.SwordReach);
         float length = hitLength * reach;
         float width = hitWidth * reach;
-        int scaledDamage = PlayerStats.Damage(damage, StatId.SwordDamage);
+        float scaledDamage = PlayerStats.Damage(damage, StatId.SwordDamage);
         float scaledKnockback = knockbackForce * PlayerStats.Mult(StatId.SwordKnockback);
 
         Vector2 origin = Origin();
@@ -106,6 +112,33 @@ public class SwordWeapon : WeaponBase
                 if (!hitThisSwing.Add(hit.attachedRigidbody)) continue;
                 hit.attachedRigidbody.AddForce(away * scaledKnockback, ForceMode2D.Impulse);
             }
+        }
+
+        RiposteSweep(origin, dir, length, width, angle);
+    }
+
+    void RiposteSweep(Vector2 origin, Vector2 dir, float length, float width, float angle)
+    {
+        int level = PlayerStats.Rare(UpgradePath.Sword);
+        if (level <= 0 || riposteLayers.value == 0) return;
+
+        float scale = 1f + riposteSizeBonusPerLevel * (level - 1);
+        float boxLength = length * scale;
+        float boxWidth = width * scale;
+
+        Vector2 center = origin + dir * (boxLength * 0.5f);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, new Vector2(boxLength, boxWidth), angle, riposteLayers);
+
+        float reflectDamage = PlayerStats.Damage(
+            riposteBaseDamage + riposteDamagePerLevel * (level - 1), StatId.SwordDamage);
+
+        foreach (Collider2D hit in hits)
+        {
+            if (!hit.TryGetComponent<EnemyProjectile>(out EnemyProjectile bullet)) continue;
+            if (bullet.IsReflected) continue;
+            if (!hitThisSwing.Add(bullet)) continue;
+
+            bullet.Reflect(reflectDamage);
         }
     }
 

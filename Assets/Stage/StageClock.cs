@@ -40,8 +40,20 @@ public class StageClock : MonoBehaviour
             defaultHandSpeed = 30f;
     }
 
+    bool Frozen => GameManager.Instance != null && GameManager.Instance.AwaitingPowerupChoice;
+
     void FixedUpdate()
     {
+        if (Frozen)
+        {
+            DriveHand(secondHandJoint, 0f);
+            DriveHand(minuteHandJoint, 0f);
+
+            if (secondHand != null) secondHand.Freeze();
+            if (minuteHand != null) minuteHand.Freeze();
+            return;
+        }
+
         float sweepSign = clockwiseIsPositiveMotor ? 1f : -1f;
         float clockwiseSpeed = sweepSign * defaultHandSpeed * timeScale;
 

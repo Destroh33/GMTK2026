@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SwordPath
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePathData
   path: 0
-  displayName: Sword
+  displayName: Pizza Cutter
   tint: {r: 1, g: 0.42, b: 0.35, a: 1}
   maxLevel: 8
   growths:
@@ -29,3 +29,8 @@ MonoBehaviour:
   - stat: 3
     perLevel: 0.15
     inverse: 0
+  rareDisplayName: Riposte
+  rareDescription: Pizza Cutter reflects bullets
+  rareTint: {r: 1, g: 0.85, b: 0.25, a: 1}
+  rareChance: 0.25
+  rareMaxLevel: 1
