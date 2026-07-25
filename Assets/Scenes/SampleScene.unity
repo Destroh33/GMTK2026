@@ -273,6 +273,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 547157869}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &178104156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 178104158}
+  - component: {fileID: 178104157}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &178104157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178104156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 5caddfda07577c64dafd6ad06ce9d10f, type: 2}
+--- !u!4 &178104158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178104156}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.4871922, y: -0.30034208, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &377299305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
@@ -633,7 +682,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -2616,6 +2665,86 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[0].time
+      value: 0.0033340454
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[1].time
+      value: 0.07390273
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[0].value
+      value: 1.4232178
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[1].value
+      value: 1.3046088
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[0].inSlope
+      value: -1.680759
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[1].inSlope
+      value: -1.0048378
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[2].inSlope
+      value: -0.32891667
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[0].outSlope
+      value: -1.680759
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[1].outSlope
+      value: -1.0048378
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[2].outSlope
+      value: -0.32891667
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeedCurve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 8484373067454661272, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
       propertyPath: projectilePrefab
       value: 
@@ -2643,3 +2772,4 @@ SceneRoots:
   - {fileID: 2037452644}
   - {fileID: 769394983}
   - {fileID: 1290011501}
+  - {fileID: 178104158}

@@ -21,6 +21,7 @@ public class PlayerHealth : PlayerBehaviors
         currentMax = maxHealth;
         health = currentMax;
         SetFlashInfo();
+        SetVignetteInfo();
     }
 
     protected override void SetFlashInfo()
@@ -70,7 +71,6 @@ public class PlayerHealth : PlayerBehaviors
     {
         health -= amount;
         GameManager.Instance.GameSpeed(hitStunStrength, hitStunTime, true);
-        FlashEntity();
 
         if (health <= 0)
         {
@@ -79,6 +79,7 @@ public class PlayerHealth : PlayerBehaviors
         else
         {
             FlashEntity();
+            DoVignette();
         }
     }
 
