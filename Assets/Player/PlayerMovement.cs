@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 0.15f;
     [SerializeField] private float dashCooldown = 0.9f;
     [SerializeField] private float dashCoyoteTime = 0.1f;
+    [SerializeField] private float iFrameDuration = 0.2f;
     [SerializeField] private AnimationCurve dashSpeedCurve = new AnimationCurve(
         new Keyframe(0f, 1.35f), new Keyframe(0.6f, 1f), new Keyframe(1f, 0.55f));
     [SerializeField] private float dashEndMomentum = 0.55f;
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing;
     private float dashTimer;
     private float cooldownTimer;
+    private float iFrameTimer;
     private Vector2 dashDir;
     private Vector2 lastMoveDir;
     private float timeSinceMoved;
@@ -99,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
         dashDir = lastMoveDir;
         isDashing = true;
         dashTimer = dashDuration;
+        iFrameTimer = iFrameDuration;
         cooldownTimer = dashCooldown * PlayerStats.Mult(StatId.BodyDashCooldown);
         dashBufferTimer = 0f;
         SetLayerRecursive(dashingLayerIndex >= 0 ? dashingLayerIndex : defaultLayer);
@@ -130,6 +133,13 @@ public class PlayerMovement : MonoBehaviour
     {
         float dt = Time.fixedDeltaTime;
 
+        if (iFrameTimer > 0f)
+        {
+            iFrameTimer -= dt;
+            if (iFrameTimer <= 0f)
+                SetLayerRecursive(defaultLayer);
+        }
+
         if (isDashing)
         {
             dashTimer -= dt;
@@ -144,7 +154,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             isDashing = false;
-            SetLayerRecursive(defaultLayer);
             velocity = dashDir * (DashSpeed() * dashEndMomentum);
         }
 
