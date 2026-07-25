@@ -356,15 +356,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   startTime: 1800
   countdownSpeed: 10
-  waves:
-  - name: Wave 1
-    spawns:
-    - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
-      count: 7
-    - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-      count: 6
-    spawnDuration: 8
-    intermission: 4
+  floors:
+  - name: Floor 1
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
+        count: 3
+      spawnDuration: 5
+      intermission: 0
+  - name: Floor 2
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
+        count: 5
+      spawnDuration: 5
+      intermission: 2
+    - name: Wave 2
+      spawns:
+      - enemyPrefab: {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
+        count: 5
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 5
+      spawnDuration: 8
+      intermission: 0
+  - name: Floor 3
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+        count: 1
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 5
+      spawnDuration: 6
+      intermission: 2
+    - name: Wave 2
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 4
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 5
+      spawnDuration: 8
+      intermission: 8
   spawnPoints:
   - {fileID: 1312304867}
   - {fileID: 1624950173}
@@ -3349,10 +3383,20 @@ PrefabInstance:
       propertyPath: dashSpeedCurve.m_Curve.Array.data[2].tangentMode
       value: 34
       objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashCoyoteTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: iFrameDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+
+      objectReference: {fileID: 0}
     - target: {fileID: 8484373067454661272, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
       propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 2274377172074072589, guid: 94ef7e32314723747a7d7f9b3dc2b31d, type: 3}
+      objectReference: {fileID: 2274377172074072589, guid: b6048cdda1f053e4b871f7e38578991e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
