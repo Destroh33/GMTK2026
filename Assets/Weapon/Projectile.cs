@@ -19,6 +19,7 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 velocity;
     private bool launched;
+    private Collider2D myCollider;
 
     public void Reflect(Vector2 newDir)
     {
@@ -36,6 +37,8 @@ public class Projectile : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        // Cache the bullet's own collider
+        myCollider = GetComponent<Collider2D>();
     }
 
     void Start()
@@ -75,15 +78,6 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    // Add this to your class variables if you don't have it already
-    private Collider2D myCollider;
-
-    private void Awake()
-    {
-        // Cache the bullet's own collider
-        myCollider = GetComponent<Collider2D>();
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (type == BulletType.piercing)
@@ -108,7 +102,7 @@ public class Projectile : MonoBehaviour
                 // 3. Reflect velocity off the surface
                 velocity = Vector2.Reflect(velocity, normal);
 
-                // Optional: add slight randomness to direction (±10 degrees)
+                // Optional: add slight randomness to direction (ï¿½10 degrees)
                 float randomAngle = Random.Range(-10f, 10f) * Mathf.Deg2Rad;
                 float cos = Mathf.Cos(randomAngle);
                 float sin = Mathf.Sin(randomAngle);
