@@ -90,8 +90,10 @@ public class Projectile : MonoBehaviour
                 hitEnemy = e;
             }
 
-            if (collision.gameObject.layer == staticWallLayer || collision.gameObject.layer == clockHandLayer)
+            if (((1 << collision.gameObject.layer) & staticWallLayer.value) != 0 ||
+    ((1 << collision.gameObject.layer) & clockHandLayer.value) != 0)
             {
+                // Debug.Log("I wanna bounce");
                 // 1. Calculate the physical relationship between the bullet and the wall
                 ColliderDistance2D distanceInfo = myCollider.Distance(collision);
 
