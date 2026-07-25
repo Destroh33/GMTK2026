@@ -2234,10 +2234,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClockHand
-  strikeKickSpeed: 260
+  strikeJumpDegrees: 40
   reverseDuration: 2.5
   strikeCooldown: 0.25
-  minTangentDot: 0.25
   damageDealt: 1
 --- !u!114 &2000530661
 MonoBehaviour:
@@ -2251,10 +2250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClockHand
-  strikeKickSpeed: 260
+  strikeJumpDegrees: 40
   reverseDuration: 2.5
   strikeCooldown: 0.25
-  minTangentDot: 0.25
   damageDealt: 1
 --- !u!1 &2037452639
 GameObject:
