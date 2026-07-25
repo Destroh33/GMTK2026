@@ -153,8 +153,10 @@ MonoBehaviour:
   waves:
   - name: Wave 1
     spawns:
-    - enemyPrefab: {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-      count: 20
+    - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+      count: 7
+    - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+      count: 6
     spawnDuration: 8
     intermission: 4
   spawnPoints:
@@ -589,7 +591,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38029791f67549b5b90308b7d4cf054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  spriteRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.05
   maxHealth: 5
+  hitStunTime: 0.5
+  hitStunStrength: 0.1
 --- !u!114 &377299311
 MonoBehaviour:
   m_ObjectHideFlags: 0

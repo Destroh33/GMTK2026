@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     float waveTimer;
     int nextSpawnIndex;
+    private Coroutine gameSpeedCoroutine;
 
     void Awake()
     {
@@ -277,4 +279,32 @@ public class GameManager : MonoBehaviour
 
     public void PauseTimer() => TimerRunning = false;
     public void ResumeTimer() => TimerRunning = true;
+
+    public void GameSpeed(float speed, float duration, bool overrule)
+    {
+        if (gameSpeedCoroutine != null)
+        {
+            if (overrule)
+            {
+                StopCoroutine(gameSpeedCoroutine);
+            } else
+            {
+                return;
+            }
+        }
+        gameSpeedCoroutine = StartCoroutine(GameSpeeder(speed, duration));
+    }
+
+    private IEnumerator GameSpeeder(float speed, float duration)
+    {
+        float elapsed = 0.0f;
+        Time.timeScale = speed;
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        Time.timeScale = 1;
+        gameSpeedCoroutine = null;
+    }
 }

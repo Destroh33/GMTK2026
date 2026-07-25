@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : EnemyBehaviors
 {
     public enum State { Chasing, Knockback, Stunned }
 
@@ -47,6 +47,8 @@ public abstract class EnemyBase : MonoBehaviour
 
         health = maxHealth;
         currAttackCooldown = 0f;
+
+        SetFlashInfo();
     }
 
     protected virtual void OnEnable()
@@ -135,6 +137,8 @@ public abstract class EnemyBase : MonoBehaviour
 
         if (knockbackImpulse.sqrMagnitude > 0.0001f)
             ApplyKnockback(knockbackImpulse);
+        
+        FlashEntity();
     }
 
     void UpdateHealthBar()

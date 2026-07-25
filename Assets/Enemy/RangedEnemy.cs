@@ -6,9 +6,9 @@ public class RangedEnemy : EnemyBase
     [SerializeField] private EnemySteering steering = new EnemySteering();
 
     [Header("Shooting")]
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private float projectileSpeed = 8f;
+    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected Transform firePoint;
+    [SerializeField] protected float projectileSpeed = 8f;
     [SerializeField] private float attackRange = 7f;
     [SerializeField] private float shotCooldown = 2f;
     [SerializeField] private float telegraphDuration = 0.45f;
@@ -19,10 +19,10 @@ public class RangedEnemy : EnemyBase
     [SerializeField] private LayerMask sightBlockers = 1 << 7;
 
     [Header("Animation")]
-    [SerializeField] private Animator animator;
+    [SerializeField] protected Animator animator;
 
     static readonly int AimHash = Animator.StringToHash("isAiming");
-    static readonly int ShootHash = Animator.StringToHash("shoot");
+    protected static readonly int ShootHash = Animator.StringToHash("shoot");
 
     float shotTimer;
     float telegraphTimer;
@@ -54,7 +54,12 @@ public class RangedEnemy : EnemyBase
         if (aiming && stopWhileAiming)
             MoveInDirection(Vector2.zero);
         else
-            MoveInDirection(steering.GetDirection(rb.position, target.position));
+            MoveInDirection(GetMoveDirection());
+    }
+
+    protected virtual Vector2 GetMoveDirection()
+    {
+        return steering.GetDirection(rb.position, target.position);
     }
 
     void UpdateShooting(float dt)
@@ -99,7 +104,7 @@ public class RangedEnemy : EnemyBase
         if (animator != null) animator.SetBool(AimHash, false);
     }
 
-    void Fire()
+    protected virtual void Fire()
     {
         if (projectilePrefab == null) return;
 
