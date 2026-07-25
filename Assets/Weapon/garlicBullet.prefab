@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8969140046927969816}
   - component: {fileID: 2283480510332886540}
   m_Layer: 9
-  m_Name: bullet
+  m_Name: garlicBullet
   m_TagString: PlayerProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,9 +107,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46dd06d35be47a6499f97f029368ac9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  type: 0
   lifetime: 2.5
   damage: 1
+  knockbackForce: 3
   aoePrefab: {fileID: 1973442208828381589, guid: 9beba49973a018a439953ecb1aa52193, type: 3}
+  staticWallLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  clockHandLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!50 &-8969140046927969816
 Rigidbody2D:
   serializedVersion: 5
