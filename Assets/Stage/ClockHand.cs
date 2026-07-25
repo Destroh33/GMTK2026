@@ -53,6 +53,9 @@ public class ClockHand : MonoBehaviour
 
     public bool TryStrike(Vector2 hitPoint, Vector2 playerPos)
     {
+        // wont hit if waiting for next floor to start
+        if (GameManager.Instance != null && !GameManager.Instance.TimerRunning) return false;
+
         if (cooldownTimer > 0f) return false;
 
         Vector2 pivot = Pivot();

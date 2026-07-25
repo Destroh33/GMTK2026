@@ -5,9 +5,11 @@ public class StageClock : MonoBehaviour
     [Header("Hands")]
     [SerializeField] private ClockHand secondHand;
     private HingeJoint2D secondHandJoint;
+    private Rigidbody2D secondHandRb;
 
     [SerializeField] private ClockHand minuteHand;
     private HingeJoint2D minuteHandJoint;
+    private Rigidbody2D minuteHandRb;
 
     [Header("Rotation Settings")]
     [SerializeField] private float defaultHandSpeed = 30f;
@@ -22,17 +24,21 @@ public class StageClock : MonoBehaviour
     [SerializeField] private float withSweepMultiplier = -1f;
     [SerializeField] private bool scaleBonusByCountdownSpeed = true;
 
+    bool wasFrozen;
+
     void Start()
     {
         if (secondHand != null)
         {
             secondHandJoint = secondHand.GetComponent<HingeJoint2D>();
+            secondHandRb = secondHand.GetComponent<Rigidbody2D>();
             if (secondHandJoint != null) secondHandJoint.useMotor = true;
         }
 
         if (minuteHand != null)
         {
             minuteHandJoint = minuteHand.GetComponent<HingeJoint2D>();
+            minuteHandRb = minuteHand.GetComponent<Rigidbody2D>();
             if (minuteHandJoint != null) minuteHandJoint.useMotor = true;
         }
 
@@ -42,11 +48,33 @@ public class StageClock : MonoBehaviour
 
     void FixedUpdate()
     {
+        bool running = GameManager.Instance == null || GameManager.Instance.TimerRunning;
+        bool frozen = !running;
+
         float sweepSign = clockwiseIsPositiveMotor ? 1f : -1f;
-        float clockwiseSpeed = sweepSign * defaultHandSpeed * timeScale;
+        float clockwiseSpeed = running ? sweepSign * defaultHandSpeed * timeScale : 0;
 
         DriveHand(secondHandJoint, clockwiseSpeed);
         DriveHand(minuteHandJoint, clockwiseSpeed * minuteHandSpeedRatio);
+
+        if (frozen != wasFrozen)
+        {
+            SetHandFrozen(secondHandRb, frozen);
+            SetHandFrozen(minuteHandRb, frozen);
+            wasFrozen = frozen;
+        }
+    }
+
+    void SetHandFrozen(Rigidbody2D rb, bool frozen)
+    {
+        if (rb == null) return;
+        rb.constraints = frozen ? RigidbodyConstraints2D.FreezeAll : RigidbodyConstraints2D.None;
+
+        if (frozen)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
     }
 
     void DriveHand(HingeJoint2D joint, float speed)
@@ -78,6 +106,8 @@ public class StageClock : MonoBehaviour
     void ApplyStrikeTime(float baseAmount, float againstSweep)
     {
         if (GameManager.Instance == null) return;
+
+        if (!GameManager.Instance.TimerRunning) return;
 
         float amount = baseAmount * (againstSweep > 0f ? 1f : withSweepMultiplier);
 

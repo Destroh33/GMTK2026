@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public enum WaveState { Idle, Spawning, Clearing, Intermission, Complete }
+    public enum WaveState { Idle, Spawning, Clearing, Intermission, AwaitFloorAdvance, Complete }
 
     [Serializable]
     public class EnemySpawn
@@ -25,6 +25,13 @@ public class GameManager : MonoBehaviour
         [Min(0f)] public float intermission = 4f;
     }
 
+    [Serializable]
+    public class Floor
+    {
+        public string name;
+        public List<Wave> waves = new List<Wave>();
+    }
+
     [Header("Timer")]
     [SerializeField] private float startTime = 30f * 60f;
     [SerializeField] private float countdownSpeed = 1f;
@@ -32,24 +39,28 @@ public class GameManager : MonoBehaviour
     public float StartTime => startTime;
     public float CountdownSpeed => countdownSpeed;
 
-    [Header("Waves")]
-    [SerializeField] private List<Wave> waves = new List<Wave>();
+    [Header("Floors")]
+    [SerializeField] private List<Floor> floors = new List<Floor>();
     [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
     [SerializeField] private bool autoStart = true;
     [SerializeField] private float initialDelay = 2f;
 
     public float TimeRemaining { get; private set; }
     public bool TimerRunning { get; private set; }
-    public int CurrentWaveIndex { get; private set; } = -1;
+    public int CurrentFloorIndex { get; private set; } = -1;
+    public int CurrentWaveIndexInFloor { get; private set; } = -1;
     public WaveState CurrentWaveState { get; private set; } = WaveState.Idle;
     public int AliveEnemyCount => aliveEnemies.Count;
     public int PendingSpawnCount => spawnQueue.Count;
-    public int WaveCount => waves.Count;
+    public int FloorCount => floors.Count;
 
     public event Action OnTimeExpired;
+    public event Action<int> OnFloorStarted;
+    public event Action<int> OnFloorCleared;
+    public event Action OnAllFloorsCleared;
     public event Action<int> OnWaveStarted;
     public event Action<int> OnWaveCleared;
-    public event Action OnAllWavesCleared;
+    public event Action OnRunReset;
 
     readonly List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     readonly List<EnemyBase> spawnQueue = new List<EnemyBase>();
@@ -75,8 +86,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (autoStart && waves.Count > 0)
+        if (autoStart && floors.Count > 0)
         {
+            CurrentFloorIndex = 0;
+            CurrentWaveIndexInFloor = -1;
             CurrentWaveState = WaveState.Intermission;
             waveTimer = initialDelay;
         }
@@ -107,6 +120,7 @@ public class GameManager : MonoBehaviour
             TimeRemaining = 0f;
             TimerRunning = false;
             OnTimeExpired?.Invoke();
+            ResetRun();
         }
     }
 
@@ -151,40 +165,79 @@ public class GameManager : MonoBehaviour
 
         if (aliveEnemies.Count > 0) return;
 
-        OnWaveCleared?.Invoke(CurrentWaveIndex);
+        OnWaveCleared?.Invoke(CurrentWaveIndexInFloor);
 
-        if (CurrentWaveIndex + 1 >= waves.Count)
+        Floor floor = floors[CurrentFloorIndex];
+
+        if (CurrentWaveIndexInFloor + 1 >= floor.waves.Count)
         {
-            CurrentWaveState = WaveState.Complete;
-            OnAllWavesCleared?.Invoke();
+            HandleFloorCleared();
             return;
         }
 
         CurrentWaveState = WaveState.Intermission;
-        waveTimer = waves[CurrentWaveIndex].intermission;
+        waveTimer = floor.waves[CurrentWaveIndexInFloor].intermission;
+    }
+
+    void HandleFloorCleared()
+    {
+        OnFloorCleared?.Invoke(CurrentFloorIndex);
+
+        if (CurrentFloorIndex + 1 >= floors.Count)
+        {
+            CurrentWaveState = WaveState.Complete;
+            OnAllFloorsCleared?.Invoke();
+            return;
+        }
+
+        //freeze timer until next floor
+        CurrentWaveState = WaveState.AwaitFloorAdvance;
+        PauseTimer();
+    }
+
+    public void AdvanceToNextFloor()
+    {
+        if (CurrentWaveState != WaveState.AwaitFloorAdvance) return;
+
+        ResumeTimer();
+        StartWaveInFloor(CurrentFloorIndex + 1, 0);
     }
 
     public void StartNextWave()
     {
-        StartWave(CurrentWaveIndex + 1);
+        StartWaveInFloor(CurrentFloorIndex, CurrentWaveIndexInFloor + 1);
     }
 
-    public void StartWave(int waveIndex)
+    void StartWaveInFloor(int floorIndex, int waveIndex)
     {
-        if (waveIndex < 0 || waveIndex >= waves.Count)
+        if (floorIndex < 0 || floorIndex >= floors.Count)
         {
-            Debug.LogWarning($"[GameManager] StartWave called with invalid index {waveIndex}.");
+            Debug.LogWarning($"[GameManager] StartWaveInFloor called with invalid floor index {floorIndex}.");
             return;
         }
 
-        CurrentWaveIndex = waveIndex;
-        Wave wave = waves[waveIndex];
+        Floor floor = floors[floorIndex];
+
+        if (waveIndex < 0 || waveIndex >= floor.waves.Count)
+        {
+            Debug.LogWarning($"[GameManager] StartWaveInFloor called with invalid wave index {waveIndex} for floor {floorIndex}.");
+            return;
+        }
+
+        bool isFirstWaveOfFloor = waveIndex == 0;
+
+        CurrentFloorIndex = floorIndex;
+        CurrentWaveIndexInFloor = waveIndex;
+        Wave wave = floor.waves[waveIndex];
 
         BuildSpawnSchedule(wave);
 
         waveTimer = 0f;
         nextSpawnIndex = 0;
         CurrentWaveState = WaveState.Spawning;
+
+        if (isFirstWaveOfFloor)
+            OnFloorStarted?.Invoke(floorIndex);
 
         OnWaveStarted?.Invoke(waveIndex);
 
@@ -196,6 +249,34 @@ public class GameManager : MonoBehaviour
             CheckWaveCleared();
         }
     }
+
+    //public void StartWave(int waveIndex)
+    //{
+    //    if (waveIndex < 0 || waveIndex >= waves.Count)
+    //    {
+    //        Debug.LogWarning($"[GameManager] StartWave called with invalid index {waveIndex}.");
+    //        return;
+    //    }
+
+    //    CurrentWaveIndex = waveIndex;
+    //    Wave wave = waves[waveIndex];
+
+    //    BuildSpawnSchedule(wave);
+
+    //    waveTimer = 0f;
+    //    nextSpawnIndex = 0;
+    //    CurrentWaveState = WaveState.Spawning;
+
+    //    OnWaveStarted?.Invoke(waveIndex);
+
+    //    ReleaseDueEnemies();
+
+    //    if (nextSpawnIndex >= spawnQueue.Count)
+    //    {
+    //        CurrentWaveState = WaveState.Clearing;
+    //        CheckWaveCleared();
+    //    }
+    //}
 
     void BuildSpawnSchedule(Wave wave)
     {
@@ -269,6 +350,7 @@ public class GameManager : MonoBehaviour
         {
             TimerRunning = false;
             OnTimeExpired?.Invoke();
+            ResetRun();
         }
     }
 
@@ -279,6 +361,40 @@ public class GameManager : MonoBehaviour
 
     public void PauseTimer() => TimerRunning = false;
     public void ResumeTimer() => TimerRunning = true;
+    
+    public void HandlePlayerDied() { ResetRun(); }
+
+    public void ResetRun()
+    {
+        foreach (EnemyBase e in aliveEnemies)
+        {
+            if (e == null) continue;
+            e.OnDied -= HandleEnemyDied;
+            Destroy(e.gameObject);
+        }
+
+        aliveEnemies.Clear();
+        spawnQueue.Clear();
+        spawnTimes.Clear();
+        nextSpawnIndex = 0;
+
+        TimeRemaining = startTime;
+        TimerRunning = true;
+
+        CurrentFloorIndex = -1;
+        CurrentWaveIndexInFloor = -1;
+        CurrentWaveState = WaveState.Idle;
+
+        OnRunReset?.Invoke();
+
+        if (floors.Count > 0)
+        {
+            CurrentFloorIndex = 0;
+            CurrentWaveIndexInFloor = -1;
+            CurrentWaveState = WaveState.Intermission;
+            waveTimer = initialDelay;
+        }
+    }
 
     public void GameSpeed(float speed, float duration, bool overrule)
     {
