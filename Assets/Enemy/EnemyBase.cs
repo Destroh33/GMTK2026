@@ -61,7 +61,7 @@ public abstract class EnemyBase : EnemyBehaviors
         died = false;
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
         timeSinceDamage += dt;

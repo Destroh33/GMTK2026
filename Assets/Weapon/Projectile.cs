@@ -7,13 +7,26 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float knockbackForce = 3f;
     [SerializeField] private GameObject aoePrefab;
 
+    private Rigidbody2D rb;
     private Vector2 velocity;
     private bool launched;
+
+    public void Reflect(Vector2 newDir)
+    {
+        velocity = newDir.normalized * velocity.magnitude;
+
+        rb.linearVelocity = newDir.normalized * rb.linearVelocity.magnitude;
+    }
 
     public void Launch(Vector2 direction, float speed)
     {
         velocity = direction * speed;
         launched = true;
+    }
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Start()
