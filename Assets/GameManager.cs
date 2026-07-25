@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float countdownSpeed = 1f;
 
     public float StartTime => startTime;
+    public float CountdownSpeed => countdownSpeed;
 
     [Header("Waves")]
     [SerializeField] private List<Wave> waves = new List<Wave>();
@@ -253,11 +254,6 @@ public class GameManager : MonoBehaviour
         return point != null ? point.position : Vector3.zero;
     }
 
-    /// <summary>
-    /// Adjust the remaining time. Positive adds, negative subtracts. Clamped at 0 (and at
-    /// startTime on the high end). Used by clock-hand strikes to reward/penalize the player.
-    /// Fires OnTimeExpired if a subtraction runs time out.
-    /// </summary>
     public void AddTime(float seconds)
     {
         bool wasRunning = TimerRunning;

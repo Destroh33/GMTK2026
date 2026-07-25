@@ -16,11 +16,13 @@ public class ClockHand : MonoBehaviour
 
     public bool IsReversed => reverseTimer > 0f;
     public float AngularVelocity => rb != null ? rb.angularVelocity : 0f;
+    public float SweepSign => sweepSign;
 
     Rigidbody2D rb;
     HingeJoint2D hinge;
     float reverseTimer;
     float cooldownTimer;
+    float sweepSign = 1f;
 
     void Awake()
     {
@@ -44,6 +46,9 @@ public class ClockHand : MonoBehaviour
         float dt = Time.fixedDeltaTime;
         if (cooldownTimer > 0f) cooldownTimer -= dt;
         if (reverseTimer > 0f) reverseTimer -= dt;
+
+        if (reverseTimer <= 0f && Mathf.Abs(rb.angularVelocity) > 1f)
+            sweepSign = Mathf.Sign(rb.angularVelocity);
     }
 
     public bool TryStrike(Vector2 hitPoint, Vector2 playerPos)
@@ -64,11 +69,13 @@ public class ClockHand : MonoBehaviour
         cooldownTimer = strikeCooldown;
 
         float sign = Mathf.Sign(alongTangent);
+        float againstSweep = sign * sweepSign < 0f ? 1f : -1f;
+
         rb.angularVelocity = 0f;
         rb.rotation = rb.rotation + sign * strikeJumpDegrees;
         reverseTimer = reverseDuration;
 
-        OnStruck?.Invoke(this, sign);
+        OnStruck?.Invoke(this, againstSweep);
         return true;
     }
 

@@ -19,13 +19,8 @@ public class StageClock : MonoBehaviour
     [Header("Time Per Strike")]
     [SerializeField] private float secondHandBonus = 15f;
     [SerializeField] private float minuteHandBonus = 45f;
-
-    [Header("Diminishing Returns")]
-    [SerializeField] private int maxBonusesPerWave = 6;
-    [SerializeField] private float falloffPerBonus = 0.85f;
-    [SerializeField] private float minBonusMultiplier = 0.25f;
-
-    int bonusesAwarded;
+    [SerializeField] private float withSweepMultiplier = -1f;
+    [SerializeField] private bool scaleBonusByCountdownSpeed = true;
 
     void Start()
     {
@@ -68,34 +63,28 @@ public class StageClock : MonoBehaviour
     {
         if (secondHand != null) secondHand.OnStruck += HandleSecondHandStruck;
         if (minuteHand != null) minuteHand.OnStruck += HandleMinuteHandStruck;
-
-        if (GameManager.Instance != null)
-            GameManager.Instance.OnWaveStarted += HandleWaveStarted;
     }
 
     void OnDisable()
     {
         if (secondHand != null) secondHand.OnStruck -= HandleSecondHandStruck;
         if (minuteHand != null) minuteHand.OnStruck -= HandleMinuteHandStruck;
-
-        if (GameManager.Instance != null)
-            GameManager.Instance.OnWaveStarted -= HandleWaveStarted;
     }
 
-    void HandleWaveStarted(int waveIndex) => bonusesAwarded = 0;
+    void HandleSecondHandStruck(ClockHand hand, float againstSweep) => ApplyStrikeTime(secondHandBonus, againstSweep);
 
-    void HandleSecondHandStruck(ClockHand hand, float kick) => ApplyStrikeTime(secondHandBonus);
+    void HandleMinuteHandStruck(ClockHand hand, float againstSweep) => ApplyStrikeTime(minuteHandBonus, againstSweep);
 
-    void HandleMinuteHandStruck(ClockHand hand, float kick) => ApplyStrikeTime(minuteHandBonus);
-
-    void ApplyStrikeTime(float baseAmount)
+    void ApplyStrikeTime(float baseAmount, float againstSweep)
     {
         if (GameManager.Instance == null) return;
-        if (maxBonusesPerWave > 0 && bonusesAwarded >= maxBonusesPerWave) return;
 
-        float multiplier = Mathf.Max(minBonusMultiplier, Mathf.Pow(falloffPerBonus, bonusesAwarded));
-        GameManager.Instance.AddTime(baseAmount * multiplier);
-        bonusesAwarded++;
+        float amount = baseAmount * (againstSweep > 0f ? 1f : withSweepMultiplier);
+
+        if (scaleBonusByCountdownSpeed)
+            amount *= Mathf.Max(1f, GameManager.Instance.CountdownSpeed);
+
+        GameManager.Instance.AddTime(amount);
     }
 
     public void SetTimeScale(float newTimeScale) => timeScale = newTimeScale;
