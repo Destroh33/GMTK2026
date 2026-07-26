@@ -105,3 +105,10 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# TextMeshPro-generated font atlas assets - large baked textures regenerated
+# in-editor via Window > TextMeshPro > Font Asset Creator from the source
+# .ttf/.otf files. Tracking these caused repeated merge-conflict corruption
+# of the embedded atlas texture data. The .meta files are kept tracked so
+# the GUIDs stay stable when an asset is regenerated locally.
+/[Aa]ssets/[Ff]onts/* SDF.asset
