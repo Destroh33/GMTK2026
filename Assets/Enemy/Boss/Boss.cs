@@ -104,6 +104,8 @@ public class Boss : MonoBehaviour
     //[SerializeField] float timeSlashIsActive;
     //[SerializeField] float cooldownAfterSlash;
 
+    public static event System.Action OnBossDefeated;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -253,13 +255,10 @@ public class Boss : MonoBehaviour
         UpdateHealthBar();
     }
 
-    void Die() 
+    void Die()
     {
-        if (healthBar != null)
-        {
-            healthBar.SetActive(false);
-        }
-
+        if (healthBar != null) healthBar.SetActive(false);
+        OnBossDefeated?.Invoke();
         Destroy(gameObject);
     }
 
