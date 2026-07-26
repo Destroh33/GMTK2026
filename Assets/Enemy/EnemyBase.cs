@@ -48,13 +48,15 @@ public abstract class EnemyBase : EnemyBehaviors
     float tarSlow = 1f;
     float tarAmp = 1f;
 
+    public virtual bool ImmuneToAreaEffects => false;
+
     public bool IsTarred => tarTimer > 0f;
     protected float TarSpeedMultiplier => tarTimer > 0f ? tarSlow : 1f;
     public float TarDamageAmp => tarTimer > 0f ? tarAmp : 1f;
 
     public void ApplyTar(float slowMultiplier, float damageAmp, float duration)
     {
-        if (!IsAlive || duration <= 0f) return;
+        if (!IsAlive || duration <= 0f || ImmuneToAreaEffects) return;
 
         if (tarTimer <= 0f)
         {
