@@ -7,6 +7,8 @@ public class ShieldEnemy : FollowerEnemy
 
     private Animator animator;
 
+    public override bool ImmuneToAreaEffects => true;
+
     protected override void Awake()
     {
         base.Awake();
