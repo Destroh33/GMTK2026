@@ -2116,26 +2116,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3452309587475125127, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
-      propertyPath: bulletSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
-      propertyPath: minuteHandKickMultiplier
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
-      propertyPath: secondHandKickMultiplier
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6773165975672491602, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778916548071143843, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
