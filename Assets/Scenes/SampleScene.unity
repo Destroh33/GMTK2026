@@ -1886,11 +1886,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883755970405292164, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883755970405292164, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2458758555656647967, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1898,15 +1898,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2886214540356179559, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2886214540356179559, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2886214540356179559, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2955525392262799167, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: settingsPanel
@@ -1922,15 +1922,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3608627983814927277, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3608627983814927277, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3608627983814927277, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3812729113684636447, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: weaponController
@@ -1942,23 +1942,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5110269028359874357, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5110269028359874357, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5110269028359874357, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5570668807064928960, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5570668807064928960, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7440901014378661646, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_LocalScale.x
@@ -2022,11 +2022,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7725092777450754462, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7725092777450754462, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2159,11 +2159,13 @@ MonoBehaviour:
   dialogueRoot: {fileID: 0}
   dialoguePrefab: {fileID: 830250050840247125, guid: 90a2dc1c8bd99f549ba1bb5e1afbba7c, type: 3}
   tutorialFloorIndex: 0
-  runOnce: 1
+  runOnce: 0
   startDelay: 0.5
+  lockClockUntilTaught: 1
   moveHoldRequired: 0.5
   conditionTimeout: 0
   delayBeforeNextBeat: 1
+  repeatAfterSeconds: 10
   pauseGameWhileSpeaking: 1
   allowSkipInput: 1
   requireDismissInput: 1
@@ -2174,42 +2176,87 @@ MonoBehaviour:
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
   - line: Space dodges. You will need it.
     condition: 2
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
   - line: Left click to attack.
     condition: 3
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
-  - line: Press 1, 2 or 3 to swap weapons.
+    unlockClockStrikes: 0
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
+  - line: Press 1, 2 or 3 to swap weapons. 1 is your pizza cutter.
     condition: 5
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
   - line: Now clear them out.
     condition: 7
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 0
+    skipIfAlreadyMet: 1
+    skipIf: 0
   - line: That clock is your life. When it runs out, so do you.
     condition: 0
     holdWorldWhileReading: 1
     minReadTime: 0.6
     releaseFloorGate: 0
-  - line: Strike a hand against its sweep and it pays you back in time.
+    unlockClockStrikes: 0
+    repeatIfIdle: 0
+    skipIfAlreadyMet: 0
+    skipIf: 0
+  - line: Bullets do nothing to it. Only the pizza cutter can move the hands.
+    condition: 0
+    holdWorldWhileReading: 1
+    minReadTime: 0.6
+    releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 0
+    skipIfAlreadyMet: 0
+    skipIf: 0
+  - line: Press 1, then swing the cutter into a hand against its sweep. That pays
+      you back in time.
     condition: 6
     holdWorldWhileReading: 1
     minReadTime: 0.6
     releaseFloorGate: 0
+<<<<<<< HEAD
+=======
+    unlockClockStrikes: 1
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
+>>>>>>> e2d17e0fcaa0ff9c6a93079f33023d53c5a44b17
   - line: But the tower learns. Every strike after the first is worth far less, until
       the next floor.
     condition: 0
     holdWorldWhileReading: 1
     minReadTime: 0.6
     releaseFloorGate: 1
+    unlockClockStrikes: 0
+    repeatIfIdle: 0
+    skipIfAlreadyMet: 0
+    skipIf: 0
 --- !u!1 &1904886285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,6 +2371,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914073325}
   serializedVersion: 2
+<<<<<<< HEAD
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.1, y: 1.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -2331,6 +2379,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8786323164523195, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8786323164523195, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.1165
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.0193644
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164443729457822883, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: startingWeapon
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374701631335663084, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: maxHealth
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374701631335663084, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: deathScreen
+      value: 
+      objectReference: {fileID: 1375300097}
+    - target: {fileID: 2374701631335663084, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: onDamageParticles
+      value: 
+      objectReference: {fileID: 6410973829796457821, guid: 6cfd08792f7a0e0478925546b79922ac, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+>>>>>>> e2d17e0fcaa0ff9c6a93079f33023d53c5a44b17
 --- !u!114 &1962192713 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2715923063467408575, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}

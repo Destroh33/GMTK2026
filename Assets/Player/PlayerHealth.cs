@@ -10,12 +10,16 @@ public class PlayerHealth : PlayerBehaviors
     [SerializeField] float maxHealth = 8f;
 
     [Header("Stun")]
-    [SerializeField] float hitStunTime = 0.16f;
-    [SerializeField] float hitStunStrength = 0.35f;
+    [SerializeField] float hitStunTime = 0.09f;
+    [SerializeField] float hitStunStrength = 0f;
+    [SerializeField] float hitShakeTrauma = 0.45f;
 
     [Header("Invulnerability")]
     [SerializeField] float invulnerabilityTime = 0.8f;
     [SerializeField] float blinkInterval = 0.07f;
+
+    [Header("Particle Effect")]
+    [SerializeField] ParticleSystem onDamageParticles;
 
     float health;
     float currentMax;
@@ -52,6 +56,9 @@ public class PlayerHealth : PlayerBehaviors
         NotifyHealthChanged();
         SetFlashInfo();
         SetVignetteInfo();
+
+        if (deathScreen == null)
+            deathScreen = FindAnyObjectByType<DeathScreen>();
     }
 
     void NotifyHealthChanged()
@@ -183,7 +190,10 @@ public class PlayerHealth : PlayerBehaviors
 
         NotifyHealthChanged();
 
-        GameManager.Instance.GameSpeed(hitStunStrength, hitStunTime, true);
+        GameManager.Instance?.Hitstop(hitStunTime, hitStunStrength);
+        CameraFollow.Shake(hitShakeTrauma);
+
+        if (onDamageParticles != null) onDamageParticles.Play();
 
         if (health <= 0f && !isDead)
         {
@@ -200,6 +210,7 @@ public class PlayerHealth : PlayerBehaviors
     {
         isDead = true;
 
+<<<<<<< HEAD
         if (SceneManager.GetActiveScene().name == "BossScene")
         {
             RestoreBossSnapshot();
@@ -212,5 +223,13 @@ public class PlayerHealth : PlayerBehaviors
     void OnDestroy()
     {
         if (Instance == this) Instance = null;
+=======
+        if (deathScreen != null)
+            deathScreen.gameOver();
+        else
+            Debug.LogWarning("PlayerHealth: no DeathScreen found in scene - death screen UI will not show.");
+
+        //GameManager.Instance?.HandlePlayerDied();
+>>>>>>> e2d17e0fcaa0ff9c6a93079f33023d53c5a44b17
     }
 }
