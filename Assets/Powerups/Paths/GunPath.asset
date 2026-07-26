@@ -38,7 +38,7 @@ MonoBehaviour:
     perLevel: 0.25
     inverse: 0
   - stat: 16
-    perLevel: 0.1
+    perLevel: 0.35
     inverse: 0
   - stat: 17
     perLevel: 0.12

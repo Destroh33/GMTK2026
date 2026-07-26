@@ -22,12 +22,17 @@ public class ClockHand : MonoBehaviour
     public float SweepSign => sweepSign;
     public float StrikeJumpDegrees => strikeJumpDegrees;
 
+    [Header("Ticking")]
+    [SerializeField] private float tickInterval = 1f;
+    [SerializeField] private float rotatingAngularVelocityThreshold = 0.01f;
+
     Rigidbody2D rb;
     HingeJoint2D hinge;
     Coroutine strikeMotionRoutine;
     float reverseTimer;
     float cooldownTimer;
     float sweepSign = 1f;
+    float tickTimer;
 
     void Awake()
     {
@@ -56,6 +61,25 @@ public class ClockHand : MonoBehaviour
 
         if (reverseTimer <= 0f && Mathf.Abs(rb.angularVelocity) > 1f)
             sweepSign = Mathf.Sign(rb.angularVelocity);
+
+        UpdateTicking(dt);
+    }
+
+    void UpdateTicking(float dt)
+    {
+        if (Mathf.Abs(rb.angularVelocity) < rotatingAngularVelocityThreshold)
+        {
+            tickTimer = 0f;
+            return;
+        }
+
+        tickTimer += dt;
+
+        if (tickTimer >= tickInterval)
+        {
+            tickTimer -= tickInterval;
+            AudioManager.Instance?.PlayClockTickSFX();
+        }
     }
 
     public bool TryStrike(Vector2 hitPoint, Vector2 playerPos)
@@ -133,7 +157,7 @@ public class ClockHand : MonoBehaviour
 
         GameObject other = collision.gameObject;
 
-        if (!IsStriking && !IsReversed && other.TryGetComponent<PlayerHealth>(out PlayerHealth p))
+        if (other.TryGetComponent<PlayerHealth>(out PlayerHealth p))
             p.TakeDamage(damageDealt);
 
         if (IsReversed && other.TryGetComponent<EnemyBase>(out EnemyBase e))
