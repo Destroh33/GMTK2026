@@ -1921,6 +1921,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2220363827581053932, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
+      propertyPath: rollSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 8335bfceab10b5b46a3f422f6e6934c8, type: 3}
+    - target: {fileID: 2220363827581053932, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
+      propertyPath: swingSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 595eaf46fbd14a842a0be7fd6ab22ae1, type: 3}
     - target: {fileID: 6250577367217279421, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: sfxSlider
       value: 
