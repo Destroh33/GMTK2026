@@ -106,6 +106,8 @@ public class ClockHand : MonoBehaviour
 
         cooldownTimer = strikeCooldown;
 
+        AudioManager.Instance?.PlayClockHandHitSFX();
+
         float sign = Mathf.Sign(alongTangent);
         reverseTimer = reverseDuration;
 

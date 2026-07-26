@@ -14,6 +14,9 @@ public class PlayerHealth : PlayerBehaviors
     [SerializeField] float invulnerabilityTime = 0.8f;
     [SerializeField] float blinkInterval = 0.07f;
 
+    [Header("Particle Effect")]
+    [SerializeField] ParticleSystem onDamageParticles;
+
     float health;
     float currentMax;
     bool subscribed;
@@ -144,6 +147,8 @@ public class PlayerHealth : PlayerBehaviors
         NotifyHealthChanged();
 
         GameManager.Instance.GameSpeed(hitStunStrength, hitStunTime, true);
+
+        onDamageParticles.Play();
 
         if (health <= 0f && !isDead)
         {
