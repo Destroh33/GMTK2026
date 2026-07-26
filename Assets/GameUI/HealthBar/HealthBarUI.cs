@@ -1,6 +1,6 @@
 using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthBarUI : MonoBehaviour
@@ -11,26 +11,44 @@ public class HealthBarUI : MonoBehaviour
     [SerializeField] Sprite[] healthSprites;
 
     PlayerHealth playerHealth;
+    Coroutine waitRoutine;
 
     private void OnEnable()
     {
-        TrySubscribe();
+        if (!TrySubscribe())
+            waitRoutine = StartCoroutine(WaitForPlayer());
     }
 
     private void OnDisable()
     {
+        if (waitRoutine != null)
+        {
+            StopCoroutine(waitRoutine);
+            waitRoutine = null;
+        }
+
         if (playerHealth != null)
             playerHealth.OnHealthChanged -= UpdateHealthBar;
         playerHealth = null;
     }
 
-    void TrySubscribe()
+    IEnumerator WaitForPlayer()
+    {
+        while (PlayerHealth.Instance == null)
+            yield return null;
+
+        TrySubscribe();
+        waitRoutine = null;
+    }
+
+    bool TrySubscribe()
     {
         playerHealth = PlayerHealth.Instance;
-        if (playerHealth == null) return;
+        if (playerHealth == null) return false;
 
         playerHealth.OnHealthChanged += UpdateHealthBar;
         UpdateHealthBar(playerHealth.Health, playerHealth.MaxHealth);
+        return true;
     }
 
     void UpdateHealthBar(float health, float maxHealth)
