@@ -133,7 +133,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayEnemyShootSFX() => PitchVariatedClip(enemyShootSFX);
 
-    public void PlayEnemyDeathSFX() => PitchVariatedClip(enemyDeathSFX);
+    public void PlayEnemyDeathSFX(AudioClip clip = null) => PitchVariatedClip(clip != null ? clip : enemyDeathSFX);
 
     public void OnMasterVolumeChange(float value) {
         mixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);

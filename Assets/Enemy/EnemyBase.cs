@@ -24,6 +24,9 @@ public abstract class EnemyBase : EnemyBehaviors
     [SerializeField] protected GameObject healthBar;
     [SerializeField] protected Image healthFill;
 
+    [Header("Audio")]
+    [SerializeField] protected AudioClip deathSFX;
+
     protected float health;
     protected float timeSinceDamage;
     protected Rigidbody2D rb;
@@ -210,7 +213,7 @@ public abstract class EnemyBase : EnemyBehaviors
         if (died) return;
         died = true;
 
-        AudioManager.Instance?.PlayEnemyDeathSFX();
+        AudioManager.Instance?.PlayEnemyDeathSFX(deathSFX);
 
         OnDied?.Invoke(this);
         OnAnyDied?.Invoke(this);
