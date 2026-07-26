@@ -13,6 +13,9 @@ public class ComicSequencer : MonoBehaviour
     [Tooltip("Scene to load once every panel has been revealed and the player advances one more time. Must be added to Build Settings.")]
     [SerializeField] private string nextSceneName = "SampleScene";
 
+    [Tooltip("Child index where the page clears: right before this panel is revealed, every panel shown so far gets hidden again, and this panel becomes the fresh start of the next page. Set to -1 to disable.")]
+    [SerializeField] private int halfwayIndex = -1;
+
     private int revealedCount;
 
     void Awake()
@@ -45,6 +48,9 @@ public class ComicSequencer : MonoBehaviour
     {
         if (revealedCount < panels.Length)
         {
+            if (revealedCount == halfwayIndex)
+                ClearRevealed();
+
             if (panels[revealedCount] != null)
                 panels[revealedCount].SetActive(true);
 
@@ -55,5 +61,14 @@ public class ComicSequencer : MonoBehaviour
         // Every panel is already revealed - this click moves on.
         if (!string.IsNullOrEmpty(nextSceneName))
             SceneManager.LoadScene(nextSceneName);
+    }
+
+    void ClearRevealed()
+    {
+        for (int i = 0; i < revealedCount; i++)
+        {
+            if (panels[i] != null)
+                panels[i].SetActive(false);
+        }
     }
 }
