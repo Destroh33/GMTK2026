@@ -2095,7 +2095,8 @@ MonoBehaviour:
     repeatIfIdle: 0
     skipIfAlreadyMet: 0
     skipIf: 0
-  - line: Press 1, then swing the cutter into a hand against its sweep. That pays you back in time.
+  - line: Press 1, then swing the cutter into a hand against its sweep. That pays
+      you back in time.
     condition: 6
     holdWorldWhileReading: 1
     minReadTime: 0.6
@@ -2104,7 +2105,8 @@ MonoBehaviour:
     repeatIfIdle: 1
     skipIfAlreadyMet: 0
     skipIf: 0
-  - line: But the tower learns. Every strike after the first is worth far less, until the next floor.
+  - line: But the tower learns. Every strike after the first is worth far less, until
+      the next floor.
     condition: 0
     holdWorldWhileReading: 1
     minReadTime: 0.6
@@ -2256,6 +2258,10 @@ PrefabInstance:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 1375300097}
+    - target: {fileID: 2374701631335663084, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: onDamageParticles
+      value: 
+      objectReference: {fileID: 6410973829796457821, guid: 6cfd08792f7a0e0478925546b79922ac, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
