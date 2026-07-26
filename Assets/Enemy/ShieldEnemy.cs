@@ -6,10 +6,17 @@ public class ShieldEnemy : FollowerEnemy
     private bool shieldUp = false;
 
     private Animator animator;
+
     protected override void Awake()
     {
         base.Awake();
         animator = GetComponent<Animator>();
+    }
+
+    public override void TakeDamage(float amount, Vector2 knockbackImpulse)
+    {
+        if (shieldUp) return;
+        base.TakeDamage(amount, knockbackImpulse);
     }
 
     protected override void Move()
