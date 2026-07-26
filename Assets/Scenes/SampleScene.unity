@@ -2022,9 +2022,11 @@ MonoBehaviour:
   tutorialFloorIndex: 0
   runOnce: 0
   startDelay: 0.5
+  lockClockUntilTaught: 1
   moveHoldRequired: 0.5
   conditionTimeout: 0
   delayBeforeNextBeat: 1
+  repeatAfterSeconds: 10
   pauseGameWhileSpeaking: 1
   allowSkipInput: 1
   requireDismissInput: 1
@@ -2035,48 +2037,82 @@ MonoBehaviour:
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
   - line: Space dodges. You will need it.
     condition: 2
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
   - line: Left click to attack.
     condition: 3
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
   - line: Press 1, 2 or 3 to swap weapons. 1 is your pizza cutter.
     condition: 5
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
   - line: Now clear them out.
     condition: 7
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 0
+    skipIfAlreadyMet: 1
+    skipIf: 0
   - line: That clock is your life. When it runs out, so do you.
     condition: 0
     holdWorldWhileReading: 1
     minReadTime: 0.6
     releaseFloorGate: 0
+    unlockClockStrikes: 0
+    repeatIfIdle: 0
+    skipIfAlreadyMet: 0
+    skipIf: 0
   - line: Bullets do nothing to it. Only the pizza cutter can move the hands.
     condition: 0
     holdWorldWhileReading: 1
     minReadTime: 0.6
     releaseFloorGate: 0
-  - line: Press 1, then swing the cutter into a hand against its sweep. That pays
-      you back in time.
+    unlockClockStrikes: 0
+    repeatIfIdle: 0
+    skipIfAlreadyMet: 0
+    skipIf: 0
+  - line: Press 1, then swing the cutter into a hand against its sweep. That pays you back in time.
     condition: 6
     holdWorldWhileReading: 1
     minReadTime: 0.6
     releaseFloorGate: 0
-  - line: But the tower learns. Every strike after the first is worth far less, until
-      the next floor.
+    unlockClockStrikes: 1
+    repeatIfIdle: 1
+    skipIfAlreadyMet: 0
+    skipIf: 0
+  - line: But the tower learns. Every strike after the first is worth far less, until the next floor.
     condition: 0
     holdWorldWhileReading: 1
     minReadTime: 0.6
     releaseFloorGate: 1
+    unlockClockStrikes: 0
+    repeatIfIdle: 0
+    skipIfAlreadyMet: 0
+    skipIf: 0
 --- !u!1 &1904886285
 GameObject:
   m_ObjectHideFlags: 0
