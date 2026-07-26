@@ -889,7 +889,7 @@ MonoBehaviour:
   spawnAnchor: {fileID: 1290011504}
   horizontalSpacing: 3.2
   rareChanceScale: 1
-  maxRarePerWave: -1
+  maxRarePerWave: 1
 --- !u!1 &1290011503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,20 +2328,80 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: floors.Array.data[1].name
+      value: Floor 2 (Tutorial 2, bat intro)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: floors.Array.data[3].name
+      value: Floor 4 (Adult Vampire)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
       propertyPath: 'spawnPoints.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1312304867}
     - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
       propertyPath: 'spawnPoints.Array.data[1]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1624950173}
     - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
       propertyPath: 'spawnPoints.Array.data[2]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1308595807}
     - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
       propertyPath: 'spawnPoints.Array.data[3]'
       value: 
+      objectReference: {fileID: 900674786}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: enemyCosts.Array.data[2].cost
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: enemyCosts.Array.data[3].cost
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: enemyCosts.Array.data[4].cost
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: enemyCosts.Array.data[1].enemyPrefab
+      value: 
+      objectReference: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: enemyCosts.Array.data[2].enemyPrefab
+      value: 
+      objectReference: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: enemyCosts.Array.data[3].enemyPrefab
+      value: 
+      objectReference: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: 'floors.Array.data[1].enemyPool.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: floors.Array.data[3].waves.Array.data[0].purchasingPower
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: floors.Array.data[3].waves.Array.data[1].purchasingPower
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: floors.Array.data[5].waves.Array.data[0].purchasingPower
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: floors.Array.data[5].waves.Array.data[1].purchasingPower
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: floors.Array.data[6].waves.Array.data[0].purchasingPower
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: floors.Array.data[6].waves.Array.data[1].purchasingPower
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 6621493921096074146, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
       propertyPath: m_Name

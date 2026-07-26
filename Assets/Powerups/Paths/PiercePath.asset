@@ -37,5 +37,5 @@ MonoBehaviour:
   rareDisplayName: Cone Shot
   rareDescription: More pineapples
   rareTint: {r: 1, g: 0.85, b: 0.25, a: 1}
-  rareChance: 0.25
+  rareChance: 0.15
   rareMaxLevel: 1
