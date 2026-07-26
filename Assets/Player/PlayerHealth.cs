@@ -210,26 +210,15 @@ public class PlayerHealth : PlayerBehaviors
     {
         isDead = true;
 
-<<<<<<< HEAD
         if (SceneManager.GetActiveScene().name == "BossScene")
         {
             RestoreBossSnapshot();
             PlayerStats.Instance?.RestoreBossSnapshot();
         }
 
-        deathScreen.gameOver();
-    }
-
-    void OnDestroy()
-    {
-        if (Instance == this) Instance = null;
-=======
         if (deathScreen != null)
             deathScreen.gameOver();
         else
             Debug.LogWarning("PlayerHealth: no DeathScreen found in scene - death screen UI will not show.");
-
-        //GameManager.Instance?.HandlePlayerDied();
->>>>>>> e2d17e0fcaa0ff9c6a93079f33023d53c5a44b17
     }
 }
