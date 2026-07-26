@@ -147,8 +147,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.15084, y: 1.24977, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5690209136722490302}
   - {fileID: 4750546441071008282}
@@ -168,9 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827199728d9dc9a439838b0f54674353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageClock
-  secondHand: {fileID: 0}
-  minuteHand: {fileID: 0}
-  defaultHandSpeed: 30
+  secondHand: {fileID: 3866166691443590543}
+  minuteHand: {fileID: 1537053625047892171}
+  defaultHandSpeed: 10
   timeScale: 1
   motorTorque: 10000
   clockwiseIsPositiveMotor: 1
@@ -315,6 +315,7 @@ GameObject:
   - component: {fileID: 8332110016494966222}
   - component: {fileID: 5764407296486626184}
   - component: {fileID: 3460052227762345938}
+  - component: {fileID: 3866166691443590543}
   m_Layer: 12
   m_Name: second hand
   m_TagString: Untagged
@@ -441,7 +442,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.5319302, y: 0.29433233}
-  m_ConnectedAnchor: {x: -0.019782543, y: 0.030245066}
+  m_ConnectedAnchor: {x: -0.01978302, y: 0.030245036}
   m_UseConnectedAnchor: 1
   m_UseMotor: 1
   m_Motor:
@@ -497,6 +498,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3866166691443590543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5796022922310609500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockHand
+  strikeJumpDegrees: 10
+  reverseDuration: 0.8
+  strikeCooldown: 0.25
+  strikeMotionDuration: 0.15
+  damageDealt: 1
 --- !u!1 &6622750106742311158
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,6 +620,7 @@ GameObject:
   - component: {fileID: 6801665684355768079}
   - component: {fileID: 6190722011946274746}
   - component: {fileID: 7733595080079028551}
+  - component: {fileID: 1537053625047892171}
   m_Layer: 12
   m_Name: minute hand
   m_TagString: Untagged
@@ -730,7 +749,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.54491585, y: 0.20640306}
-  m_ConnectedAnchor: {x: 0.0063648224, y: 0.00259614}
+  m_ConnectedAnchor: {x: 0.0063651404, y: 0.0025962095}
   m_UseConnectedAnchor: 1
   m_UseMotor: 1
   m_Motor:
@@ -786,6 +805,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1537053625047892171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940318963816761586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockHand
+  strikeJumpDegrees: 10
+  reverseDuration: 0.8
+  strikeCooldown: 0.25
+  strikeMotionDuration: 0.15
+  damageDealt: 1
 --- !u!1 &7149898327997464823
 GameObject:
   m_ObjectHideFlags: 0
