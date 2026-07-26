@@ -78,12 +78,10 @@ public class ClockHand : MonoBehaviour
         cooldownTimer = strikeCooldown;
 
         float sign = Mathf.Sign(alongTangent);
-        float againstSweep = sign * sweepSign < 0f ? 1f : -1f;
-
         PlayStrikeMotion(sign);
         reverseTimer = reverseDuration;
 
-        OnStruck?.Invoke(this, againstSweep);
+        OnStruck?.Invoke(this, sign);
         return true;
     }
 

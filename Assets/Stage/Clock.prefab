@@ -175,8 +175,8 @@ MonoBehaviour:
   motorTorque: 10000
   clockwiseIsPositiveMotor: 1
   minuteHandSpeedRatio: 0.083333336
-  secondHandBonus: 15
-  minuteHandBonus: 45
+  secondHandBonus: -15
+  minuteHandBonus: -45
   withSweepMultiplier: -1
   scaleBonusByCountdownSpeed: 1
 --- !u!1 &3846774631197777686
