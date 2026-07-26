@@ -724,7 +724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &470948376
 Rigidbody2D:
   serializedVersion: 5
@@ -1816,6 +1816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3076330317508667570, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3812729113684636447, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
       propertyPath: weaponController
       value: 
@@ -1988,6 +1992,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8111080624217839845, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2014,6 +2022,10 @@ PrefabInstance:
     - target: {fileID: 8786323164523195, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8786323164523195, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2075,6 +2087,10 @@ PrefabInstance:
     - target: {fileID: 3370404206276418732, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_Name
       value: Clock
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370404206276418732, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3452299442757709438, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2144,7 +2160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &2047901498
 Rigidbody2D:
   serializedVersion: 5
@@ -2913,6 +2929,10 @@ PrefabInstance:
     - target: {fileID: 1740220416848256351, guid: 97e063cebf7cb4b8ca61cf3d70ff21ac, type: 3}
       propertyPath: m_Name
       value: Background Management
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740220416848256351, guid: 97e063cebf7cb4b8ca61cf3d70ff21ac, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6030762092938645264, guid: 97e063cebf7cb4b8ca61cf3d70ff21ac, type: 3}
       propertyPath: target
