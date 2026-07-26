@@ -31,6 +31,8 @@ public class TypewriterText : MonoBehaviour
         }
 
         typingRoutine = StartCoroutine(TypeRoutine(text, charactersPerSecond));
+
+        AudioManager.Instance?.StartGibberish();
     }
 
     public void Skip()
@@ -44,6 +46,8 @@ public class TypewriterText : MonoBehaviour
         tmpLabel.text = fullText;
 
         IsTyping = false;
+
+        AudioManager.Instance?.StopGibberish();
 
         QueueFade();
     }
@@ -91,6 +95,8 @@ public class TypewriterText : MonoBehaviour
 
         IsTyping = false;
         typingRoutine = null;
+
+        AudioManager.Instance?.StopGibberish();
 
         QueueFade();
     }
