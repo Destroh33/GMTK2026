@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -24,8 +23,17 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float aimLookAheadSmoothTime = 0.35f;
     [SerializeField] private float maxAimDistance = 6f;
 
+    [Header("Screen Shake")]
+    [SerializeField] private float shakeMaxOffset = 0.4f;
+    [SerializeField] private float shakeMaxAngle = 2f;
+    [SerializeField] private float traumaDecay = 1.6f;
+    [SerializeField] private float shakeFrequency = 24f;
+
+    public static CameraFollow Instance { get; private set; }
+
     private Vector3 screenShakeOffset = Vector3.zero;
-    private Coroutine screenShakeCoroutine;
+    private float trauma;
+    private float noiseSeed;
 
     Camera cam;
     Vector3 followVelocity;
@@ -35,8 +43,17 @@ public class CameraFollow : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
+
         cam = GetComponent<Camera>();
         if (cam == null) cam = Camera.main;
+
+        noiseSeed = Random.Range(0f, 100f);
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     void Start()
@@ -78,6 +95,8 @@ public class CameraFollow : MonoBehaviour
             smoothed.y = Mathf.Round(smoothed.y * pixelsPerUnit) / pixelsPerUnit;
         }
 
+        UpdateShake();
+
         transform.position = smoothed + screenShakeOffset;
     }
 
@@ -107,26 +126,38 @@ public class CameraFollow : MonoBehaviour
         transform.position = new Vector3(anchor.x, anchor.y, transform.position.z);
     }
 
-    public void ScreenShake(float duration, float intensity)
+    public static void Shake(float amount)
     {
-        if (screenShakeCoroutine != null)
-        {
-            StopCoroutine(screenShakeCoroutine);
-        }
-        screenShakeCoroutine = StartCoroutine(ScreenShaker(duration, intensity));
+        if (Instance != null) Instance.AddTrauma(amount);
     }
 
-    private IEnumerator ScreenShaker(float duration, float intensity)
+    public void AddTrauma(float amount)
     {
-        float elapsed = 0.0f;
-        while (elapsed < duration)
+        if (amount <= 0f) return;
+
+        trauma = Mathf.Clamp01(trauma + amount);
+    }
+
+    void UpdateShake()
+    {
+        if (trauma <= 0f)
         {
-            float strength = Mathf.Lerp(intensity, 0f, elapsed/duration);
-            screenShakeOffset = Random.insideUnitCircle * strength;
-            elapsed += Time.deltaTime;
-            yield return null;
+            screenShakeOffset = Vector3.zero;
+            transform.rotation = Quaternion.identity;
+            return;
         }
-        screenShakeOffset = Vector3.zero;
-        screenShakeCoroutine = null;
+
+        float dt = Time.unscaledDeltaTime;
+        trauma = Mathf.Max(0f, trauma - traumaDecay * dt);
+
+        float strength = trauma * trauma;
+        float t = Time.unscaledTime * shakeFrequency;
+
+        float x = Mathf.PerlinNoise(noiseSeed, t) * 2f - 1f;
+        float y = Mathf.PerlinNoise(noiseSeed + 13.7f, t) * 2f - 1f;
+        float roll = Mathf.PerlinNoise(noiseSeed + 27.3f, t) * 2f - 1f;
+
+        screenShakeOffset = new Vector3(x, y, 0f) * (strength * shakeMaxOffset);
+        transform.rotation = Quaternion.Euler(0f, 0f, roll * strength * shakeMaxAngle);
     }
 }

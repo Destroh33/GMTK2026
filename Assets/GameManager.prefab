@@ -243,4 +243,4 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::HealthDropSpawner
   pickupPrefab: {fileID: 847464074944203516, guid: 398bb6b21bd3074f91af015d2ef31ebf, type: 3}
-  dropChance: 0.03
+  dropChance: 0.06

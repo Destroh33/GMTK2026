@@ -149,7 +149,7 @@ MonoBehaviour:
   - {fileID: 5100092422782589491}
   - {fileID: 8484373067454661272}
   - {fileID: 3311000000000000104}
-  startingWeapon: 1
+  startingWeapon: 0
   scrollDeadzone: 0.1
   invertScroll: 0
 --- !u!114 &5411417304497823862
@@ -409,11 +409,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxHealth: 5
-  hitStunTime: 0.16
-  hitStunStrength: 0.35
+  maxHealth: 8
+  hitStunTime: 0.09
+  hitStunStrength: 0
+  hitShakeTrauma: 0.45
   invulnerabilityTime: 0.8
   blinkInterval: 0.07
+  onDamageParticles: {fileID: 6410973829796457821, guid: 6cfd08792f7a0e0478925546b79922ac, type: 3}
+  deathScreen: {fileID: 0}
 --- !u!114 &7417009959342925159
 MonoBehaviour:
   m_ObjectHideFlags: 0

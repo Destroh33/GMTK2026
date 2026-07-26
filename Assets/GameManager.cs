@@ -89,6 +89,11 @@ public class GameManager : MonoBehaviour
     Coroutine gateReleaseRoutine;
     private Coroutine gameSpeedCoroutine;
 
+    float baseTimeScale = 1f;
+    float hitstopScale;
+    float hitstopTimer;
+    Coroutine hitstopCoroutine;
+
     public bool AwaitingGateStrike => awaitingGateStrike;
 
     void Awake()
@@ -550,22 +555,65 @@ public class GameManager : MonoBehaviour
         gameSpeedCoroutine = StartCoroutine(GameSpeeder(speed, duration));
     }
 
+    public void Hitstop(float duration, float scale = 0f)
+    {
+        if (duration <= 0f) return;
+        if (ExternallyPaused()) return;
+
+        hitstopScale = Mathf.Clamp01(scale);
+        hitstopTimer = Mathf.Max(hitstopTimer, duration);
+
+        if (hitstopCoroutine == null)
+            hitstopCoroutine = StartCoroutine(Hitstopper());
+    }
+
+    private IEnumerator Hitstopper()
+    {
+        while (hitstopTimer > 0f)
+        {
+            RefreshTimeScale();
+
+            if (!ExternallyPaused())
+                hitstopTimer -= Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        hitstopTimer = 0f;
+        hitstopCoroutine = null;
+        RefreshTimeScale();
+    }
+
+    static bool ExternallyPaused()
+    {
+        return (SettingsButton.Instance != null && SettingsButton.Instance.gamePaused)
+            || TutorialDirector.WorldPaused;
+    }
+
+    public void RefreshTimeScale()
+    {
+        if (ExternallyPaused()) return;
+
+        Time.timeScale = hitstopTimer > 0f ? hitstopScale : baseTimeScale;
+    }
+
     private IEnumerator GameSpeeder(float speed, float duration)
     {
         float elapsed = 0.0f;
-        Time.timeScale = speed;
+        baseTimeScale = speed;
+        RefreshTimeScale();
+
         while (elapsed < duration)
         {
-            bool paused = (SettingsButton.Instance != null && SettingsButton.Instance.gamePaused)
-                || TutorialDirector.WorldPaused;
-
-            if (!paused)
+            if (!ExternallyPaused())
             {
                 elapsed += Time.unscaledDeltaTime;
             }
             yield return null;
         }
-        Time.timeScale = 1;
+
+        baseTimeScale = 1f;
+        RefreshTimeScale();
         gameSpeedCoroutine = null;
     }
 }
