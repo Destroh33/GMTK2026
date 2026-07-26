@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 public class PlayerHealth : PlayerBehaviors
 {
     [Header("Health")]
-    [SerializeField] float maxHealth = 5f;
+    [SerializeField] float maxHealth = 8f;
 
     [Header("Stun")]
     [SerializeField] float hitStunTime = 0.5f;
@@ -16,14 +17,21 @@ public class PlayerHealth : PlayerBehaviors
     public float Health => health;
     public float MaxHealth => currentMax;
 
+    public event Action<float, float> OnHealthChanged;
+
     void Awake()
     {
         currentMax = maxHealth;
         health = currentMax;
+        NotifyHealthChanged();
         SetFlashInfo();
         SetVignetteInfo();
     }
 
+    void NotifyHealthChanged()
+    {
+        OnHealthChanged?.Invoke(health, currentMax);
+    }
     protected override void SetFlashInfo()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -80,11 +88,18 @@ public class PlayerHealth : PlayerBehaviors
     {
         currentMax = maxHealth;
         health = currentMax;
+
+        NotifyHealthChanged();
     }
 
     public void TakeDamage(float amount)
     {
         health -= amount;
+
+        health = Mathf.Max(health, 0f);
+
+        NotifyHealthChanged();
+
         GameManager.Instance.GameSpeed(hitStunStrength, hitStunTime, true);
 
         if (health <= 0f)
