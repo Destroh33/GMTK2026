@@ -11,7 +11,7 @@ public class PowerupSpawner : MonoBehaviour
 
     [Header("Rare Rolls")]
     [Range(0f, 4f)][SerializeField] private float rareChanceScale = 1f;
-    [SerializeField] private int maxRarePerWave = -1;
+    [SerializeField] private int maxRarePerWave = 1;
 
     readonly List<Powerup> active = new List<Powerup>();
     bool subscribed;

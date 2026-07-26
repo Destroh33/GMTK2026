@@ -49,5 +49,5 @@ MonoBehaviour:
   rareDisplayName: Gooey Garlic
   rareDescription: Enemies slow down and take more damage
   rareTint: {r: 0.35, g: 0.28, b: 0.45, a: 1}
-  rareChance: 0.25
+  rareChance: 0.15
   rareMaxLevel: 1

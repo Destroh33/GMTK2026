@@ -34,5 +34,5 @@ MonoBehaviour:
   rareDisplayName: Riposte
   rareDescription: Pizza Cutter reflects bullets
   rareTint: {r: 1, g: 0.85, b: 0.25, a: 1}
-  rareChance: 0.25
+  rareChance: 0.15
   rareMaxLevel: 1
