@@ -442,7 +442,9 @@ MonoBehaviour:
   knockbackDrag: 6
   healthBar: {fileID: 5283243280053083174}
   healthFill: {fileID: 3636065716767284429}
-  deathSFX: {fileID: 8300000, guid: 40e6aec0ff1cff3498f3a7b96c51ee7f, type: 3}
+  deathSFX: {fileID: 0}
+  spawnParticles: {fileID: 6410973829796457821, guid: 584bdb0c50fd0f14f96ff1610db4de31, type: 3}
+  deathParticles: {fileID: 6410973829796457821, guid: 6cfd08792f7a0e0478925546b79922ac, type: 3}
   steering:
     seekWeight: 1
     desiredRange: 0

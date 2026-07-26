@@ -60,6 +60,8 @@ public class AOE : MonoBehaviour
         {
             if (hit.TryGetComponent<EnemyBase>(out var e))
             {
+                if (e.ImmuneToAreaEffects) continue;
+
                 if (e != hitEnemy) // excludes the hit enemy so they only take contact dmg, not aoe dmg on aoe instantiation
                     e.TakeDamage(damage);
 
@@ -73,6 +75,8 @@ public class AOE : MonoBehaviour
     {
         if (collision.TryGetComponent<EnemyBase>(out var e))
         {
+            if (e.ImmuneToAreaEffects) return;
+
             if (!enemies.ContainsKey(e)) // excludes enemies already in aoe from taking dmg
                 e.TakeDamage(damage);
 
@@ -83,7 +87,7 @@ public class AOE : MonoBehaviour
 
     void Tar(EnemyBase e)
     {
-        if (tarLevel <= 0 || e == null) return;
+        if (tarLevel <= 0 || e == null || e.ImmuneToAreaEffects) return;
 
         e.ApplyTar(tarSlow, tarAmp, tarLinger);
     }

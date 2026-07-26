@@ -459,6 +459,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689dd1734b1943f428513c6df47ed30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdultVampireEnemy
+  spriteRenderer: {fileID: 0}
+  flashMaterial: {fileID: 0}
+  flashDuration: 0.05
+  tintColor: {r: 1, g: 0, b: 0, a: 1}
+  tintDuration: 0.05
   maxHealth: 10
   moveSpeed: 2
   contactDamage: 1
@@ -469,6 +474,9 @@ MonoBehaviour:
   knockbackDrag: 6
   healthBar: {fileID: 5283243280053083174}
   healthFill: {fileID: 3636065716767284429}
+  deathSFX: {fileID: 0}
+  spawnParticles: {fileID: 6410973829796457821, guid: 584bdb0c50fd0f14f96ff1610db4de31, type: 3}
+  deathParticles: {fileID: 6410973829796457821, guid: 6cfd08792f7a0e0478925546b79922ac, type: 3}
   steering:
     seekWeight: 1
     desiredRange: 0
@@ -511,7 +519,6 @@ MonoBehaviour:
   maxStandoffDistance: 10
   arriveThreshold: 0.3
   slowRadius: 1.5
-
 --- !u!95 &4800332046655253936
 Animator:
   serializedVersion: 7
@@ -529,7 +536,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -544,8 +551,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d3e03adc70674825b966fc97939a293, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationDriver
   spriteRenderer: {fileID: 599223004781041361}
   flipToFaceMovement: 1
+  spriteFacesLeftByDefault: 1
   movingThreshold: 0.05

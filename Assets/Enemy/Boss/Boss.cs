@@ -15,6 +15,25 @@ public class Boss : MonoBehaviour
         OnActionChanged?.Invoke(action);
     }
 
+    public float HealthFraction => maxHealthPoints > 0f ? Mathf.Clamp01(healthPoints / maxHealthPoints) : 0f;
+    public bool PastHalfway => HealthFraction <= 0.5f;
+
+    // Ramps the cooldown multiplier from cooldownMultiplierAtFullHealth down to
+    // cooldownMultiplierAtHalfHealth as health drops from 100% to 50% (and stays
+    // there below 50%). The ramp itself follows a log curve, so it moves quickly
+    // at first and levels off (is "basically maxed") well before half health.
+    float CooldownMultiplier
+    {
+        get
+        {
+            float t = Mathf.Clamp01((1f - HealthFraction) / 0.5f);
+            float curved = Mathf.Log10(1f + t * 9f); // 0 -> 1, fast then flattening
+            return Mathf.Lerp(cooldownMultiplierAtFullHealth, cooldownMultiplierAtHalfHealth, curved);
+        }
+    }
+
+    float ScaledCooldown(float baseCooldown) => Mathf.Max(0f, baseCooldown * CooldownMultiplier);
+
     [Header("Base Stats")]
     [SerializeField] public float healthPoints;
     [SerializeField] float contactDamage = 1f;
@@ -37,6 +56,12 @@ public class Boss : MonoBehaviour
     private bool canBeHit;
     private float nextContactDamageTime;
 
+    [Header("=====Difficulty Scaling (health-based)=====")]
+    [Tooltip("Cooldown multiplier applied while the boss is at full health (1 = unscaled).")]
+    [SerializeField] private float cooldownMultiplierAtFullHealth = 1f;
+    [Tooltip("Cooldown multiplier the ramp reaches by half health, and stays at for the rest of the fight - the fastest cooldowns get.")]
+    [SerializeField] private float cooldownMultiplierAtHalfHealth = 0.4f;
+
     [Header("=====Boss Attack Values=====")]
     [Header("case 1: teleport")]
     [SerializeField] private float timeBetweenTeleports;
@@ -47,6 +72,8 @@ public class Boss : MonoBehaviour
     [Header("case 2: spawn bats")]
     [SerializeField] private GameObject batEnemyPrefab;
     [SerializeField] int numBatsSpawned;
+    [Tooltip("Bats spawned once past the halfway health mark.")]
+    [SerializeField] int numBatsSpawnedPostHalf = 4;
     [SerializeField] float cooldownAfterBatSpawn;
 
     [Header("case 3: dash attack")]
@@ -60,7 +87,11 @@ public class Boss : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] float bulletForce;
     [SerializeField] int bulletsPerCircle;
+    [Tooltip("Bullets per circle once past the halfway health mark.")]
+    [SerializeField] int bulletsPerCirclePostHalf = 45;
     [SerializeField] int numberOfTurns;
+    [Tooltip("Number of turns once past the halfway health mark.")]
+    [SerializeField] int numberOfTurnsPostHalf = 2;
     [SerializeField] float timeBetweenShots;
     [SerializeField] float cooldownAfterBullets;
 
@@ -107,60 +138,72 @@ public class Boss : MonoBehaviour
             int choice = Random.Range(0, 5);
             switch (choice)
             {
-                case 0: //teleport to another spot in the stage
-                    SetAction(BossAction.Teleport);
-                    Vector2 teleportPosition = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
-                    transform.position = teleportPosition;
-                    rb.linearVelocity = Vector2.zero;
-                    yield return new WaitForSeconds(timeBetweenTeleports);
+                case 0: //teleport to another spot in the stage - chains 3x after halfway
+                    int teleportCount = PastHalfway ? 3 : 1;
+                    for (int t = 0; t < teleportCount; t++)
+                    {
+                        SetAction(BossAction.Teleport);
+                        Vector2 teleportPosition = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
+                        transform.position = teleportPosition;
+                        rb.linearVelocity = Vector2.zero;
+                        yield return new WaitForSeconds(ScaledCooldown(timeBetweenTeleports));
+                    }
                     break;
                 case 1: //spawn bats
                     SetAction(BossAction.SpawnBats);
                     yield return new WaitForSeconds(spawnDelayAfterSelection);
-                    for (int i = 0; i < numBatsSpawned; i++)
+                    int batsToSpawn = PastHalfway ? numBatsSpawnedPostHalf : numBatsSpawned;
+                    for (int i = 0; i < batsToSpawn; i++)
                     {
                         Instantiate(batEnemyPrefab, (Vector2)stageCenter.position + Random.insideUnitCircle * radiusOfStage, Quaternion.identity);
                     }
-                    yield return new WaitForSeconds(cooldownAfterBatSpawn);
+                    yield return new WaitForSeconds(ScaledCooldown(cooldownAfterBatSpawn));
                     break;
-                case 2: //dash
-                    SetAction(BossAction.Dash);
-                    rb.linearVelocity = Vector2.zero;
-                    Vector2 posToDashTo = (Vector2)FindAnyObjectByType<PlayerMovement>().transform.position + Random.insideUnitCircle * dashRadius;
-                    rb.AddForce(dashSpeed * (posToDashTo - (Vector2)transform.position).normalized, ForceMode2D.Impulse);
-
-                    float dashElapsed = 0f;
-                    while (dashElapsed < maxDashDuration
-                        && Vector2.Distance(posToDashTo, (Vector2)transform.position) >= 0.5f
-                        && rb.linearVelocity.magnitude >= 0.1f)
+                case 2: //dash - chains 3x after halfway
+                    int dashCount = PastHalfway ? 3 : 1;
+                    for (int d = 0; d < dashCount; d++)
                     {
-                        dashElapsed += Time.deltaTime;
-                        yield return null;
-                    }
+                        SetAction(BossAction.Dash);
+                        rb.linearVelocity = Vector2.zero;
+                        Vector2 posToDashTo = (Vector2)FindAnyObjectByType<PlayerMovement>().transform.position + Random.insideUnitCircle * dashRadius;
+                        rb.AddForce(dashSpeed * (posToDashTo - (Vector2)transform.position).normalized, ForceMode2D.Impulse);
 
-                    rb.linearVelocity = Vector2.zero;
+                        float dashElapsed = 0f;
+                        while (dashElapsed < maxDashDuration
+                            && Vector2.Distance(posToDashTo, (Vector2)transform.position) >= 0.5f
+                            && rb.linearVelocity.magnitude >= 0.1f)
+                        {
+                            dashElapsed += Time.deltaTime;
+                            yield return null;
+                        }
+
+                        rb.linearVelocity = Vector2.zero;
+                    }
+                    yield return new WaitForSeconds(ScaledCooldown(cooldownAfterDash));
                     break;
                 case 3: //shoot projectiles - spiral pattern
                     SetAction(BossAction.ShootProjectiles);
                     rb.linearVelocity = Vector2.zero;
-                    float angleBetweenShots = 360 / bulletsPerCircle;
-                    for (int _ = 0; _ < numberOfTurns; _++)
+                    int bulletsThisCircle = PastHalfway ? bulletsPerCirclePostHalf : bulletsPerCircle;
+                    int turnsThisTime = PastHalfway ? numberOfTurnsPostHalf : numberOfTurns;
+                    float angleBetweenShots = 360 / bulletsThisCircle;
+                    for (int _ = 0; _ < turnsThisTime; _++)
                     {
-                        for (int i = 0; i < bulletsPerCircle; i++)
+                        for (int i = 0; i < bulletsThisCircle; i++)
                         {
                             float angleToShoot = angleBetweenShots * i;
                             EnemyProjectile b = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
                             b.Launch(new Vector2(Mathf.Cos(angleToShoot), Mathf.Sin(angleToShoot)).normalized, bulletForce);
-                            yield return new WaitForSeconds(timeBetweenShots);
+                            yield return new WaitForSeconds(ScaledCooldown(timeBetweenShots));
                         }
                     }
-                    yield return new WaitForSeconds(cooldownAfterBullets);
+                    yield return new WaitForSeconds(ScaledCooldown(cooldownAfterBullets));
                     break;
                 case 4: //spawn shield skeleton
                     SetAction(BossAction.SpawnSkeleton);
                     yield return new WaitForSeconds(spawnDelayAfterSelection);
                     Instantiate(skeletonEnemyPrefab, (Vector2)stageCenter.position + Random.insideUnitCircle * radiusOfStage, Quaternion.identity);
-                    yield return new WaitForSeconds(cooldownAfterSkeletonSpawn);
+                    yield return new WaitForSeconds(ScaledCooldown(cooldownAfterSkeletonSpawn));
                     break;
                 //case 4: //frontal slash attack
                 //    PlayerHealth player = FindAnyObjectByType<PlayerHealth>();

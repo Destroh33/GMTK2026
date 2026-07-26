@@ -14,6 +14,9 @@ public class PlayerHealth : PlayerBehaviors
     [SerializeField] float invulnerabilityTime = 0.8f;
     [SerializeField] float blinkInterval = 0.07f;
 
+    [Header("Particle Effect")]
+    [SerializeField] ParticleSystem onDamageParticles;
+
     float health;
     float currentMax;
     bool subscribed;
@@ -38,6 +41,9 @@ public class PlayerHealth : PlayerBehaviors
         NotifyHealthChanged();
         SetFlashInfo();
         SetVignetteInfo();
+
+        if (deathScreen == null)
+            deathScreen = FindAnyObjectByType<DeathScreen>();
     }
 
     void NotifyHealthChanged()
@@ -142,6 +148,8 @@ public class PlayerHealth : PlayerBehaviors
 
         GameManager.Instance.GameSpeed(hitStunStrength, hitStunTime, true);
 
+        onDamageParticles.Play();
+
         if (health <= 0f && !isDead)
         {
             Die();
@@ -156,7 +164,12 @@ public class PlayerHealth : PlayerBehaviors
     private void Die()
     {
         isDead = true;
-        deathScreen.gameOver();
+
+        if (deathScreen != null)
+            deathScreen.gameOver();
+        else
+            Debug.LogWarning("PlayerHealth: no DeathScreen found in scene - death screen UI will not show.");
+
         //GameManager.Instance?.HandlePlayerDied();
     }
 }
