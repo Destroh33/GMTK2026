@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: 5fedd8f8a05b5c447bf9f13ca87e393e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5048674808794631177
+    second: leechtime_0
+  - first:
+      213: 7196798153089995239
+    second: leechtime_1
+  - first:
+      213: -2910521624181592039
+    second: leechtime_2
+  - first:
+      213: -4829511892664253788
+    second: leechtime_3
+  - first:
+      213: 1206631923883060204
+    second: leechtime_4
+  - first:
+      213: 3551734862873206239
+    second: leechtime_5
+  - first:
+      213: -6500079419565808483
+    second: leechtime_6
+  - first:
+      213: 1229572529227139564
+    second: leechtime_7
+  - first:
+      213: 5136253166199883941
+    second: leechtime_8
+  - first:
+      213: 3558621736944908002
+    second: leechtime_9
+  - first:
+      213: 6033131143067504551
+    second: leechtime_10
+  - first:
+      213: 501918303403158898
+    second: leechtime_11
+  - first:
+      213: -1147272058813903329
+    second: leechtime_12
+  - first:
+      213: 2440939164137138346
+    second: leechtime_13
+  - first:
+      213: -2015107483925351163
+    second: leechtime_14
+  - first:
+      213: 5659184532705337611
+    second: leechtime_15
+  - first:
+      213: -3335093335183298311
+    second: leechtime_16
+  - first:
+      213: -4579814508536799603
+    second: leechtime_17
+  - first:
+      213: -2977307941857648350
+    second: leechtime_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: leechtime_0
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 1762
+        width: 88
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90ccaa45dfe701640800000000000000
+      internalID: 5048674808794631177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_1
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 1537
+        width: 112
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e1dd1b3ac920e360800000000000000
+      internalID: 7196798153089995239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_2
+      rect:
+        serializedVersion: 2
+        x: 1135
+        y: 1459
+        width: 232
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 910309fd000cb97d0800000000000000
+      internalID: -2910521624181592039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_3
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 1390
+        width: 115
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a2093f75802afcb0800000000000000
+      internalID: -4829511892664253788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_4
+      rect:
+        serializedVersion: 2
+        x: 1467
+        y: 1510
+        width: 66
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb22bd7751deb010800000000000000
+      internalID: 1206631923883060204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_5
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 1444
+        width: 69
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdd9de53a0c4a4130800000000000000
+      internalID: 3551734862873206239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_6
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 1392
+        width: 92
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d94e3f0f4341bc5a0800000000000000
+      internalID: -6500079419565808483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_7
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 1311
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce9892663b1501110800000000000000
+      internalID: 1229572529227139564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_8
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 1141
+        width: 243
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a8c1d7aa03a74740800000000000000
+      internalID: 5136253166199883941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_9
+      rect:
+        serializedVersion: 2
+        x: 1432
+        y: 1252
+        width: 115
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e6b5988d93c26130800000000000000
+      internalID: 3558621736944908002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_10
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 1142
+        width: 108
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7af82e94fccf9b350800000000000000
+      internalID: 6033131143067504551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_11
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 1285
+        width: 22
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27dac94a90c27f600800000000000000
+      internalID: 501918303403158898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_12
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 1159
+        width: 89
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1e8aa914221410f0800000000000000
+      internalID: -1147272058813903329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_13
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 985
+        width: 101
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa8abb4bc35ffd120800000000000000
+      internalID: 2440939164137138346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_14
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 873
+        width: 226
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 505f56c7b66e804e0800000000000000
+      internalID: -2015107483925351163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_15
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 971
+        width: 116
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b01694e4956798e40800000000000000
+      internalID: 5659184532705337611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_16
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 834
+        width: 121
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f070af184e57b1d0800000000000000
+      internalID: -3335093335183298311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_17
+      rect:
+        serializedVersion: 2
+        x: 1505
+        y: 956
+        width: 73
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8edb7928fa3170c0800000000000000
+      internalID: -4579814508536799603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leechtime_18
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 758
+        width: 81
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22120aa833a7ea6d0800000000000000
+      internalID: -2977307941857648350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      leechtime_0: 5048674808794631177
+      leechtime_1: 7196798153089995239
+      leechtime_10: 6033131143067504551
+      leechtime_11: 501918303403158898
+      leechtime_12: -1147272058813903329
+      leechtime_13: 2440939164137138346
+      leechtime_14: -2015107483925351163
+      leechtime_15: 5659184532705337611
+      leechtime_16: -3335093335183298311
+      leechtime_17: -4579814508536799603
+      leechtime_18: -2977307941857648350
+      leechtime_2: -2910521624181592039
+      leechtime_3: -4829511892664253788
+      leechtime_4: 1206631923883060204
+      leechtime_5: 3551734862873206239
+      leechtime_6: -6500079419565808483
+      leechtime_7: 1229572529227139564
+      leechtime_8: 5136253166199883941
+      leechtime_9: 3558621736944908002
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
