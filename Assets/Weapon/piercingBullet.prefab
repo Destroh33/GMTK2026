@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   type: 1
-  lifetime: 5
+  lifetime: 1.2
   damage: 1
   knockbackForce: 1.5
   aoePrefab: {fileID: 1973442208828381589, guid: 9beba49973a018a439953ecb1aa52193, type: 3}

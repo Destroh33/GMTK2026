@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePathData
   path: 0
   displayName: Pizza Cutter
+  icon: {fileID: -4887535394148196613, guid: 2315e403b761a4ece922b93d319dbca8, type: 3}
+  iconTint: {r: 1, g: 1, b: 1, a: 1}
   tint: {r: 1, g: 0.42, b: 0.35, a: 1}
   maxLevel: 8
   growths:

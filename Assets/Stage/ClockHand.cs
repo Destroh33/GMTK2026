@@ -56,7 +56,7 @@ public class ClockHand : MonoBehaviour
     public bool TryStrike(Vector2 hitPoint, Vector2 playerPos)
     {
         // wont hit if waiting for next floor to start
-        if (GameManager.Instance != null && !GameManager.Instance.TimerRunning) return false;
+        if (GameManager.Instance != null && GameManager.Instance.ClockFrozen) return false;
 
         if (cooldownTimer > 0f) return false;
 
@@ -86,6 +86,8 @@ public class ClockHand : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (GameManager.Instance != null && GameManager.Instance.ClockFrozen) return;
+
         GameObject other = collision.gameObject;
 
         if (other.TryGetComponent<PlayerHealth>(out PlayerHealth p))

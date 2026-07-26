@@ -6,6 +6,10 @@ public class SwordWeapon : WeaponBase
     [Header("Sword")]
     [SerializeField] private Animator swingAnimator;
     [SerializeField] private Transform playerCenter;
+    [SerializeField] private SwordSlash slash;
+    [SerializeField] private float swingClipLength = 0.42f;
+    [SerializeField] private Transform bladeVisual;
+    [Range(0f, 1f)][SerializeField] private float reachVisualFactor = 0.5f;
 
     [Header("Hitbox")]
     [SerializeField] private float hitLength = 1.35f;
@@ -31,6 +35,8 @@ public class SwordWeapon : WeaponBase
     private Vector2 swingDir = Vector2.right;
     private float activeTimer;
     private bool swinging;
+    private Vector3 bladeBaseScale = Vector3.one;
+    private bool hasBladeBaseScale;
 
     void Awake()
     {
@@ -38,6 +44,22 @@ public class SwordWeapon : WeaponBase
             swingAnimator = GetComponent<Animator>();
         if (playerCenter == null)
             playerCenter = transform.parent != null ? transform.parent.parent : null;
+
+        if (bladeVisual != null)
+        {
+            bladeBaseScale = bladeVisual.localScale;
+            hasBladeBaseScale = true;
+        }
+    }
+
+    void ApplyReachVisual()
+    {
+        if (bladeVisual == null || !hasBladeBaseScale) return;
+
+        float reach = PlayerStats.Mult(StatId.SwordReach);
+        float k = 1f + (reach - 1f) * reachVisualFactor;
+
+        bladeVisual.localScale = bladeBaseScale * k;
     }
 
     protected override float CooldownMultiplier() => PlayerStats.Mult(StatId.SwordCooldown);
@@ -45,6 +67,8 @@ public class SwordWeapon : WeaponBase
     protected override void Update()
     {
         base.Update();
+
+        ApplyReachVisual();
 
         if (!swinging) return;
 
@@ -62,15 +86,25 @@ public class SwordWeapon : WeaponBase
 
     protected override void Use(Vector2 aimDir)
     {
+        float currentCooldown = cooldown * CooldownMultiplier();
+        float swingTime = Mathf.Min(hitDuration, currentCooldown);
+
         if (swingAnimator != null)
+        {
+            swingAnimator.speed = swingClipLength > 0f && swingTime > 0f
+                ? swingClipLength / swingTime
+                : 1f;
             swingAnimator.SetTrigger(SwingHash);
+        }
 
         if (aimDir.sqrMagnitude > 0.0001f)
             swingDir = aimDir.normalized;
 
         hitThisSwing.Clear();
-        activeTimer = hitDuration;
+        activeTimer = swingTime;
         swinging = true;
+
+        if (slash != null) slash.Play(swingTime);
 
         SweepHitbox();
     }

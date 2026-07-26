@@ -19,8 +19,9 @@ public class PowerupTooltip : MonoBehaviour
 
         TextMeshPro text = go.AddComponent<TextMeshPro>();
         text.text = BuildText(data, rare, s);
+        if (s.font != null) text.font = s.font;
         text.fontSize = s.fontSize;
-        text.color = rare ? data.rareTint : s.titleColor;
+        text.color = s.titleColor;
         text.alignment = TextAlignmentOptions.Bottom;
         text.rectTransform.pivot = new Vector2(0.5f, 0f);
         text.rectTransform.sizeDelta = new Vector2(s.width, s.height);

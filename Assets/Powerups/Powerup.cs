@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Powerup : MonoBehaviour
@@ -13,12 +14,18 @@ public class Powerup : MonoBehaviour
         public float height = 1.5f;
         public bool showRareDescription = true;
         public string promptKey = "E";
+        public TMP_FontAsset font;
         public Color titleColor = Color.white;
         public int sortingOrder = 20;
     }
 
     [SerializeField] private UpgradePathData data;
-    [SerializeField] private SpriteRenderer tintTarget;
+    [SerializeField] private SpriteRenderer haloTarget;
+    [SerializeField] private SpriteRenderer iconTarget;
+    [Range(0f, 1f)][SerializeField] private float haloAlpha = 0.45f;
+    [Range(0f, 1f)][SerializeField] private float rareHaloAlpha = 0.7f;
+    [SerializeField] private float haloSize = 1.3f;
+    [SerializeField] private float iconSize = 0.8f;
     [SerializeField] private float bobHeight = 0.15f;
     [SerializeField] private float bobSpeed = 2f;
 
@@ -47,7 +54,6 @@ public class Powerup : MonoBehaviour
 
     void Awake()
     {
-        if (tintTarget == null) tintTarget = GetComponentInChildren<SpriteRenderer>();
         baseScale = transform.localScale;
     }
 
@@ -95,11 +101,36 @@ public class Powerup : MonoBehaviour
     {
         if (data == null) return;
 
-        if (tintTarget != null)
-            tintTarget.color = isRare ? data.rareTint : data.tint;
+        if (haloTarget != null)
+        {
+            Color halo = isRare ? data.rareTint : data.tint;
+            halo.a = isRare ? rareHaloAlpha : haloAlpha;
+            haloTarget.color = halo;
+        }
+
+        if (iconTarget != null)
+        {
+            iconTarget.sprite = data.icon;
+            iconTarget.color = data.iconTint;
+            iconTarget.enabled = data.icon != null;
+            FitToSize(iconTarget, iconSize);
+        }
+
+        FitToSize(haloTarget, haloSize);
 
         if (baseScale == Vector3.zero) baseScale = transform.localScale;
         transform.localScale = isRare ? baseScale * rareScale : baseScale;
+    }
+
+    static void FitToSize(SpriteRenderer sr, float targetSize)
+    {
+        if (sr == null || sr.sprite == null || targetSize <= 0f) return;
+
+        Vector2 bounds = sr.sprite.bounds.size;
+        float largest = Mathf.Max(bounds.x, bounds.y);
+        if (largest <= 0.0001f) return;
+
+        sr.transform.localScale = Vector3.one * (targetSize / largest);
     }
 
     public void Claim()

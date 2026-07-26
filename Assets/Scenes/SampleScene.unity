@@ -357,30 +357,102 @@ MonoBehaviour:
   startTime: 1800
   countdownSpeed: 10
   floors:
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
-  - name: 
-    waves: []
+  - name: Floor 1
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 2
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 3
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 4
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 5
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 6
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 7
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 8
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 9
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 10
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 11
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
+  - name: Floor 12
+    waves:
+    - name: Wave 1
+      spawns:
+      - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 1
+      spawnDuration: 1
+      intermission: 1
   spawnPoints:
   - {fileID: 1312304867}
   - {fileID: 1624950173}
@@ -1323,7 +1395,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 14
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2497,7 +2569,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3d4e5f60718293a4b5c6d7e8f90a1b2, type: 2}
   - {fileID: 11400000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a4, type: 2}
   spawnAnchor: {fileID: 1290011504}
-  horizontalSpacing: 5
+  horizontalSpacing: 3.2
   rareChanceScale: 1
   maxRarePerWave: -1
 --- !u!1 &1290011503

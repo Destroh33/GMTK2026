@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePathData
   path: 1
   displayName: Garlic Gun
+  icon: {fileID: -6122066395228836072, guid: 2549064dde7de4140bb3b365de6660c4, type: 3}
+  iconTint: {r: 1, g: 1, b: 1, a: 1}
   tint: {r: 0.36, g: 0.72, b: 1, a: 1}
   maxLevel: 8
   growths:

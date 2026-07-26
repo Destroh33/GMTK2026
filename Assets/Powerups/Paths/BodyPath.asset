@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePathData
   path: 2
   displayName: Body
+  icon: {fileID: 1444714642315431443, guid: 152a106ea3622428f94c538853ef5775, type: 3}
+  iconTint: {r: 1, g: 1, b: 1, a: 1}
   tint: {r: 0.45, g: 1, b: 0.55, a: 1}
   maxLevel: 8
   growths:

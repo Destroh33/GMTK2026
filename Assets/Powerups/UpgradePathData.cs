@@ -59,6 +59,8 @@ public class UpgradePathData : ScriptableObject
 {
     public UpgradePath path;
     public string displayName;
+    public Sprite icon;
+    public Color iconTint = Color.white;
     public Color tint = Color.white;
     public int maxLevel = 10;
     public List<StatGrowth> growths = new List<StatGrowth>();
