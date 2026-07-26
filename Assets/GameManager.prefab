@@ -1,0 +1,229 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6621493921096074146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1982799188658606891}
+  - component: {fileID: 3268853876378702162}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1982799188658606891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6621493921096074146}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.82643, y: -1.12533, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3268853876378702162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6621493921096074146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c4a945c97cada429b4b42933adbe31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  startTime: 1800
+  countdownSpeed: 10
+  enemyCosts:
+  - enemyPrefab: {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
+    cost: 1
+  - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+    cost: 2
+  - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+    cost: 2
+  - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+    cost: 4
+  - enemyPrefab: {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
+    cost: 5
+  floors:
+  - name: Floor 1 (Tutorial 1)
+    waves:
+    - name: Wave 1
+      purchasingPower: 5
+      spawnDuration: 5
+      intermission: 1
+    enemyPool:
+    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
+  - name: Floor 2 (Tutorial 2, Adult Vampire intro)
+    waves:
+    - name: Wave 1
+      purchasingPower: 10
+      spawnDuration: 3.5
+      intermission: 0
+    enemyPool:
+    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
+    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+  - name: Floor 3 (Shield Enemy Intro)
+    waves:
+    - name: Wave 1
+      purchasingPower: 20
+      spawnDuration: 5
+      intermission: 2
+    - name: Wave 2
+      purchasingPower: 20
+      spawnDuration: 5
+      intermission: 0
+    enemyPool:
+    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
+    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+  - name: Floor 4 (Bat intro)
+    waves:
+    - name: Wave 1
+      purchasingPower: 35
+      spawnDuration: 6
+      intermission: 2
+    - name: Wave 2
+      purchasingPower: 35
+      spawnDuration: 6
+      intermission: 0
+    enemyPool:
+    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+  - name: Floor 5 (Time Leech Intro)
+    waves:
+    - name: Wave 1
+      purchasingPower: 35
+      spawnDuration: 6
+      intermission: 2
+    - name: Wave 2
+      purchasingPower: 35
+      spawnDuration: 6
+      intermission: 0
+    enemyPool:
+    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
+  - name: Floor 6
+    waves:
+    - name: Wave 1
+      purchasingPower: 50
+      spawnDuration: 5
+      intermission: 2
+    - name: Wave 2
+      purchasingPower: 60
+      spawnDuration: 5
+      intermission: 0
+    enemyPool:
+    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
+    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+  - name: Floor 7
+    waves:
+    - name: wave 1
+      purchasingPower: 75
+      spawnDuration: 6
+      intermission: 2
+    - name: wave 2
+      purchasingPower: 75
+      spawnDuration: 8
+      intermission: 0
+    enemyPool:
+    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+  - name: Floor 8 (Bat Waves)
+    waves:
+    - name: Wave 1
+      purchasingPower: 100
+      spawnDuration: 0
+      intermission: 0
+    - name: Wave 2
+      purchasingPower: 100
+      spawnDuration: 0
+      intermission: 0
+    - name: Wave 3
+      purchasingPower: 100
+      spawnDuration: 0
+      intermission: 0
+    enemyPool:
+    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+  - name: Floor 9 (Melee)
+    waves:
+    - name: Wave 1
+      purchasingPower: 100
+      spawnDuration: 8
+      intermission: 3
+    - name: Wave 2
+      purchasingPower: 120
+      spawnDuration: 8
+      intermission: 0
+    - name: Blood Tide III
+      purchasingPower: 30
+      spawnDuration: 10
+      intermission: 3
+    enemyPool:
+    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
+    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+  - name: Floor 10 (Time Leech Waves)
+    waves:
+    - name: Wave 1
+      purchasingPower: 100
+      spawnDuration: 20
+      intermission: 3
+    enemyPool:
+    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
+  - name: Floor 11
+    waves:
+    - name: Wave 1
+      purchasingPower: 100
+      spawnDuration: 8.5
+      intermission: 2
+    - name: Wave 2
+      purchasingPower: 100
+      spawnDuration: 10
+      intermission: 0
+    enemyPool:
+    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+  - name: Floor 12
+    waves:
+    - name: Wave 1
+      purchasingPower: 120
+      spawnDuration: 10
+      intermission: 3
+    - name: Wave 2
+      purchasingPower: 120
+      spawnDuration: 10
+      intermission: 3
+    - name: Wave 3
+      purchasingPower: 150
+      spawnDuration: 10
+      intermission: 3
+    enemyPool:
+    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
+    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
+    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  autoStart: 1
+  initialDelay: 2

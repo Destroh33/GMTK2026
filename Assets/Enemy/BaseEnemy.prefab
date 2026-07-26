@@ -413,7 +413,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.13, y: 0}
   m_Radius: 0.5
 --- !u!114 &5896844373469693656
 MonoBehaviour:
@@ -428,8 +428,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowerEnemy
   spriteRenderer: {fileID: 0}
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashMaterial: {fileID: 0}
   flashDuration: 0.05
+  tintColor: {r: 1, g: 0, b: 0, a: 1}
+  tintDuration: 0.05
   maxHealth: 10
   moveSpeed: 2
   contactDamage: 1
@@ -470,7 +472,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -485,8 +487,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d3e03adc70674825b966fc97939a293, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationDriver
   spriteRenderer: {fileID: 599223004781041361}
   flipToFaceMovement: 1
+  spriteFacesLeftByDefault: 1
   movingThreshold: 0.05

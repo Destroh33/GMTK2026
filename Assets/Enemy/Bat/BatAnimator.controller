@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: bat_glide
+  m_Name: bat_flap
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 28ddee8c7d7393cfd7666b46d39b1343, type: 2}
+  m_Motion: {fileID: 7400000, guid: 2fe181e45aef4fcd0ca0623f9a35bc0b, type: 2}
   m_Tag:
   m_SpeedParameter:
   m_MirrorParameter:

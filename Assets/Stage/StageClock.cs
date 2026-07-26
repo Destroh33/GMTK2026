@@ -24,6 +24,14 @@ public class StageClock : MonoBehaviour
     [SerializeField] private float withSweepMultiplier = -1f;
     [SerializeField] private bool scaleBonusByCountdownSpeed = true;
 
+    [Header("Minute Hand Coupling")]
+    [Tooltip("Every time the minute hand is struck, the second hand also gets knocked (same strike-tween mechanic) in the same direction, by the minute hand's own StrikeJumpDegrees times this multiplier.")]
+    [SerializeField] private float secondHandKickMultiplier = 5f;
+
+    [Header("Second Hand Coupling")]
+    [Tooltip("Every time the second hand is struck, the minute hand also gets knocked (same strike-tween mechanic) in the same direction, by the second hand's own StrikeJumpDegrees times this multiplier - keep this small, the minute hand should barely move.")]
+    [SerializeField] private float minuteHandKickMultiplier = 0.1f;
+
     bool wasFrozen;
 
     void Start()
@@ -107,9 +115,21 @@ public class StageClock : MonoBehaviour
         if (minuteHand != null) minuteHand.OnStruck -= HandleMinuteHandStruck;
     }
 
-    void HandleSecondHandStruck(ClockHand hand, float strikeDirectionSign) => ApplyStrikeTime(secondHandBonus, strikeDirectionSign);
+    void HandleSecondHandStruck(ClockHand hand, float strikeDirectionSign)
+    {
+        ApplyStrikeTime(secondHandBonus, strikeDirectionSign);
 
-    void HandleMinuteHandStruck(ClockHand hand, float strikeDirectionSign) => ApplyStrikeTime(minuteHandBonus, strikeDirectionSign);
+        if (minuteHand != null && secondHand != null)
+            minuteHand.Knock(strikeDirectionSign, secondHand.StrikeJumpDegrees * minuteHandKickMultiplier);
+    }
+
+    void HandleMinuteHandStruck(ClockHand hand, float strikeDirectionSign)
+    {
+        ApplyStrikeTime(minuteHandBonus, strikeDirectionSign);
+
+        if (secondHand != null && minuteHand != null)
+            secondHand.Knock(strikeDirectionSign, minuteHand.StrikeJumpDegrees * secondHandKickMultiplier);
+    }
 
     void ApplyStrikeTime(float baseAmount, float strikeDirectionSign)
     {
