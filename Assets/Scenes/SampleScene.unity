@@ -2023,7 +2023,7 @@ MonoBehaviour:
     repeatIfIdle: 1
     skipIfAlreadyMet: 1
     skipIf: 0
-  - line: Space dodges. You will need it.
+  - line: Click Space to dodge. You will need it.
     condition: 2
     holdWorldWhileReading: 1
     minReadTime: 0.4
@@ -2032,7 +2032,7 @@ MonoBehaviour:
     repeatIfIdle: 1
     skipIfAlreadyMet: 1
     skipIf: 0
-  - line: Left click to attack.
+  - line: Left click to attack. I don't want to see my pizza eaten.
     condition: 3
     holdWorldWhileReading: 1
     minReadTime: 0.4
@@ -2050,7 +2050,7 @@ MonoBehaviour:
     repeatIfIdle: 1
     skipIfAlreadyMet: 1
     skipIf: 0
-  - line: Now clear them out.
+  - line: Now clear them out, don't let them eat my pizza!
     condition: 7
     holdWorldWhileReading: 1
     minReadTime: 0.4
@@ -2059,7 +2059,8 @@ MonoBehaviour:
     repeatIfIdle: 1
     skipIfAlreadyMet: 1
     skipIf: 0
-  - line: That clock is your life. When it runs out, so do you.
+  - line: Pay attention to the top right clock. 30 minutes, or the pizza's free,
+      afterall!
     condition: 0
     holdWorldWhileReading: 1
     minReadTime: 0.6
@@ -2068,7 +2069,7 @@ MonoBehaviour:
     repeatIfIdle: 1
     skipIfAlreadyMet: 1
     skipIf: 0
-  - line: Strike a hand against its sweep and it pays you back in time.
+  - line: Hitting the clock hands back can return some time.
     condition: 6
     holdWorldWhileReading: 1
     minReadTime: 0.6
