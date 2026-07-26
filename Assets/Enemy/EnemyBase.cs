@@ -157,6 +157,8 @@ public abstract class EnemyBase : EnemyBehaviors
     {
         if (!IsAlive) return;
 
+        AudioManager.Instance?.PlayHitSFX();
+
         if (tarTimer > 0f && tarAmp > 1f)
             amount *= tarAmp;
 

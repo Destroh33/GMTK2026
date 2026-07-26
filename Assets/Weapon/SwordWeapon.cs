@@ -86,6 +86,8 @@ public class SwordWeapon : WeaponBase
 
     protected override void Use(Vector2 aimDir)
     {
+        AudioManager.Instance?.PlaySwingSFX();
+
         float currentCooldown = cooldown * CooldownMultiplier();
         float swingTime = Mathf.Min(hitDuration, currentCooldown);
 

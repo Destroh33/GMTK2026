@@ -94,22 +94,25 @@ public class Boss : MonoBehaviour
                 case 0: //teleport to another spot in the stage
                     Vector2 teleportPosition = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
                     transform.position = teleportPosition;
+                    rb.linearVelocity = Vector2.zero;
                     yield return new WaitForSeconds(timeBetweenTeleports);
                     break;
                 case 1: //spawn bats
                     for (int i = 0; i < numBatsSpawned; i++)
                     {
-                        Instantiate(batEnemyPrefab, (Vector2)transform.position + Random.onUnitCircle * 3, Quaternion.identity);
+                        Instantiate(batEnemyPrefab, (Vector2)stageCenter.position + Random.insideUnitCircle * radiusOfStage, Quaternion.identity);
                     }
                     yield return new WaitForSeconds(cooldownAfterBatSpawn);
                     break;
                 case 2: //dash
-                    Vector2 posToDashTo = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
+                    rb.linearVelocity = Vector2.zero;
+                    Vector2 posToDashTo = (Vector2)FindAnyObjectByType<PlayerMovement>().transform.position + Random.insideUnitCircle * dashRadius;
                     rb.AddForce(dashSpeed * (posToDashTo - (Vector2)transform.position).normalized, ForceMode2D.Impulse);
                     yield return new WaitUntil(() => Vector2.Distance(posToDashTo, (Vector2)transform.position) < 0.5f || rb.linearVelocity.magnitude < 0.1f);
                     rb.linearVelocity = Vector2.zero;
                     break;
                 case 3: //shoot projectiles - spiral pattern
+                    rb.linearVelocity = Vector2.zero;
                     float angleBetweenShots = 360 / bulletsPerCircle;
                     for (int _ = 0; _ < numberOfTurns; _++)
                     {
@@ -124,7 +127,7 @@ public class Boss : MonoBehaviour
                     yield return new WaitForSeconds(cooldownAfterBullets);
                     break;
                 case 4: //spawn shield skeleton
-                    Instantiate(skeletonEnemyPrefab, (Vector2)transform.position + Random.onUnitCircle * 5, Quaternion.identity);
+                    Instantiate(skeletonEnemyPrefab, (Vector2)stageCenter.position + Random.insideUnitCircle * radiusOfStage, Quaternion.identity);
                     yield return new WaitForSeconds(cooldownAfterSkeletonSpawn);
                     break;
                 //case 4: //frontal slash attack

@@ -119,6 +119,8 @@ public class PlayerHealth : PlayerBehaviors
     {
         if (IsInvulnerable) return;
 
+        AudioManager.Instance?.PlayHitSFX();
+
         invulnTimer = invulnerabilityTime;
         health -= amount;
 

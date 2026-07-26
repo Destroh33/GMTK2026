@@ -103,6 +103,8 @@ public class PlayerMovement : MonoBehaviour
         bool hasDir = moveInput.sqrMagnitude > 0.01f || timeSinceMoved <= dashCoyoteTime;
         if (!hasDir) return;
 
+        AudioManager.Instance?.PlayRollSFX();
+
         dashDir = lastMoveDir;
         isDashing = true;
         dashTimer = dashDuration;
