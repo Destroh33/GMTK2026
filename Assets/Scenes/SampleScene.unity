@@ -813,6 +813,28 @@ Transform:
   - {fileID: 900674786}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1058018662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7578424577374111014, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
+  m_PrefabInstance: {fileID: 1700000010}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
+--- !u!114 &1220636996 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2945304872728601748, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
+  m_PrefabInstance: {fileID: 1700000010}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &1290011500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,26 +1402,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2220363827581053932, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
-      propertyPath: rollSFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 8335bfceab10b5b46a3f422f6e6934c8, type: 3}
-    - target: {fileID: 2220363827581053932, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
-      propertyPath: swingSFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 595eaf46fbd14a842a0be7fd6ab22ae1, type: 3}
     - target: {fileID: 6250577367217279421, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: sfxSlider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1058018662}
     - target: {fileID: 6250577367217279421, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: musicSlider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1220636996}
     - target: {fileID: 6250577367217279421, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: masterSlider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1962192713}
     - target: {fileID: 7495165664352834303, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 318.27332
@@ -1443,10 +1457,6 @@ PrefabInstance:
     - target: {fileID: 8111080624217839845, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: m_Name
       value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8111080624217839845, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1518,6 +1528,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+--- !u!114 &1962192713 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2715923063467408575, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
+  m_PrefabInstance: {fileID: 1700000010}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1001 &2000530657
 PrefabInstance:
   m_ObjectHideFlags: 0
