@@ -433,7 +433,11 @@ public class TutorialDirector : MonoBehaviour
         {
             WorldPaused = false;
 
-            if (SettingsButton.Instance == null || !SettingsButton.Instance.gamePaused)
+            if (SettingsButton.Instance != null && SettingsButton.Instance.gamePaused) return;
+
+            if (GameManager.Instance != null)
+                GameManager.Instance.RefreshTimeScale();
+            else
                 Time.timeScale = scaleBeforeHold;
         }
     }

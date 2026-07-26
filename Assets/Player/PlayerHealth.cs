@@ -7,8 +7,9 @@ public class PlayerHealth : PlayerBehaviors
     [SerializeField] float maxHealth = 8f;
 
     [Header("Stun")]
-    [SerializeField] float hitStunTime = 0.16f;
-    [SerializeField] float hitStunStrength = 0.35f;
+    [SerializeField] float hitStunTime = 0.09f;
+    [SerializeField] float hitStunStrength = 0f;
+    [SerializeField] float hitShakeTrauma = 0.45f;
 
     [Header("Invulnerability")]
     [SerializeField] float invulnerabilityTime = 0.8f;
@@ -146,9 +147,10 @@ public class PlayerHealth : PlayerBehaviors
 
         NotifyHealthChanged();
 
-        GameManager.Instance.GameSpeed(hitStunStrength, hitStunTime, true);
+        GameManager.Instance?.Hitstop(hitStunTime, hitStunStrength);
+        CameraFollow.Shake(hitShakeTrauma);
 
-        onDamageParticles.Play();
+        if (onDamageParticles != null) onDamageParticles.Play();
 
         if (health <= 0f && !isDead)
         {

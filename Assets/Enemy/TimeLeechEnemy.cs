@@ -66,7 +66,7 @@ public class TimeLeechEnemy : EnemyBase
         if (drainTimer > 0f) return;
         if (!col.collider.TryGetComponent<ClockHand>(out ClockHand hand)) return;
 
-        leechParticles.Play();
+        if (leechParticles != null) leechParticles.Play();
         drainTimer = Mathf.Max(0.05f, drainInterval);
         gameManager.AddTime(-timeLostPerHit);
     }

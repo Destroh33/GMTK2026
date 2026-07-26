@@ -100,8 +100,7 @@ public abstract class EnemyBase : EnemyBehaviors
         tarSlow = 1f;
         tarAmp = 1f;
 
-        if (spawnParticles != null)
-            spawnParticles.Play();
+        if (spawnParticles != null) spawnParticles.Play();
     }
 
     protected virtual void FixedUpdate()
@@ -227,8 +226,7 @@ public abstract class EnemyBase : EnemyBehaviors
         OnDied?.Invoke(this);
         OnAnyDied?.Invoke(this);
 
-        if (deathParticles != null)
-            deathParticles.Play();
+        if (deathParticles != null) deathParticles.Play();
 
         // TODO: death VFX / drops
         Destroy(gameObject);
