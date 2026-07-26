@@ -1,15 +1,19 @@
-using System.Collections;
 using UnityEngine;
 
 // Builds the vertical floor stack piece by piece:
-// - Spawns the starting floor once, at this object's position.
-// - Spawns a new "in between" floor, a serialized distance above the last
-//   floor, every time GameManager starts a new wave (OnWaveStarted) - this
-//   keeps the stack growing for as long as waves keep starting.
-// - When a floor's enemies are all cleared (GameManager.OnFloorCleared),
-//   spawns the intermediary floor a (separately serialized) distance above
-//   the last floor, then pauses in-between spawning for a serialized amount
-//   of time before resuming normal in-between spawning.
+// - Spawns the starting floor once, at startingFloorSpawnPos.
+// - Keeps a stream of "in between" floors going: every one spawns at the
+//   fixed inBetweenSpawnPos, and a new one spawns as soon as the most
+//   recently spawned floor piece has scrolled down to (or past)
+//   inBetweenTriggerY - so the stream is driven purely by how far the last
+//   piece has fallen, not by waves.
+// - The FIRST time a powerup choice comes up (GameManager.AwaitingPowerupChoice
+//   turns true, which happens once a floor's enemies are all cleared), spawns
+//   the intermediary/transition floor at intermediarySpawnPos - it only ever
+//   spawns once per run, not on every subsequent powerup choice. Every time a
+//   powerup choice is up (first or not), in-between spawning pauses; the
+//   moment the choice is resolved (AwaitingPowerupChoice turns back off), the
+//   in-between stream resumes.
 // Note: this only manages floor-piece geometry - it does NOT call
 // GameManager.AdvanceToNextFloor(); something else is responsible for that.
 public class FloorSpawner : MonoBehaviour
@@ -19,73 +23,92 @@ public class FloorSpawner : MonoBehaviour
     [SerializeField] private Transform inBetweenPrefab;
     [SerializeField] private Transform intermediaryPrefab;
 
-    [Header("Spacing")]
-    [SerializeField] private float inBetweenDistance = 5f;
-    [SerializeField] private float intermediaryDistance = 8f;
+    [Header("Spawn Positions")]
+    [SerializeField] private Vector3 startingFloorSpawnPos;
+    [SerializeField] private Vector3 inBetweenSpawnPos;
+    [SerializeField] private Vector3 intermediarySpawnPos;
 
-    [Header("Timing")]
-    [SerializeField] private float pauseDuration = 3f;
+    [Header("In Between Stream")]
+    [Tooltip("Once the last-spawned in-between floor's Y drops to (or below) this, the next one spawns.")]
+    [SerializeField] private float inBetweenTriggerY = 0f;
 
     private Transform lastFloor;
     private bool spawningPaused;
+    private bool wasAwaitingPowerupChoice;
+    private bool intermediarySpawned;
 
     void Awake()
     {
         lastFloor = startingFloorPrefab != null
-            ? Instantiate(startingFloorPrefab, transform.position, Quaternion.identity, transform)
+            ? Instantiate(startingFloorPrefab, startingFloorSpawnPos, Quaternion.identity, transform)
             : transform;
     }
 
     void Start()
     {
         if (GameManager.Instance != null)
-        {
-            GameManager.Instance.OnWaveStarted += HandleWaveStarted;
-            GameManager.Instance.OnFloorCleared += HandleFloorCleared;
-        }
+            GameManager.Instance.OnRunReset += HandleRunReset;
     }
 
     void OnDestroy()
     {
         if (GameManager.Instance != null)
+            GameManager.Instance.OnRunReset -= HandleRunReset;
+    }
+
+    void HandleRunReset()
+    {
+        intermediarySpawned = false;
+    }
+
+    void Update()
+    {
+        HandlePowerupState();
+
+        if (!spawningPaused && ShouldSpawnNextInBetween())
+            SpawnInBetween();
+    }
+
+    void HandlePowerupState()
+    {
+        if (GameManager.Instance == null) return;
+
+        bool awaiting = GameManager.Instance.AwaitingPowerupChoice;
+
+        if (awaiting && !wasAwaitingPowerupChoice)
         {
-            GameManager.Instance.OnWaveStarted -= HandleWaveStarted;
-            GameManager.Instance.OnFloorCleared -= HandleFloorCleared;
+            if (!intermediarySpawned)
+            {
+                SpawnIntermediary();
+                intermediarySpawned = true;
+            }
+
+            spawningPaused = true;
         }
+        else if (!awaiting && wasAwaitingPowerupChoice)
+        {
+            spawningPaused = false;
+        }
+
+        wasAwaitingPowerupChoice = awaiting;
     }
 
-    void HandleWaveStarted(int waveIndex)
+    bool ShouldSpawnNextInBetween()
     {
-        if (spawningPaused) return;
-        SpawnInBetween();
-    }
-
-    void HandleFloorCleared(int floorIndex)
-    {
-        SpawnIntermediary();
-        StartCoroutine(PauseThenResume());
+        return lastFloor == null || lastFloor.position.y <= inBetweenTriggerY;
     }
 
     void SpawnInBetween()
     {
-        if (inBetweenPrefab == null || lastFloor == null) return;
+        if (inBetweenPrefab == null) return;
 
-        Vector3 spawnPos = lastFloor.position + Vector3.up * inBetweenDistance;
-        lastFloor = Instantiate(inBetweenPrefab, spawnPos, Quaternion.identity, transform);
+        lastFloor = Instantiate(inBetweenPrefab, inBetweenSpawnPos, Quaternion.identity, transform);
     }
 
     void SpawnIntermediary()
     {
-        if (intermediaryPrefab == null || lastFloor == null) return;
+        if (intermediaryPrefab == null) return;
 
-        Vector3 spawnPos = lastFloor.position + Vector3.up * intermediaryDistance;
-        lastFloor = Instantiate(intermediaryPrefab, spawnPos, Quaternion.identity, transform);
-    }
-
-    IEnumerator PauseThenResume()
-    {
-        spawningPaused = true;
-        yield return new WaitForSeconds(pauseDuration);
-        spawningPaused = false;
+        lastFloor = Instantiate(intermediaryPrefab, intermediarySpawnPos, Quaternion.identity, transform);
     }
 }
