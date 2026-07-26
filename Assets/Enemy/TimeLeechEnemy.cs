@@ -12,6 +12,9 @@ public class TimeLeechEnemy : EnemyBase
     [SerializeField] private float timeLostPerHit;
     [SerializeField] private float drainInterval = 1.5f;
 
+    [Header("Particle System")]
+    [SerializeField] private ParticleSystem leechParticles;
+
     private float drainTimer;
 
     private void Start()
@@ -63,6 +66,7 @@ public class TimeLeechEnemy : EnemyBase
         if (drainTimer > 0f) return;
         if (!col.collider.TryGetComponent<ClockHand>(out ClockHand hand)) return;
 
+        leechParticles.Play();
         drainTimer = Mathf.Max(0.05f, drainInterval);
         gameManager.AddTime(-timeLostPerHit);
     }

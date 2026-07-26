@@ -460,6 +460,7 @@ MonoBehaviour:
       m_Bits: 256
   timeLostPerHit: 0.5
   drainInterval: 2.5
+  leechParticles: {fileID: 2338535963543121837, guid: e933b36fd172c53498f95c44ec065cda, type: 3}
 --- !u!95 &6157774521098070739
 Animator:
   serializedVersion: 7

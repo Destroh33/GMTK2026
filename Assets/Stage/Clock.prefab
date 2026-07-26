@@ -179,11 +179,9 @@ MonoBehaviour:
   minuteHandBonus: -45
   withSweepMultiplier: -1
   scaleBonusByCountdownSpeed: 1
-  perStrikeFalloff: 0.35
-  minStrikeMultiplier: 0.05
+  strikesToZero: 7
+  decayExponent: 2.5
   freeStrikesPerFloor: 1
-  scaleKickbackWithGain: 1
-  kickbackFalloffFactor: 0.7
   secondHandKickMultiplier: 3
   minuteHandKickMultiplier: 0.3
 --- !u!1 &3846774631197777686
