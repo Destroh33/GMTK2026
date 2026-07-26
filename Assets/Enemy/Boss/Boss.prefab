@@ -267,6 +267,8 @@ GameObject:
   - component: {fileID: 1923809302043934845}
   - component: {fileID: 91363177267906932}
   - component: {fileID: 1676582446960528746}
+  - component: {fileID: 5803833935919080783}
+  - component: {fileID: 5502842758088211149}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Enemy
@@ -284,7 +286,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.79, y: 2.17, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1548440416564169487}
@@ -339,7 +341,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -347,7 +349,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
 --- !u!50 &1923809302043934845
@@ -412,7 +414,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 6.55
 --- !u!114 &1676582446960528746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,10 +439,10 @@ MonoBehaviour:
   spawnDelayAfterSelection: 0.5
   batEnemyPrefab: {fileID: 8169415486020385645, guid: 06a00be13797bae4995df22b3381614f, type: 3}
   numBatsSpawned: 2
-  cooldownAfterBatSpawn: 3
+  cooldownAfterBatSpawn: 5
   dashSpeed: 25
-  dashRadius: 1.5
-  cooldownAfterDash: 1
+  dashRadius: 5
+  cooldownAfterDash: 0.5
   maxDashDuration: 1.5
   bullet: {fileID: 3441204382309307209, guid: 27dd48028ccf84bb1accceee18f1dd40, type: 3}
   bulletForce: 10
@@ -449,4 +451,40 @@ MonoBehaviour:
   timeBetweenShots: 0.1
   cooldownAfterBullets: 1
   skeletonEnemyPrefab: {fileID: 8169415486020385645, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
-  cooldownAfterSkeletonSpawn: 2
+  cooldownAfterSkeletonSpawn: 3
+--- !u!95 &5803833935919080783
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169415486020385645}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5490f425e0a10460e9eb2cc64dc00d82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5502842758088211149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169415486020385645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647a0e7f8dfd1422abc253f450846a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossAnimator
+  animator: {fileID: 5803833935919080783}
+  player: {fileID: 0}
