@@ -105,9 +105,11 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PitchVariatedClip(AudioClip clip, float vol = 1f) {
-        float origPitch = sfxSource.pitch;
-        sfxSource.pitch = Random.Range(pitchMin, pitchMax);
-        sfxSource.PlayOneShot(clip, vol);
-        sfxSource.pitch = origPitch;
+        GameObject tempAudioObject = new GameObject("VaritatedSFX");
+        AudioSource tempAudioSource = tempAudioObject.AddComponent<AudioSource>();
+        tempAudioSource.outputAudioMixerGroup = sfxSource.outputAudioMixerGroup;
+        tempAudioSource.pitch = Random.Range(pitchMin, pitchMax);        
+        tempAudioSource.PlayOneShot(clip, vol);
+        Destroy(tempAudioObject, clip.length/tempAudioSource.pitch);
     }
 }
