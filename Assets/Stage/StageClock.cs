@@ -54,8 +54,8 @@ public class StageClock : MonoBehaviour
         float sweepSign = clockwiseIsPositiveMotor ? 1f : -1f;
         float clockwiseSpeed = running ? sweepSign * defaultHandSpeed * timeScale : 0;
 
-        DriveHand(secondHandJoint, clockwiseSpeed);
-        DriveHand(minuteHandJoint, clockwiseSpeed * minuteHandSpeedRatio);
+        DriveHand(secondHand, secondHandJoint, clockwiseSpeed);
+        DriveHand(minuteHand, minuteHandJoint, clockwiseSpeed * minuteHandSpeedRatio);
 
         if (frozen != wasFrozen)
         {
@@ -77,9 +77,17 @@ public class StageClock : MonoBehaviour
         }
     }
 
-    void DriveHand(HingeJoint2D joint, float speed)
+    void DriveHand(ClockHand hand, HingeJoint2D joint, float speed)
     {
         if (joint == null) return;
+
+        if (hand != null && hand.IsStriking)
+        {
+            joint.useMotor = false;
+            return;
+        }
+
+        joint.useMotor = true;
 
         JointMotor2D m = joint.motor;
         m.motorSpeed = speed;
