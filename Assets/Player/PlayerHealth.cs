@@ -118,6 +118,15 @@ public class PlayerHealth : PlayerBehaviors
             spriteRenderer.enabled = Mathf.FloorToInt(invulnTimer / blinkInterval) % 2 == 0;
     }
 
+    public bool Heal(float amount)
+    {
+        if (amount <= 0f || health >= currentMax) return false;
+
+        health = Mathf.Min(health + amount, currentMax);
+        NotifyHealthChanged();
+        return true;
+    }
+
     public void TakeDamage(float amount)
     {
         if (IsInvulnerable) return;

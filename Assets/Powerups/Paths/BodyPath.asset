@@ -31,5 +31,5 @@ MonoBehaviour:
   rareDisplayName: Bloodlust
   rareDescription: Kills stack damage and move speed
   rareTint: {r: 1, g: 0.32, b: 0.32, a: 1}
-  rareChance: 0.25
+  rareChance: 0.15
   rareMaxLevel: 1

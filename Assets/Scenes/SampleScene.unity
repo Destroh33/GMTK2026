@@ -1161,7 +1161,7 @@ MonoBehaviour:
   spawnAnchor: {fileID: 1290011504}
   horizontalSpacing: 3.2
   rareChanceScale: 1
-  maxRarePerWave: -1
+  maxRarePerWave: 1
 --- !u!1 &1290011503
 GameObject:
   m_ObjectHideFlags: 0

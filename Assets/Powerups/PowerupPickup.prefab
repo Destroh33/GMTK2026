@@ -108,7 +108,7 @@ MonoBehaviour:
   tooltip:
     show: 1
     offset: {x: 0, y: 0.85, z: 0}
-    fontSize: 2.2
+    fontSize: 4
     width: 3
     height: 1.5
     showRareDescription: 1
