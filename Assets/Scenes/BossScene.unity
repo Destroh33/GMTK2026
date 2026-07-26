@@ -2504,9 +2504,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
+      propertyPath: dashSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
+      propertyPath: dashRadius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
       propertyPath: stageCenter
       value: 
       objectReference: {fileID: 1291020382}
+    - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
+      propertyPath: numberOfTurns
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923809302043934845, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
+      propertyPath: m_Mass
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2759358740070269396, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.42
