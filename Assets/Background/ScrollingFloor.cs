@@ -23,6 +23,9 @@ public class ScrollingFloor : MonoBehaviour
 
     [SerializeField] private float despawnDistanceBelowScreen = 5f;
 
+    [Tooltip("Seconds after scene start before this piece begins scrolling at all.")]
+    [SerializeField] private float initialPauseDuration = 0f;
+
     [Header("Powerup Transition Freeze")]
     [Tooltip("Only enable this on the intermediary/transition prefab. Once this piece scrolls down to freezeY during a powerup choice, it freezes EVERY floor piece (not just itself) until the choice is resolved.")]
     [SerializeField] private bool freezeAtPowerupY = false;
@@ -49,6 +52,9 @@ public class ScrollingFloor : MonoBehaviour
 
     void Update()
     {
+        if (Time.time < initialPauseDuration)
+            return;
+
         if (worldFrozen)
         {
             if (GameManager.Instance == null || !GameManager.Instance.AwaitingPowerupChoice)
