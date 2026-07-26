@@ -24,6 +24,13 @@ public abstract class EnemyBase : EnemyBehaviors
     [SerializeField] protected GameObject healthBar;
     [SerializeField] protected Image healthFill;
 
+    [Header("Audio")]
+    [SerializeField] protected AudioClip deathSFX;
+
+    [Header("Particle Effects")]
+    [SerializeField] protected ParticleSystem spawnParticles;
+    [SerializeField] protected ParticleSystem deathParticles;
+
     protected float health;
     protected float timeSinceDamage;
     protected Rigidbody2D rb;
@@ -45,13 +52,15 @@ public abstract class EnemyBase : EnemyBehaviors
     float tarSlow = 1f;
     float tarAmp = 1f;
 
+    public virtual bool ImmuneToAreaEffects => false;
+
     public bool IsTarred => tarTimer > 0f;
     protected float TarSpeedMultiplier => tarTimer > 0f ? tarSlow : 1f;
     public float TarDamageAmp => tarTimer > 0f ? tarAmp : 1f;
 
     public void ApplyTar(float slowMultiplier, float damageAmp, float duration)
     {
-        if (!IsAlive || duration <= 0f) return;
+        if (!IsAlive || duration <= 0f || ImmuneToAreaEffects) return;
 
         if (tarTimer <= 0f)
         {
@@ -90,6 +99,8 @@ public abstract class EnemyBase : EnemyBehaviors
         tarTimer = 0f;
         tarSlow = 1f;
         tarAmp = 1f;
+
+        if (spawnParticles != null) spawnParticles.Play();
     }
 
     protected virtual void FixedUpdate()
@@ -210,10 +221,12 @@ public abstract class EnemyBase : EnemyBehaviors
         if (died) return;
         died = true;
 
-        AudioManager.Instance?.PlayEnemyDeathSFX();
+        AudioManager.Instance?.PlayEnemyDeathSFX(deathSFX);
 
         OnDied?.Invoke(this);
         OnAnyDied?.Invoke(this);
+
+        if (deathParticles != null) deathParticles.Play();
 
         // TODO: death VFX / drops
         Destroy(gameObject);

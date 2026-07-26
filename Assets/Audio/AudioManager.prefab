@@ -205,6 +205,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 358d4ffbc1f4e684b80cae604234bb6e, type: 3}
   enemyShootSFX: {fileID: 8300000, guid: c0e5da5bf5cd9cd4796242da6951bba3, type: 3}
   enemyDeathSFX: {fileID: 8300000, guid: 9b4f9dc212828904684099264d5e869f, type: 3}
+  clockHandHitSFX: {fileID: 8300000, guid: 6871e4d4d71b35840affef1a3edd155c, type: 3}
 --- !u!114 &6250577367217279421
 MonoBehaviour:
   m_ObjectHideFlags: 0

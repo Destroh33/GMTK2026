@@ -14,6 +14,8 @@ public class BossBackgroundManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private Boss boss;
     [SerializeField] private SpriteRenderer bigBackgroundRenderer;
+    [Tooltip("The Boss's own sprite, for the dash tint. Auto-found from Boss if left unassigned.")]
+    [SerializeField] private SpriteRenderer bossSpriteRenderer;
 
     [Header("Map GameObjects (children)")]
     [Tooltip("Active by default.")]
@@ -33,10 +35,18 @@ public class BossBackgroundManager : MonoBehaviour
     [SerializeField] private float spawnDarkenMax = 0.6f;
     [SerializeField] private Color bigBackgroundDarkColor = new Color(0.35f, 0.35f, 0.35f);
 
+    [Header("Dash Tint")]
+    [SerializeField] private Color dashTintColor = Color.red;
+    [Tooltip("How long the tint holds before it starts fading back.")]
+    [SerializeField] private float dashTintHoldDuration = 0.2f;
+    [SerializeField] private float dashTintFadeDuration = 0.15f;
+
     private SpriteRenderer nonLitMapRenderer;
     private Color mapNormalColor = Color.white;
     private Color bigBackgroundNormalColor = Color.white;
+    private Color bossNormalColor = Color.white;
     private Coroutine activeRoutine;
+    private Coroutine dashTintRoutine;
 
     void Awake()
     {
@@ -74,6 +84,12 @@ public class BossBackgroundManager : MonoBehaviour
             boss = FindAnyObjectByType<Boss>();
 
         if (boss == null) return;
+
+        if (bossSpriteRenderer == null)
+        {
+            bossSpriteRenderer = boss.GetComponent<SpriteRenderer>();
+            if (bossSpriteRenderer != null) bossNormalColor = bossSpriteRenderer.color;
+        }
 
         boss.OnActionChanged -= HandleActionChanged; // avoid double-subscribing
         boss.OnActionChanged += HandleActionChanged;
@@ -115,6 +131,10 @@ public class BossBackgroundManager : MonoBehaviour
 
     void HandleDash()
     {
+        if (bossSpriteRenderer == null) return;
+
+        if (dashTintRoutine != null) StopCoroutine(dashTintRoutine);
+        dashTintRoutine = StartCoroutine(DashTintThenRevert());
     }
 
     void HandleShootProjectiles()
@@ -184,6 +204,24 @@ public class BossBackgroundManager : MonoBehaviour
 
         SetMapColor(mapTo);
         SetBigBackgroundColor(bgTo);
+    }
+
+    IEnumerator DashTintThenRevert()
+    {
+        bossSpriteRenderer.color = dashTintColor;
+
+        yield return new WaitForSeconds(dashTintHoldDuration);
+
+        float elapsed = 0f;
+        while (elapsed < dashTintFadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            bossSpriteRenderer.color = Color.Lerp(dashTintColor, bossNormalColor, elapsed / dashTintFadeDuration);
+            yield return null;
+        }
+
+        bossSpriteRenderer.color = bossNormalColor;
+        dashTintRoutine = null;
     }
 
     // --- Helpers ---

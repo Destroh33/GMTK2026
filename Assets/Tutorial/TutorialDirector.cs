@@ -27,6 +27,10 @@ public class TutorialDirector : MonoBehaviour
         public bool holdWorldWhileReading = true;
         public float minReadTime = 0.4f;
         public bool releaseFloorGate;
+        public bool unlockClockStrikes;
+        public bool repeatIfIdle = true;
+        public bool skipIfAlreadyMet = true;
+        public BeatCondition skipIf = BeatCondition.None;
     }
 
     public const string PrefsKey = "tutorial_done";
@@ -40,11 +44,13 @@ public class TutorialDirector : MonoBehaviour
     [SerializeField] private int tutorialFloorIndex = 0;
     [SerializeField] private bool runOnce = true;
     [SerializeField] private float startDelay = 0.5f;
+    [SerializeField] private bool lockClockUntilTaught = true;
 
     [Header("Conditions")]
     [SerializeField] private float moveHoldRequired = 0.5f;
     [SerializeField] private float conditionTimeout = 0f;
     [SerializeField] private float delayBeforeNextBeat = 1f;
+    [SerializeField] private float repeatAfterSeconds = 10f;
 
     [Header("Pausing")]
     [SerializeField] private bool pauseGameWhileSpeaking = true;
@@ -61,10 +67,11 @@ public class TutorialDirector : MonoBehaviour
         new Beat { line = "Welcome to the clock tower. Move with WASD.", condition = BeatCondition.Move },
         new Beat { line = "Space dodges. You will need it.", condition = BeatCondition.Dash },
         new Beat { line = "Left click to attack.", condition = BeatCondition.Attack },
-        new Beat { line = "Press 1, 2 or 3 to swap weapons.", condition = BeatCondition.SwitchWeapon },
+        new Beat { line = "Press 1, 2 or 3 to swap weapons. 1 is your pizza cutter.", condition = BeatCondition.SwitchWeapon },
         new Beat { line = "Now clear them out.", condition = BeatCondition.WaveCleared },
         new Beat { line = "That clock is your life. When it runs out, so do you.", condition = BeatCondition.None },
-        new Beat { line = "Strike a hand against its sweep and it pays you back in time.", condition = BeatCondition.StrikeHandForTime },
+        new Beat { line = "Bullets do nothing to it. Only the pizza cutter can move the hands.", condition = BeatCondition.None },
+        new Beat { line = "Press 1, then swing the cutter into a hand against its sweep. That pays you back in time.", condition = BeatCondition.StrikeHandForTime },
         new Beat { line = "But the tower learns. Every strike after the first is worth far less, until the next floor.", condition = BeatCondition.None, releaseFloorGate = true }
     };
 
@@ -101,10 +108,13 @@ public class TutorialDirector : MonoBehaviour
     {
         if (runOnce && Completed)
         {
+            ClockHand.StrikesLocked = false;
             ShowDialogue(false);
             enabled = false;
             return;
         }
+
+        ClockHand.StrikesLocked = lockClockUntilTaught;
 
         ResolveDialogue();
         ShowDialogue(false);
@@ -122,6 +132,7 @@ public class TutorialDirector : MonoBehaviour
     {
         Unsubscribe();
         ReleaseHold();
+        ClockHand.StrikesLocked = false;
     }
 
     void Subscribe()
@@ -163,10 +174,26 @@ public class TutorialDirector : MonoBehaviour
 
     void HandleFloorStarted(int floorIndex)
     {
+        if (floorIndex != tutorialFloorIndex)
+        {
+            if (running) Abort();
+            return;
+        }
+
         if (running || finished) return;
-        if (floorIndex != tutorialFloorIndex) return;
 
         StartCoroutine(Run());
+    }
+
+    void Abort()
+    {
+        StopAllCoroutines();
+        ReleaseHold();
+        ShowDialogue(false);
+        ClockHand.StrikesLocked = false;
+
+        running = false;
+        finished = true;
     }
 
     void HandleWaveCleared(int waveIndex) => waveCleared = true;
@@ -182,6 +209,7 @@ public class TutorialDirector : MonoBehaviour
 
         StopAllCoroutines();
         ReleaseHold();
+        ClockHand.StrikesLocked = false;
         running = false;
         ShowDialogue(false);
     }
@@ -189,6 +217,12 @@ public class TutorialDirector : MonoBehaviour
     void Update()
     {
         if (!running) return;
+
+        if (GameManager.Instance != null && GameManager.Instance.CurrentFloorIndex != tutorialFloorIndex)
+        {
+            Abort();
+            return;
+        }
 
         if (PlayerMovementRef() != null)
         {
@@ -201,6 +235,9 @@ public class TutorialDirector : MonoBehaviour
     {
         running = true;
         ShowDialogue(false);
+        ResetAllConditions();
+
+        if (lockClockUntilTaught) ClockHand.StrikesLocked = true;
 
         yield return new WaitForSecondsRealtime(startDelay);
 
@@ -211,6 +248,7 @@ public class TutorialDirector : MonoBehaviour
         }
 
         ShowDialogue(false);
+        ClockHand.StrikesLocked = false;
         running = false;
         finished = true;
 
@@ -219,6 +257,69 @@ public class TutorialDirector : MonoBehaviour
 
     IEnumerator PlayBeat(Beat beat)
     {
+        if (ShouldSkipBeat(beat)) yield break;
+
+        bool resolved = false;
+
+        while (!resolved)
+        {
+            yield return Speak(beat);
+
+            ResetCondition(beat.condition);
+
+            if (beat.condition == BeatCondition.None) break;
+
+            float waited = 0f;
+            float timeout = conditionTimeout;
+
+            while (true)
+            {
+                if (ConditionMet(beat.condition) || SkipConditionMet(beat))
+                {
+                    resolved = true;
+                    break;
+                }
+
+                if (conditionTimeout > 0f)
+                {
+                    timeout -= Time.unscaledDeltaTime;
+                    if (timeout <= 0f)
+                    {
+                        resolved = true;
+                        break;
+                    }
+                }
+
+                waited += Time.unscaledDeltaTime;
+                if (beat.repeatIfIdle && repeatAfterSeconds > 0f && waited >= repeatAfterSeconds) break;
+
+                yield return null;
+            }
+        }
+
+        if (delayBeforeNextBeat > 0f)
+            yield return new WaitForSecondsRealtime(delayBeforeNextBeat);
+    }
+
+    bool ShouldSkipBeat(Beat beat)
+    {
+        if (SkipConditionMet(beat)) return true;
+
+        return beat.skipIfAlreadyMet
+            && beat.condition != BeatCondition.None
+            && ConditionMet(beat.condition);
+    }
+
+    bool SkipConditionMet(Beat beat)
+    {
+        return beat.skipIf != BeatCondition.None && ConditionMet(beat.skipIf);
+    }
+
+    IEnumerator Speak(Beat beat)
+    {
+        if (beat.unlockClockStrikes)
+            ClockHand.StrikesLocked = false;
+
         if (beat.releaseFloorGate && GameManager.Instance != null)
             GameManager.Instance.ReleaseFloorGate();
 
@@ -257,25 +358,6 @@ public class TutorialDirector : MonoBehaviour
 
         ShowDialogue(false);
         ReleaseHold();
-
-        ResetCondition(beat.condition);
-
-        if (beat.condition != BeatCondition.None)
-        {
-            float timeout = conditionTimeout;
-            while (!ConditionMet(beat.condition))
-            {
-                if (conditionTimeout > 0f)
-                {
-                    timeout -= Time.unscaledDeltaTime;
-                    if (timeout <= 0f) break;
-                }
-                yield return null;
-            }
-        }
-
-        if (delayBeforeNextBeat > 0f)
-            yield return new WaitForSecondsRealtime(delayBeforeNextBeat);
     }
 
     bool ConditionMet(BeatCondition condition)
@@ -292,6 +374,18 @@ public class TutorialDirector : MonoBehaviour
             case BeatCondition.FloorCleared: return floorCleared;
             default: return true;
         }
+    }
+
+    void ResetAllConditions()
+    {
+        moveHeldTime = 0f;
+        dashed = false;
+        attacked = false;
+        killedEnemy = false;
+        switchedWeapon = false;
+        struckHandForTime = false;
+        waveCleared = false;
+        floorCleared = false;
     }
 
     void ResetCondition(BeatCondition condition)
@@ -339,7 +433,11 @@ public class TutorialDirector : MonoBehaviour
         {
             WorldPaused = false;
 
-            if (SettingsButton.Instance == null || !SettingsButton.Instance.gamePaused)
+            if (SettingsButton.Instance != null && SettingsButton.Instance.gamePaused) return;
+
+            if (GameManager.Instance != null)
+                GameManager.Instance.RefreshTimeScale();
+            else
                 Time.timeScale = scaleBeforeHold;
         }
     }

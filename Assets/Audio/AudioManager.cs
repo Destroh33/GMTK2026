@@ -6,7 +6,8 @@ using System.Collections.Generic;
 //Sword 5.wav by CpawsMusic -- https://freesound.org/s/437119/ -- License: Attribution 3.0
 //10SWORD05.aif by lostchocolatelab -- https://freesound.org/s/1468/ -- License: Creative Commons 0
 //Sword_Clash (7).wav by JohnBuhr -- https://freesound.org/s/326868/ -- License: Creative Commons 0
-//
+//Metal 06.wav by Debsound -- https://freesound.org/s/168822/ -- License: Attribution NonCommercial 4.0
+//Rattling Bones.wav by spookymodem -- https://freesound.org/s/202102/ -- License: Creative Commons 0
 
 public class AudioManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<AudioClip> reflectSFX;
     [SerializeField] private AudioClip enemyShootSFX;
     [SerializeField] private AudioClip enemyDeathSFX;
+    [SerializeField] private AudioClip clockHandHitSFX;
 
     private float pitchMin = 0.9f;
     private float pitchMax = 1.1f;
@@ -133,7 +135,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayEnemyShootSFX() => PitchVariatedClip(enemyShootSFX);
 
-    public void PlayEnemyDeathSFX() => PitchVariatedClip(enemyDeathSFX);
+    public void PlayEnemyDeathSFX(AudioClip clip = null) => PitchVariatedClip(clip != null ? clip : enemyDeathSFX);
+
+    public void PlayClockHandHitSFX() => PitchVariatedClip(clockHandHitSFX, 0.5f);
 
     public void OnMasterVolumeChange(float value) {
         mixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);
