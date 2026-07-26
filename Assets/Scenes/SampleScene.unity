@@ -359,100 +359,134 @@ MonoBehaviour:
   floors:
   - name: Floor 1
     waves:
-    - name: Wave 1
+    - name: Swarm
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 3
+      spawnDuration: 2
+      intermission: 2
   - name: Floor 2
     waves:
-    - name: Wave 1
+    - name: Flock
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 5
+      spawnDuration: 3
+      intermission: 2
   - name: Floor 3
     waves:
-    - name: Wave 1
+    - name: First Blood
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 3
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 2
+      spawnDuration: 3
+      intermission: 2
   - name: Floor 4
     waves:
-    - name: Wave 1
+    - name: Harried
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 6
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 2
+      spawnDuration: 4.5
+      intermission: 2
   - name: Floor 5
     waves:
-    - name: Wave 1
+    - name: Bruisers
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 4
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 4
+      spawnDuration: 4.5
+      intermission: 2
   - name: Floor 6
     waves:
-    - name: Wave 1
+    - name: Shield Wall
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 4
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 3
+      - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
         count: 1
-      spawnDuration: 1
-      intermission: 1
+      spawnDuration: 5
+      intermission: 2
   - name: Floor 7
     waves:
-    - name: Wave 1
+    - name: Pincer
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+        count: 6
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 3
+      - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
         count: 1
-      spawnDuration: 1
-      intermission: 1
+      spawnDuration: 5.5
+      intermission: 2
   - name: Floor 8
     waves:
-    - name: Wave 1
+    - name: Entrenched
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 4
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 4
+      - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+        count: 2
+      spawnDuration: 6
+      intermission: 2
   - name: Floor 9
     waves:
-    - name: Wave 1
+    - name: Blood Tide
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 8
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 3
+      - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+        count: 2
+      spawnDuration: 7
+      intermission: 2
   - name: Floor 10
     waves:
-    - name: Wave 1
+    - name: Phalanx
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 5
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 5
+      - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+        count: 3
+      spawnDuration: 7
+      intermission: 2
   - name: Floor 11
     waves:
-    - name: Wave 1
+    - name: Onslaught
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 10
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 4
+      - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+        count: 3
+      spawnDuration: 8.5
+      intermission: 2
   - name: Floor 12
     waves:
-    - name: Wave 1
+    - name: Midnight
       spawns:
       - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-        count: 1
-      spawnDuration: 1
-      intermission: 1
+        count: 8
+      - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
+        count: 6
+      - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+        count: 5
+      spawnDuration: 10
+      intermission: 2
   spawnPoints:
   - {fileID: 1312304867}
   - {fileID: 1624950173}
@@ -2412,6 +2446,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashSpeed
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: moveSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashDuration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999420726121763827, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: dashEndMomentum
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2525,6 +2575,22 @@ PrefabInstance:
       propertyPath: bulletSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3460052227762345938, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Size.x
+      value: 0.97472143
+      objectReference: {fileID: 0}
+    - target: {fileID: 3460052227762345938, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Size.y
+      value: 0.498805
+      objectReference: {fileID: 0}
+    - target: {fileID: 3460052227762345938, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.012639284
+      objectReference: {fileID: 0}
+    - target: {fileID: 3460052227762345938, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.36450568
+      objectReference: {fileID: 0}
     - target: {fileID: 3977040417030472013, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.968
@@ -2592,6 +2658,22 @@ PrefabInstance:
     - target: {fileID: 7420364194027619667, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733595080079028551, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9404026
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733595080079028551, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Size.y
+      value: 0.44084832
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733595080079028551, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.029798687
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733595080079028551, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.2196667
       objectReference: {fileID: 0}
     - target: {fileID: 7778916548071143843, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_Layer
