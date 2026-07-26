@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: 20ec9897b4d40426794a7e42d042c060
+guid: 2b51a3896d92b9ad23a130735be6c952
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5363898249433530477
-    second: walk_no_shield_0
+      213: 7616338743287863353
+    second: idle_naked_0
   - first:
-      213: -2698433651896119323
-    second: walk_no_shield_1
+      213: 2411735087893583848
+    second: idle_naked_1
   - first:
-      213: 3310999689931701704
-    second: walk_no_shield_2
+      213: 2039027235515936911
+    second: idle_naked_2
   - first:
-      213: -3792833581502955666
-    second: walk_no_shield_3
-  - first:
-      213: -7669292404917509618
-    second: walk_no_shield_4
-  - first:
-      213: 1062773811365887550
-    second: walk_no_shield_5
+      213: 2177326165183369779
+    second: idle_naked_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,7 +122,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: walk_no_shield_0
+      name: idle_naked_0
       rect:
         serializedVersion: 2
         x: 0
@@ -138,19 +132,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 39fbc2716fa9f85b0800000000000000
-      internalID: -5363898249433530477
+      spriteID: 8dd94e433bdbd3120800000000000000
+      internalID: 7616338743287863353
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk_no_shield_1
+      name: idle_naked_1
       rect:
         serializedVersion: 2
         x: 2048
@@ -160,19 +154,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5ef85c8f3ec3d8ad0800000000000000
-      internalID: -2698433651896119323
+      spriteID: 9ebc01da1dcdc3680800000000000000
+      internalID: 2411735087893583848
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk_no_shield_2
+      name: idle_naked_2
       rect:
         serializedVersion: 2
         x: 4096
@@ -182,19 +176,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8cdbec1fca803fd20800000000000000
-      internalID: 3310999689931701704
+      spriteID: 4c77e38b35b819c20800000000000000
+      internalID: 2039027235515936911
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk_no_shield_3
+      name: idle_naked_3
       rect:
         serializedVersion: 2
         x: 6144
@@ -204,85 +198,39 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e6ff752f3f52d5bc0800000000000000
-      internalID: -3792833581502955666
+      spriteID: bb6cd2ca9cfa1b010800000000000000
+      internalID: 2177326165183369779
       vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk_no_shield_4
-      rect:
-        serializedVersion: 2
-        x: 8192
-        y: 0
-        width: 2048
-        height: 2048
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e026a4ef033319590800000000000000
-      internalID: -7669292404917509618
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk_no_shield_5
-      rect:
-        serializedVersion: 2
-        x: 10240
-        y: 0
-        width: 2048
-        height: 2048
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e3e3d0f862bbfbe00800000000000000
-      internalID: 1062773811365887550
-      vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     outline: []
-    customData: 
+    customData:
     physicsShape: []
     bones: []
-    spriteID: 2a4757c63ef8e4141ac3b94fa3afdbf7
+    spriteID: 0bf7f69113b52d8dfecf349282f57ed6
     internalID: 0
     vertices: []
-    indices: 
+    indices:
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":2048.0,"y":2048.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":2048.0,"y":2048.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      walk_no_shield_0: -5363898249433530477
-      walk_no_shield_1: -2698433651896119323
-      walk_no_shield_2: 3310999689931701704
-      walk_no_shield_3: -3792833581502955666
-      walk_no_shield_4: -7669292404917509618
-      walk_no_shield_5: 1062773811365887550
-  mipmapLimitGroupName: 
+      idle_naked_0: 7616338743287863353
+      idle_naked_1: 2411735087893583848
+      idle_naked_2: 2039027235515936911
+      idle_naked_3: 2177326165183369779
+  mipmapLimitGroupName:
   pSDRemoveMatte: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:

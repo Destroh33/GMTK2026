@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Dash Collision")]
     [SerializeField] private string dashingLayer = "Dashing";
 
+    [Header("Dash VFX")]
+    [SerializeField] private DashVFX dashVfxPrefab;
+
     [Header("Sprite Facing")]
     [SerializeField] private SpriteRenderer bodySprite;
     [SerializeField] private bool spriteFacesLeftByDefault = false;
@@ -107,6 +110,10 @@ public class PlayerMovement : MonoBehaviour
         cooldownTimer = dashCooldown * PlayerStats.Mult(StatId.BodyDashCooldown);
         dashBufferTimer = 0f;
         SetLayerRecursive(dashingLayerIndex >= 0 ? dashingLayerIndex : defaultLayer);
+
+        // parented to the player so the streak rides along for the whole dash
+        if (dashVfxPrefab != null)
+            Instantiate(dashVfxPrefab, transform).Play(dashDir);
     }
 
     void Update()

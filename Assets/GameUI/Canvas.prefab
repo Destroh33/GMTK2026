@@ -466,7 +466,7 @@ MonoBehaviour:
   weaponSprites:
   - {fileID: -4887535394148196613, guid: 2315e403b761a4ece922b93d319dbca8, type: 3}
   - {fileID: -6122066395228836072, guid: 2549064dde7de4140bb3b365de6660c4, type: 3}
-  - {fileID: -724105580326358498, guid: 022503326aea07743be327e92907d5d9, type: 3}
+  - {fileID: 21300000, guid: 94909620a9141228cf0d5a9506e7880d, type: 3}
 --- !u!1 &3544614339811873689
 GameObject:
   m_ObjectHideFlags: 0
