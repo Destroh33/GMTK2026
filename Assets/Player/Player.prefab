@@ -412,8 +412,10 @@ MonoBehaviour:
   maxHealth: 8
   hitStunTime: 0.16
   hitStunStrength: 0.35
+  hitShakeTrauma: 0.45
   invulnerabilityTime: 0.8
   blinkInterval: 0.07
+  onDamageParticles: {fileID: 0}
   deathScreen: {fileID: 0}
 --- !u!114 &7417009959342925159
 MonoBehaviour:
@@ -904,7 +906,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.322, y: -0.124, z: 0}
-  m_LocalScale: {x: 0.20000002, y: 0.20000002, z: 0.20000002}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8465760570422542848}
@@ -959,7 +961,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6122066395228836072, guid: 2549064dde7de4140bb3b365de6660c4, type: 3}
+  m_Sprite: {fileID: 5875547963891608250, guid: 08c915ce37c6a4cc889be5ffa9c3eed3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
