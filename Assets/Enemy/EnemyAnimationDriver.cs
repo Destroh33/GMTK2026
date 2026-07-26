@@ -1,7 +1,5 @@
 using UnityEngine;
 
-// Drives the "moving" bool + sprite flip for enemies whose animator has an
-// idle/walk pair. ShieldEnemy handles its own animator, so it doesn't need this.
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyAnimationDriver : MonoBehaviour
@@ -24,8 +22,6 @@ public class EnemyAnimationDriver : MonoBehaviour
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // Single-state animators (bat, leech) have no "moving" bool; setting a
-        // parameter that doesn't exist spams warnings every frame.
         foreach (AnimatorControllerParameter p in animator.parameters)
         {
             if (p.type == AnimatorControllerParameterType.Bool && p.nameHash == MovingHash)

@@ -1,21 +1,23 @@
 using UnityEngine;
 
-// One-shot dash streak. Spawned by PlayerMovement as a child of the player so it
-// travels with them for the length of the dash, then destroyed once its
-// (non-looping) clip has played out.
 public class DashVFX : MonoBehaviour
 {
     [SerializeField] private float lifetime = 0.35f;
     [SerializeField] private bool orientToDirection = true;
-    [SerializeField] private Vector2 localOffset = Vector2.zero;
+
+    [Header("Placement")]
+    [SerializeField] private float backOffset = 0.55f;
+    [SerializeField] private float rotationOffset = 0f;
 
     public void Play(Vector2 direction)
     {
-        transform.localPosition = localOffset;
+        Vector2 dir = direction.sqrMagnitude > 0.0001f ? direction.normalized : Vector2.right;
 
-        if (orientToDirection && direction.sqrMagnitude > 0.0001f)
+        transform.localPosition = -dir * backOffset;
+
+        if (orientToDirection)
         {
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + rotationOffset;
             transform.localRotation = Quaternion.Euler(0f, 0f, angle);
         }
     }

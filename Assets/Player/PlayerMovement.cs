@@ -113,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
         dashBufferTimer = 0f;
         SetLayerRecursive(dashingLayerIndex >= 0 ? dashingLayerIndex : defaultLayer);
 
-        // parented to the player so the streak rides along for the whole dash
         if (dashVfxPrefab != null)
             Instantiate(dashVfxPrefab, transform).Play(dashDir);
     }

@@ -1,7 +1,5 @@
 using UnityEngine;
 
-// Picks one sprite at random when the object spawns, so a stream of otherwise
-// identical projectiles reads as a spray of chunks rather than one repeated icon.
 [RequireComponent(typeof(SpriteRenderer))]
 public class RandomSpriteVariant : MonoBehaviour
 {
