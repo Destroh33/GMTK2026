@@ -1,43 +1,25 @@
 fileFormatVersion: 2
-guid: 152a106ea3622428f94c538853ef5775
+guid: 56756feba61ff40aaa29e702f3d00e23
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1444714642315431443
-    second: mc_idle_spritesheet_0
+      213: 272909677937553239
+    second: walk_shield_0
   - first:
-      213: -146873470945427803
-    second: mc_idle_spritesheet_1
+      213: 8317020748710571316
+    second: walk_shield_1
   - first:
-      213: -7743613398733735799
-    second: mc_idle_spritesheet_2
+      213: 885388211729684661
+    second: walk_shield_2
   - first:
-      213: 7832964981207140007
-    second: mc_idle_spritesheet_3
+      213: 8603609679079868004
+    second: walk_shield_3
   - first:
-      213: 2646236523318801062
-    second: mc_idle_spritesheet_4
+      213: 8940609823009627860
+    second: walk_shield_4
   - first:
-      213: 7225545688630601750
-    second: mc_idle_spritesheet_5
-  - first:
-      213: 2891757292911449513
-    second: mc_idle_spritesheet_6
-  - first:
-      213: -6211637178124845213
-    second: mc_idle_spritesheet_7
-  - first:
-      213: -4195737871609098859
-    second: mc_idle_spritesheet_8
-  - first:
-      213: 3300839312144452762
-    second: mc_idle_spritesheet_9
-  - first:
-      213: -7561869210683967549
-    second: mc_idle_spritesheet_10
-  - first:
-      213: 2055590518263267150
-    second: mc_idle_spritesheet_11
+      213: 4061180978084709874
+    second: walk_shield_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 800
+  spritePixelsToUnits: 1200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -108,7 +90,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -146,79 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mc_idle_spritesheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 3072
-        width: 1240
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 31e44011058ac0410800000000000000
-      internalID: 1444714642315431443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mc_idle_spritesheet_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 2048
-        width: 1240
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5ae7e593b5336fdf0800000000000000
-      internalID: -146873470945427803
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mc_idle_spritesheet_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1024
-        width: 1240
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 988358a24a8298490800000000000000
-      internalID: -7743613398733735799
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mc_idle_spritesheet_3
+      name: walk_shield_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1240
-        height: 1024
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,8 +143,118 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7a60dea462844bc60800000000000000
-      internalID: 7832964981207140007
+      spriteID: 75feb39f7e199c300800000000000000
+      internalID: 272909677937553239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk_shield_1
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 2048
+        height: 2048
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43d62743e4efb6370800000000000000
+      internalID: 8317020748710571316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk_shield_2
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 0
+        width: 2048
+        height: 2048
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b8577833e7894c00800000000000000
+      internalID: 885388211729684661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk_shield_3
+      rect:
+        serializedVersion: 2
+        x: 6144
+        y: 0
+        width: 2048
+        height: 2048
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4660ba35b69266770800000000000000
+      internalID: 8603609679079868004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk_shield_4
+      rect:
+        serializedVersion: 2
+        x: 8192
+        y: 0
+        width: 2048
+        height: 2048
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4de5bdfb34d631c70800000000000000
+      internalID: 8940609823009627860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk_shield_5
+      rect:
+        serializedVersion: 2
+        x: 10240
+        y: 0
+        width: 2048
+        height: 2048
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f5005f15963c5830800000000000000
+      internalID: 4061180978084709874
       vertices: []
       indices: 
       edges: []
@@ -237,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 028946b41cdb647a1bec4c62d1ecf588
+    spriteID: 979fbdcc43ca341059cd1c38bc219f4c
     internalID: 0
     vertices: []
     indices: 
@@ -247,12 +273,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":4.0},"gridSpriteSize":{"x":1240.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":2048.0,"y":2048.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      mc_idle_spritesheet_0: 1444714642315431443
-      mc_idle_spritesheet_1: -146873470945427803
-      mc_idle_spritesheet_2: -7743613398733735799
-      mc_idle_spritesheet_3: 7832964981207140007
+      walk_shield_0: 272909677937553239
+      walk_shield_1: 8317020748710571316
+      walk_shield_2: 885388211729684661
+      walk_shield_3: 8603609679079868004
+      walk_shield_4: 8940609823009627860
+      walk_shield_5: 4061180978084709874
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
