@@ -19,12 +19,14 @@ public class VictoryScreen : MonoBehaviour
     void ShowVictoryUI()
     {
         VictoryUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void PlayAgain()
     {
         PlayerStats.Instance?.ResetForNewRun();
         PlayerHealth.Instance?.ResetForNewRun();
+        Time.timeScale = 1f;
 
         SceneManager.LoadScene("SampleScene");
     }
@@ -33,6 +35,7 @@ public class VictoryScreen : MonoBehaviour
     {
         PlayerStats.Instance?.ResetForNewRun();
         PlayerHealth.Instance?.ResetForNewRun();
+        Time.timeScale = 1f;
 
         SceneManager.LoadScene("Title");
     }
