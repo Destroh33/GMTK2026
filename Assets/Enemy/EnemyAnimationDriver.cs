@@ -6,6 +6,7 @@ public class EnemyAnimationDriver : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private bool flipToFaceMovement = true;
+    [SerializeField] private bool spriteFacesLeftByDefault = true;
     [SerializeField] private float movingThreshold = 0.05f;
 
     static readonly int MovingHash = Animator.StringToHash("moving");
@@ -40,6 +41,9 @@ public class EnemyAnimationDriver : MonoBehaviour
             animator.SetBool(MovingHash, velocity.sqrMagnitude > movingThreshold * movingThreshold);
 
         if (flipToFaceMovement && spriteRenderer != null && Mathf.Abs(velocity.x) > movingThreshold)
-            spriteRenderer.flipX = velocity.x > 0;
+        {
+            bool moveRight = velocity.x > 0;
+            spriteRenderer.flipX = spriteFacesLeftByDefault ? moveRight : !moveRight;
+        }
     }
 }
