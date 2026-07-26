@@ -29,11 +29,9 @@ public class StageClock : MonoBehaviour
     [SerializeField] private bool scaleBonusByCountdownSpeed = true;
 
     [Header("Diminishing Returns")]
-    [Range(0f, 1f)][SerializeField] private float perStrikeFalloff = 0.35f;
-    [Range(0f, 1f)][SerializeField] private float minStrikeMultiplier = 0.05f;
+    [SerializeField] private int strikesToZero = 7;
+    [SerializeField] private float decayExponent = 2.5f;
     [SerializeField] private int freeStrikesPerFloor = 1;
-    [SerializeField] private bool scaleKickbackWithGain = true;
-    [Range(0f, 1f)][SerializeField] private float kickbackFalloffFactor = 0.7f;
 
     [Header("Minute Hand Coupling")]
     [Tooltip("Every time the minute hand is struck, the second hand also gets knocked (same strike-tween mechanic) in the same direction, by the minute hand's own StrikeJumpDegrees times this multiplier.")]
@@ -82,7 +80,6 @@ public class StageClock : MonoBehaviour
         DriveHand(minuteHand, minuteHandJoint, clockwiseSpeed * minuteHandSpeedRatio);
 
         TrackFloorChange();
-        ApplyKickbackScale();
 
         if (frozen != wasFrozen)
         {
@@ -142,25 +139,35 @@ public class StageClock : MonoBehaviour
 
     void HandleSecondHandStruck(ClockHand hand, float strikeDirectionSign)
     {
-        ApplyStrikeTime(secondHandBonus, strikeDirectionSign);
+        float kick = ApplyStrikeTime(secondHandBonus, strikeDirectionSign);
 
-        if (minuteHand != null && secondHand != null)
-            minuteHand.Knock(strikeDirectionSign, secondHand.StrikeJumpDegrees * minuteHandKickMultiplier);
+        if (secondHand == null) return;
+
+        float degrees = secondHand.StrikeJumpDegrees * kick;
+        secondHand.Knock(strikeDirectionSign, degrees);
+
+        if (minuteHand != null)
+            minuteHand.Knock(strikeDirectionSign, degrees * minuteHandKickMultiplier);
     }
 
     void HandleMinuteHandStruck(ClockHand hand, float strikeDirectionSign)
     {
-        ApplyStrikeTime(minuteHandBonus, strikeDirectionSign);
+        float kick = ApplyStrikeTime(minuteHandBonus, strikeDirectionSign);
 
-        if (secondHand != null && minuteHand != null)
-            secondHand.Knock(strikeDirectionSign, minuteHand.StrikeJumpDegrees * secondHandKickMultiplier);
+        if (minuteHand == null) return;
+
+        float degrees = minuteHand.StrikeJumpDegrees * kick;
+        minuteHand.Knock(strikeDirectionSign, degrees);
+
+        if (secondHand != null)
+            secondHand.Knock(strikeDirectionSign, degrees * secondHandKickMultiplier);
     }
 
-    void ApplyStrikeTime(float baseAmount, float strikeDirectionSign)
+    float ApplyStrikeTime(float baseAmount, float strikeDirectionSign)
     {
-        if (GameManager.Instance == null) return;
+        if (GameManager.Instance == null) return 1f;
 
-        if (!GameManager.Instance.TimerRunning) return;
+        if (!GameManager.Instance.TimerRunning) return 1f;
 
         OnAnyHandStruck?.Invoke();
 
@@ -170,21 +177,30 @@ public class StageClock : MonoBehaviour
         if (scaleBonusByCountdownSpeed)
             amount *= Mathf.Max(1f, GameManager.Instance.CountdownSpeed);
 
+        float kick = 1f;
+
         if (amount > 0f)
         {
-            amount *= StrikeGainMultiplier();
+            kick = StrikeGainMultiplier();
+            amount *= kick;
             strikesThisFloor++;
             OnStrikeTimeGained?.Invoke(amount);
         }
 
         GameManager.Instance.AddTime(amount);
+
+        return kick;
     }
 
     float StrikeGainMultiplier()
     {
         int charged = Mathf.Max(0, strikesThisFloor - Mathf.Max(0, freeStrikesPerFloor - 1));
-        float falloff = Mathf.Pow(perStrikeFalloff, charged);
-        return Mathf.Max(minStrikeMultiplier, falloff);
+        int zeroAt = Mathf.Max(1, strikesToZero);
+
+        if (charged >= zeroAt) return 0f;
+
+        float t = (float)charged / zeroAt;
+        return Mathf.Pow(1f - t, Mathf.Max(0.01f, decayExponent));
     }
 
     void TrackFloorChange()
@@ -197,16 +213,6 @@ public class StageClock : MonoBehaviour
     }
 
     void ResetStrikeCount() => strikesThisFloor = 0;
-
-    void ApplyKickbackScale()
-    {
-        float scale = scaleKickbackWithGain
-            ? Mathf.Lerp(1f, StrikeGainMultiplier(), kickbackFalloffFactor)
-            : 1f;
-
-        if (secondHand != null) secondHand.SetStrikeScale(scale);
-        if (minuteHand != null) minuteHand.SetStrikeScale(scale);
-    }
 
     public void SetTimeScale(float newTimeScale) => timeScale = newTimeScale;
 

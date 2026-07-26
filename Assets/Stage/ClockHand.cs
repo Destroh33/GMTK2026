@@ -16,11 +16,13 @@ public class ClockHand : MonoBehaviour
 
     public event Action<ClockHand, float> OnStruck;
 
+    public static bool StrikesLocked { get; set; }
+
     public bool IsReversed => reverseTimer > 0f;
     public bool IsStriking => strikeMotionRoutine != null;
     public float AngularVelocity => rb != null ? rb.angularVelocity : 0f;
     public float SweepSign => sweepSign;
-    public float StrikeJumpDegrees => strikeJumpDegrees * strikeScale;
+    public float StrikeJumpDegrees => strikeJumpDegrees;
 
     [Header("Ticking")]
     [SerializeField] private float tickInterval = 1f;
@@ -33,9 +35,6 @@ public class ClockHand : MonoBehaviour
     float cooldownTimer;
     float sweepSign = 1f;
     float tickTimer;
-    float strikeScale = 1f;
-
-    public void SetStrikeScale(float scale) => strikeScale = Mathf.Clamp(scale, 0.05f, 1f);
 
     void Awake()
     {
@@ -87,6 +86,8 @@ public class ClockHand : MonoBehaviour
 
     public bool TryStrike(Vector2 hitPoint, Vector2 playerPos)
     {
+        if (StrikesLocked) return false;
+
         // wont hit if waiting for next floor to start
         if (GameManager.Instance != null && GameManager.Instance.ClockFrozen) return false;
 
@@ -106,7 +107,6 @@ public class ClockHand : MonoBehaviour
         cooldownTimer = strikeCooldown;
 
         float sign = Mathf.Sign(alongTangent);
-        PlayStrikeMotion(sign, StrikeJumpDegrees);
         reverseTimer = reverseDuration;
 
         OnStruck?.Invoke(this, sign);
