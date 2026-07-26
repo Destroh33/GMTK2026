@@ -164,9 +164,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBossDashSFX() => PitchVariatedClip(bossDashSFX);
 
-    public void PlayBossSpawnBatsSFX() => PitchVariatedClip(bossSpawnBatsSFX);
+    public void PlayBossSpawnBatsSFX() => PitchVariatedClip(bossSpawnBatsSFX, 0.7f);
 
-    public void PlayBossSpawnSkeletonSFX() => PitchVariatedClip(bossSpawnSkeletonSFX);
+    public void PlayBossSpawnSkeletonSFX() => PitchVariatedClip(bossSpawnSkeletonSFX, 2f);
 
     public void StartGibberish()
     {
