@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using System.Collections;
 using System.Collections.Generic;
 //AUDIO ATTRIBUTIONS 
 //CLOCKTick-Blue Snowball Microphone, CU_Large, Alarm, Looped_Nicholas Judy_TDC by designerschoice -- https://freesound.org/s/805330/ -- License: Attribution 4.0
@@ -31,10 +32,15 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip enemyDeathSFX;
     [SerializeField] private AudioClip clockHandHitSFX;
 
+    [Header("Gibberish (Dialogue)")]
+    [SerializeField] private List<AudioClip> gibberishSFX;
+    [SerializeField] private float gibberishPitch = 2f;
+
     private float pitchMin = 0.9f;
     private float pitchMax = 1.1f;
 
     private int clockTickIndex;
+    private Coroutine gibberishRoutine;
 
     void Awake()
     {
@@ -138,6 +144,42 @@ public class AudioManager : MonoBehaviour
     public void PlayEnemyDeathSFX(AudioClip clip = null) => PitchVariatedClip(clip != null ? clip : enemyDeathSFX);
 
     public void PlayClockHandHitSFX() => PitchVariatedClip(clockHandHitSFX, 0.5f);
+
+    public void StartGibberish()
+    {
+        StopGibberish();
+
+        if (gibberishSFX == null || gibberishSFX.Count == 0) return;
+
+        gibberishRoutine = StartCoroutine(GibberishLoop());
+    }
+
+    public void StopGibberish()
+    {
+        if (gibberishRoutine != null)
+        {
+            StopCoroutine(gibberishRoutine);
+            gibberishRoutine = null;
+        }
+    }
+
+    IEnumerator GibberishLoop()
+    {
+        while (true)
+        {
+            AudioClip clip = RandomClip(gibberishSFX);
+            float duration = clip.length / gibberishPitch;
+
+            GameObject tempAudioObject = new GameObject("GibberishSFX");
+            AudioSource tempAudioSource = tempAudioObject.AddComponent<AudioSource>();
+            tempAudioSource.outputAudioMixerGroup = sfxSource.outputAudioMixerGroup;
+            tempAudioSource.pitch = gibberishPitch;
+            tempAudioSource.PlayOneShot(clip);
+            Destroy(tempAudioObject, duration);
+
+            yield return new WaitForSecondsRealtime(duration);
+        }
+    }
 
     public void OnMasterVolumeChange(float value) {
         mixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);

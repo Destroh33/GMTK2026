@@ -206,6 +206,21 @@ MonoBehaviour:
   enemyShootSFX: {fileID: 8300000, guid: c0e5da5bf5cd9cd4796242da6951bba3, type: 3}
   enemyDeathSFX: {fileID: 8300000, guid: 9b4f9dc212828904684099264d5e869f, type: 3}
   clockHandHitSFX: {fileID: 8300000, guid: 6871e4d4d71b35840affef1a3edd155c, type: 3}
+  gibberishSFX:
+  - {fileID: 8300000, guid: 16b7df925ce43f541b74797d7bced57c, type: 3}
+  - {fileID: 8300000, guid: 1253f692feed473489692c73261fcc4e, type: 3}
+  - {fileID: 8300000, guid: 51a9f0e56e3ec324dad347ee3f6bd2e6, type: 3}
+  - {fileID: 8300000, guid: 5a1c078c254dbf547a1a00ea7b7bd67a, type: 3}
+  - {fileID: 8300000, guid: d31243dd10cf74f44aab630cd309dfaf, type: 3}
+  - {fileID: 8300000, guid: 3a5d8f69f30d4f74088b8107ec52e56b, type: 3}
+  - {fileID: 8300000, guid: da8f653641c028542811aec3499a6f47, type: 3}
+  - {fileID: 8300000, guid: 5d9494e6832d0394aaf85d9fb3465b68, type: 3}
+  - {fileID: 8300000, guid: 78bc3517164030545a9c73ea8aed19c2, type: 3}
+  - {fileID: 8300000, guid: 2a77b421a7f7b2b4fa4de2ae9d1a9972, type: 3}
+  - {fileID: 8300000, guid: f9da89230aa815247b82e8af6ef3bcdd, type: 3}
+  - {fileID: 8300000, guid: 6adbd2ca79b985c4695432c7882d542d, type: 3}
+  - {fileID: 8300000, guid: 72553e187bc097b45b9db0bcfd4aeb11, type: 3}
+  gibberishPitch: 2
 --- !u!114 &6250577367217279421
 MonoBehaviour:
   m_ObjectHideFlags: 0
