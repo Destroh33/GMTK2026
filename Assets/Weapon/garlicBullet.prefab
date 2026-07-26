@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8751074580384285562}
   - component: {fileID: -8969140046927969816}
   - component: {fileID: 2283480510332886540}
+  - component: {fileID: 3559314202003834820}
   m_Layer: 9
   m_Name: garlicBullet
   m_TagString: PlayerProjectile
@@ -84,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dc545cca86ae3894ce30863c830f97a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,9 +109,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   type: 0
-  lifetime: 2.5
-  damage: 1
-  knockbackForce: 3
+  lifetime: 3
+  damage: 2
+  knockbackForce: 4
   aoePrefab: {fileID: 1973442208828381589, guid: 9beba49973a018a439953ecb1aa52193, type: 3}
   staticWallLayer:
     serializedVersion: 2
@@ -181,3 +182,21 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &3559314202003834820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274377172074072589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3f87cd925a2e1dab2382d78bfc6ce, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::RandomSpriteVariant
+  target: {fileID: 5017993592454934478}
+  variants:
+  - {fileID: 21300000, guid: dc545cca86ae3894ce30863c830f97a7, type: 3}
+  - {fileID: 21300000, guid: 61d8770f91d8dda899f03e6dd99a6e19, type: 3}
+  - {fileID: 21300000, guid: c93ba6272ffa3d862f722721bd87781d, type: 3}
+  randomizeRotation: 1

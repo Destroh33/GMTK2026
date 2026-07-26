@@ -41,7 +41,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2491959297273648181}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -147,13 +147,14 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.15084, y: 1.24977, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5690209136722490302}
   - {fileID: 4750546441071008282}
   - {fileID: 3977040417030472013}
   - {fileID: 5708171859167469084}
+  - {fileID: 7217642517765975497}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5306489909934814737
@@ -168,15 +169,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827199728d9dc9a439838b0f54674353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageClock
-  secondHand: {fileID: 0}
-  minuteHand: {fileID: 0}
-  defaultHandSpeed: 30
+  secondHand: {fileID: 3866166691443590543}
+  minuteHand: {fileID: 1537053625047892171}
+  defaultHandSpeed: 10
   timeScale: 1
   motorTorque: 10000
   clockwiseIsPositiveMotor: 1
   minuteHandSpeedRatio: 0.083333336
-  secondHandBonus: 15
-  minuteHandBonus: 45
+  secondHandBonus: -15
+  minuteHandBonus: -45
   withSweepMultiplier: -1
   scaleBonusByCountdownSpeed: 1
 --- !u!1 &3846774631197777686
@@ -205,8 +206,8 @@ Transform:
   m_GameObject: {fileID: 3846774631197777686}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0014, y: 0.03, z: 0}
-  m_LocalScale: {x: 0.08694956, y: 1.417612, z: 1}
+  m_LocalPosition: {x: -0.00141, y: 0.32, z: 0}
+  m_LocalScale: {x: 0.08051529, y: 1.417612, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4750546441071008282}
@@ -315,6 +316,7 @@ GameObject:
   - component: {fileID: 8332110016494966222}
   - component: {fileID: 5764407296486626184}
   - component: {fileID: 3460052227762345938}
+  - component: {fileID: 3866166691443590543}
   m_Layer: 12
   m_Name: second hand
   m_TagString: Untagged
@@ -331,7 +333,7 @@ Transform:
   m_GameObject: {fileID: 5796022922310609500}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.916, y: -0.044, z: 0}
+  m_LocalPosition: {x: 1.989, y: -0.074, z: 0}
   m_LocalScale: {x: 3.6205719, y: 0.20086993, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -441,7 +443,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.5319302, y: 0.29433233}
-  m_ConnectedAnchor: {x: -0.019782543, y: 0.030245066}
+  m_ConnectedAnchor: {x: 0.12621689, y: -0.029754966}
   m_UseConnectedAnchor: 1
   m_UseMotor: 1
   m_Motor:
@@ -485,7 +487,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.012639284, y: 0.36450568}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -495,8 +497,25 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.91, y: 0.26}
   m_EdgeRadius: 0
+--- !u!114 &3866166691443590543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5796022922310609500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockHand
+  strikeJumpDegrees: 10
+  reverseDuration: 0.8
+  strikeCooldown: 0.25
+  strikeMotionDuration: 0.15
+  damageDealt: 1
 --- !u!1 &6622750106742311158
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +542,7 @@ Transform:
   m_GameObject: {fileID: 6622750106742311158}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.042, y: 0.03, z: 0}
+  m_LocalPosition: {x: -0.069, y: 0.17, z: 0}
   m_LocalScale: {x: 0.12259635, y: 0.93686926, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -602,6 +621,7 @@ GameObject:
   - component: {fileID: 6801665684355768079}
   - component: {fileID: 6190722011946274746}
   - component: {fileID: 7733595080079028551}
+  - component: {fileID: 1537053625047892171}
   m_Layer: 12
   m_Name: minute hand
   m_TagString: Untagged
@@ -618,7 +638,7 @@ Transform:
   m_GameObject: {fileID: 6940318963816761586}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.001, y: -0.046, z: 0}
+  m_LocalPosition: {x: -0.968, y: -0.07, z: 0}
   m_LocalScale: {x: 1.8428214, y: 0.22915408, z: 1.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -730,7 +750,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.54491585, y: 0.20640306}
-  m_ConnectedAnchor: {x: 0.0063648224, y: 0.00259614}
+  m_ConnectedAnchor: {x: 0.072365284, y: -0.045403797}
   m_UseConnectedAnchor: 1
   m_UseMotor: 1
   m_Motor:
@@ -774,7 +794,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.029798687, y: 0.2196667}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -784,8 +804,25 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9404026, y: 0.35}
   m_EdgeRadius: 0
+--- !u!114 &1537053625047892171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940318963816761586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e1834096fe4a918b5a34ff45f8a6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockHand
+  strikeJumpDegrees: 10
+  reverseDuration: 0.8
+  strikeCooldown: 0.25
+  strikeMotionDuration: 0.15
+  damageDealt: 1
 --- !u!1 &7149898327997464823
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,4 +991,66 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4957262242797397489, guid: c290246470a6c3a48beb3c4c6c55f115, type: 3}
   m_PrefabInstance: {fileID: 863630850530212845}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8405539500982243893
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3452299442757709438}
+    m_Modifications:
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7096853220973302939, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+      propertyPath: m_Name
+      value: ClockFaceManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+--- !u!4 &7217642517765975497 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1192413786183434236, guid: 4c75a698f5e1e4a2d873a160e089ba64, type: 3}
+  m_PrefabInstance: {fileID: 8405539500982243893}
   m_PrefabAsset: {fileID: 0}

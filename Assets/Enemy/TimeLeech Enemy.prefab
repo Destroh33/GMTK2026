@@ -267,6 +267,8 @@ GameObject:
   - component: {fileID: 1923809302043934845}
   - component: {fileID: 91363177267906932}
   - component: {fileID: 5805385446929751960}
+  - component: {fileID: 6157774521098070739}
+  - component: {fileID: 288226280541681386}
   m_Layer: 14
   m_Name: TimeLeech Enemy
   m_TagString: Enemy
@@ -339,7 +341,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 262c076df0a8885cbdd90ba7123717f2, type: 3}
   m_Color: {r: 0.7446011, g: 0.754717, b: 0.74285036, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -454,3 +456,40 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 256
   timeLostPerHit: 3
+--- !u!95 &6157774521098070739
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169415486020385645}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 578d938cbdabafcfa5098adba36850ab, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage:
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &288226280541681386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169415486020385645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d3e03adc70674825b966fc97939a293, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationDriver
+  spriteRenderer: {fileID: 599223004781041361}
+  flipToFaceMovement: 1
+  movingThreshold: 0.05

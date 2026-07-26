@@ -262,14 +262,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469bcb27d5fedf64ea07410d68d7222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 4
+  moveSpeed: 4.5
   moveSpeedModifier: 1
   acceleration: 60
   deceleration: 45
   turnBoost: 1.6
   dashSpeed: 11
   dashSpeedModifier: 1
-  dashDuration: 0.15
+  dashDuration: 0.2
   dashCooldown: 0.9
   dashCoyoteTime: 0.1
   iFrameDuration: 0.45
@@ -306,9 +306,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  dashEndMomentum: 0.55
+  dashEndMomentum: 0.75
   dashInputBufferTime: 0.12
   dashingLayer: Dashing
+  dashVfxPrefab: {fileID: 5457109576065429232, guid: 1200a41a41bf4d56c20cb594eb61f88a, type: 3}
   bodySprite: {fileID: 0}
   spriteFacesLeftByDefault: 0
   animator: {fileID: 0}
@@ -513,7 +514,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.322, y: -0.124, z: 0}
-  m_LocalScale: {x: 0.20000002, y: 0.20000002, z: 0.20000002}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3311000000000000109}
@@ -568,7 +569,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6122066395228836072, guid: 2549064dde7de4140bb3b365de6660c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 94909620a9141228cf0d5a9506e7880d, type: 3}
   m_Color: {r: 0.5254902, g: 0.5568628, b: 0.6, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -979,10 +980,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a2b3c4d5e6470010000000000000c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunWeapon
-  cooldown: 0.45
+  cooldown: 0.3
   kind: 0
   projectilePrefab: {fileID: 2274377172074072589, guid: b6048cdda1f053e4b871f7e38578991e, type: 3}
-  projectileSpeed: 9
+  projectileSpeed: 13
   firePoint: {fileID: 8465760570422542848}
   spreadStepDegrees: 11
   maxExtraPairs: 3

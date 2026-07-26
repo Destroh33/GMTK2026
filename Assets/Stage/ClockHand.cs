@@ -1,13 +1,15 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class ClockHand : MonoBehaviour
 {
     [Header("Strike Response")]
-    [SerializeField] private float strikeJumpDegrees = 40f;
-    [SerializeField] private float reverseDuration = 0.4f;
+    [SerializeField] private float strikeJumpDegrees = 18f;
+    [SerializeField] private float reverseDuration = 0.35f;
     [SerializeField] private float strikeCooldown = 0.25f;
+    [SerializeField] private float strikeMotionDuration = 0.08f;
 
     [Header("Player Interaction")]
     [SerializeField] private float damageDealt = 1f;
@@ -15,11 +17,13 @@ public class ClockHand : MonoBehaviour
     public event Action<ClockHand, float> OnStruck;
 
     public bool IsReversed => reverseTimer > 0f;
+    public bool IsStriking => strikeMotionRoutine != null;
     public float AngularVelocity => rb != null ? rb.angularVelocity : 0f;
     public float SweepSign => sweepSign;
 
     Rigidbody2D rb;
     HingeJoint2D hinge;
+    Coroutine strikeMotionRoutine;
     float reverseTimer;
     float cooldownTimer;
     float sweepSign = 1f;
@@ -74,14 +78,43 @@ public class ClockHand : MonoBehaviour
         cooldownTimer = strikeCooldown;
 
         float sign = Mathf.Sign(alongTangent);
-        float againstSweep = sign * sweepSign < 0f ? 1f : -1f;
-
-        rb.angularVelocity = 0f;
-        rb.rotation = rb.rotation + sign * strikeJumpDegrees;
+        PlayStrikeMotion(sign);
         reverseTimer = reverseDuration;
 
-        OnStruck?.Invoke(this, againstSweep);
+        OnStruck?.Invoke(this, sign);
         return true;
+    }
+
+    void PlayStrikeMotion(float sign)
+    {
+        if (strikeMotionRoutine != null)
+            StopCoroutine(strikeMotionRoutine);
+
+        strikeMotionRoutine = StartCoroutine(StrikeMotion(sign));
+    }
+
+    IEnumerator StrikeMotion(float sign)
+    {
+        float duration = Mathf.Max(0.01f, strikeMotionDuration);
+        float startRotation = rb.rotation;
+        float peakRotation = startRotation + sign * strikeJumpDegrees;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            if (GameManager.Instance != null && GameManager.Instance.ClockFrozen)
+            {
+                yield return new WaitForFixedUpdate();
+                continue;
+            }
+
+            elapsed += Time.fixedDeltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            rb.MoveRotation(Mathf.LerpAngle(startRotation, peakRotation, Mathf.SmoothStep(0f, 1f, t)));
+            yield return new WaitForFixedUpdate();
+        }
+
+        strikeMotionRoutine = null;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -90,7 +123,7 @@ public class ClockHand : MonoBehaviour
 
         GameObject other = collision.gameObject;
 
-        if (other.TryGetComponent<PlayerHealth>(out PlayerHealth p))
+        if (!IsStriking && !IsReversed && other.TryGetComponent<PlayerHealth>(out PlayerHealth p))
             p.TakeDamage(damageDealt);
 
         if (IsReversed && other.TryGetComponent<EnemyBase>(out EnemyBase e))

@@ -54,8 +54,8 @@ public class StageClock : MonoBehaviour
         float sweepSign = clockwiseIsPositiveMotor ? 1f : -1f;
         float clockwiseSpeed = running ? sweepSign * defaultHandSpeed * timeScale : 0;
 
-        DriveHand(secondHandJoint, clockwiseSpeed);
-        DriveHand(minuteHandJoint, clockwiseSpeed * minuteHandSpeedRatio);
+        DriveHand(secondHand, secondHandJoint, clockwiseSpeed);
+        DriveHand(minuteHand, minuteHandJoint, clockwiseSpeed * minuteHandSpeedRatio);
 
         if (frozen != wasFrozen)
         {
@@ -77,9 +77,17 @@ public class StageClock : MonoBehaviour
         }
     }
 
-    void DriveHand(HingeJoint2D joint, float speed)
+    void DriveHand(ClockHand hand, HingeJoint2D joint, float speed)
     {
         if (joint == null) return;
+
+        if (hand != null && hand.IsStriking)
+        {
+            joint.useMotor = false;
+            return;
+        }
+
+        joint.useMotor = true;
 
         JointMotor2D m = joint.motor;
         m.motorSpeed = speed;
@@ -99,17 +107,18 @@ public class StageClock : MonoBehaviour
         if (minuteHand != null) minuteHand.OnStruck -= HandleMinuteHandStruck;
     }
 
-    void HandleSecondHandStruck(ClockHand hand, float againstSweep) => ApplyStrikeTime(secondHandBonus, againstSweep);
+    void HandleSecondHandStruck(ClockHand hand, float strikeDirectionSign) => ApplyStrikeTime(secondHandBonus, strikeDirectionSign);
 
-    void HandleMinuteHandStruck(ClockHand hand, float againstSweep) => ApplyStrikeTime(minuteHandBonus, againstSweep);
+    void HandleMinuteHandStruck(ClockHand hand, float strikeDirectionSign) => ApplyStrikeTime(minuteHandBonus, strikeDirectionSign);
 
-    void ApplyStrikeTime(float baseAmount, float againstSweep)
+    void ApplyStrikeTime(float baseAmount, float strikeDirectionSign)
     {
         if (GameManager.Instance == null) return;
 
         if (!GameManager.Instance.TimerRunning) return;
 
-        float amount = baseAmount * (againstSweep > 0f ? 1f : withSweepMultiplier);
+        bool hitClockwise = clockwiseIsPositiveMotor ? strikeDirectionSign > 0f : strikeDirectionSign < 0f;
+        float amount = baseAmount * (hitClockwise ? -1f : 1f);
 
         if (scaleBonusByCountdownSpeed)
             amount *= Mathf.Max(1f, GameManager.Instance.CountdownSpeed);
