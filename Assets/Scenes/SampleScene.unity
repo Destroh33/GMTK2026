@@ -1972,6 +1972,104 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7440901014378661646, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
   m_PrefabInstance: {fileID: 1700000010}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1849337200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1849337201}
+  - component: {fileID: 1849337202}
+  m_Layer: 0
+  m_Name: Tutorial Director
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1849337201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849337200}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1849337202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849337200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3f9a12b4d84e7fa9c05d6e18b32f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialDirector
+  typewriter: {fileID: 0}
+  dialogueRoot: {fileID: 0}
+  dialoguePrefab: {fileID: 830250050840247125, guid: 90a2dc1c8bd99f549ba1bb5e1afbba7c, type: 3}
+  tutorialFloorIndex: 0
+  runOnce: 1
+  startDelay: 0.5
+  moveHoldRequired: 0.5
+  conditionTimeout: 0
+  delayBeforeNextBeat: 1
+  pauseGameWhileSpeaking: 1
+  allowSkipInput: 1
+  requireDismissInput: 1
+  skipLockout: 0.2
+  beats:
+  - line: Welcome to the clock tower. Move with WASD.
+    condition: 1
+    holdWorldWhileReading: 1
+    minReadTime: 0.4
+    releaseFloorGate: 0
+  - line: Space dodges. You will need it.
+    condition: 2
+    holdWorldWhileReading: 1
+    minReadTime: 0.4
+    releaseFloorGate: 0
+  - line: Left click to attack.
+    condition: 3
+    holdWorldWhileReading: 1
+    minReadTime: 0.4
+    releaseFloorGate: 0
+  - line: Press 1, 2 or 3 to swap weapons.
+    condition: 5
+    holdWorldWhileReading: 1
+    minReadTime: 0.4
+    releaseFloorGate: 0
+  - line: Now clear them out.
+    condition: 7
+    holdWorldWhileReading: 1
+    minReadTime: 0.4
+    releaseFloorGate: 0
+  - line: That clock is your life. When it runs out, so do you.
+    condition: 0
+    holdWorldWhileReading: 1
+    minReadTime: 0.6
+    releaseFloorGate: 0
+  - line: Strike a hand against its sweep and it pays you back in time.
+    condition: 6
+    holdWorldWhileReading: 1
+    minReadTime: 0.6
+    releaseFloorGate: 0
+  - line: But the tower learns. Every strike after the first is worth far less, until the next floor.
+    condition: 0
+    holdWorldWhileReading: 1
+    minReadTime: 0.6
+    releaseFloorGate: 1
 --- !u!1 &1904886285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2101,6 +2199,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 281078642506909596, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164443729457822883, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: startingWeapon
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2374701631335663084, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
@@ -3152,3 +3254,4 @@ SceneRoots:
   - {fileID: 1770637582}
   - {fileID: 1643929878622125195}
   - {fileID: 1913788977}
+  - {fileID: 1849337201}

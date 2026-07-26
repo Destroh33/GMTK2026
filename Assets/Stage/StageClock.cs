@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
 public class StageClock : MonoBehaviour
 {
+    public static event Action<float> OnStrikeTimeGained;
+    public static event Action OnAnyHandStruck;
+
     [Header("Hands")]
     [SerializeField] private ClockHand secondHand;
     private HingeJoint2D secondHandJoint;
@@ -158,6 +162,8 @@ public class StageClock : MonoBehaviour
 
         if (!GameManager.Instance.TimerRunning) return;
 
+        OnAnyHandStruck?.Invoke();
+
         bool hitClockwise = clockwiseIsPositiveMotor ? strikeDirectionSign > 0f : strikeDirectionSign < 0f;
         float amount = baseAmount * (hitClockwise ? -1f : 1f);
 
@@ -168,6 +174,7 @@ public class StageClock : MonoBehaviour
         {
             amount *= StrikeGainMultiplier();
             strikesThisFloor++;
+            OnStrikeTimeGained?.Invoke(amount);
         }
 
         GameManager.Instance.AddTime(amount);

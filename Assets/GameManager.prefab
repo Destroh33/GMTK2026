@@ -228,6 +228,8 @@ MonoBehaviour:
   - {fileID: 0}
   autoStart: 1
   initialDelay: 2
+  gateFirstFloorRewards: 1
+  gateFloorIndex: 0
 --- !u!114 &5235467735282853147
 MonoBehaviour:
   m_ObjectHideFlags: 0

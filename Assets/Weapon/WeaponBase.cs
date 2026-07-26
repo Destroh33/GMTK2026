@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
+    public static event Action<WeaponBase> OnAnyWeaponUsed;
+
     [SerializeField] protected float cooldown = 0.4f;
 
     private float nextUseTime;
@@ -23,6 +26,7 @@ public abstract class WeaponBase : MonoBehaviour
 
         nextUseTime = Time.time + cooldown * CooldownMultiplier();
         Use(aimDir);
+        OnAnyWeaponUsed?.Invoke(this);
     }
 
     protected virtual float CooldownMultiplier() => 1f;

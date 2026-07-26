@@ -50,6 +50,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool autoStart = true;
     [SerializeField] private float initialDelay = 2f;
 
+    [Header("First Floor Gate")]
+    [SerializeField] private bool gateFirstFloorRewards = true;
+    [SerializeField] private int gateFloorIndex = 0;
+    [SerializeField] private float gateReleaseDelay = 1f;
+
     public float TimeRemaining { get; private set; }
     public bool TimerRunning { get; private set; }
     public int CurrentFloorIndex { get; private set; } = -1;
@@ -59,7 +64,8 @@ public class GameManager : MonoBehaviour
     public int PendingSpawnCount => spawnQueue.Count;
     public int FloorCount => floors.Count;
     public bool AwaitingPowerupChoice { get; private set; }
-    public bool ClockFrozen => !TimerRunning || AwaitingPowerupChoice;
+    public bool TutorialHold { get; private set; }
+    public bool ClockFrozen => !TimerRunning || AwaitingPowerupChoice || TutorialHold;
 
     public event Action OnTimeExpired;
     public event Action<int> OnFloorStarted;
@@ -77,7 +83,12 @@ public class GameManager : MonoBehaviour
 
     float waveTimer;
     int nextSpawnIndex;
+    bool struckClockThisRun;
+    bool awaitingGateStrike;
+    Coroutine gateReleaseRoutine;
     private Coroutine gameSpeedCoroutine;
+
+    public bool AwaitingGateStrike => awaitingGateStrike;
 
     void Awake()
     {
@@ -134,6 +145,48 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        StageClock.OnAnyHandStruck += HandleAnyHandStruck;
+    }
+
+    void OnDisable()
+    {
+        StageClock.OnAnyHandStruck -= HandleAnyHandStruck;
+    }
+
+    void HandleAnyHandStruck()
+    {
+        struckClockThisRun = true;
+
+        if (!awaitingGateStrike || gateReleaseRoutine != null) return;
+
+        gateReleaseRoutine = StartCoroutine(ReleaseGateAfterDelay());
+    }
+
+    IEnumerator ReleaseGateAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(Mathf.Max(0f, gateReleaseDelay));
+
+        gateReleaseRoutine = null;
+        ReleaseFloorGate();
+    }
+
+    public void ReleaseFloorGate()
+    {
+        if (!awaitingGateStrike) return;
+
+        awaitingGateStrike = false;
+
+        if (gateReleaseRoutine != null)
+        {
+            StopCoroutine(gateReleaseRoutine);
+            gateReleaseRoutine = null;
+        }
+
+        CompleteFloorCleared();
+    }
+
     void OnDestroy()
     {
         if (Instance == this)
@@ -150,7 +203,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateTimer()
     {
-        if (!TimerRunning || AwaitingPowerupChoice) return;
+        if (!TimerRunning || AwaitingPowerupChoice || TutorialHold) return;
 
         TimeRemaining -= Time.deltaTime * countdownSpeed;
 
@@ -165,7 +218,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateWaves()
     {
-        if (AwaitingPowerupChoice) return;
+        if (AwaitingPowerupChoice || TutorialHold) return;
 
         switch (CurrentWaveState)
         {
@@ -221,6 +274,18 @@ public class GameManager : MonoBehaviour
     }
 
     void HandleFloorCleared()
+    {
+        if (gateFirstFloorRewards && CurrentFloorIndex == gateFloorIndex && !struckClockThisRun)
+        {
+            awaitingGateStrike = true;
+            CurrentWaveState = WaveState.AwaitFloorAdvance;
+            return;
+        }
+
+        CompleteFloorCleared();
+    }
+
+    void CompleteFloorCleared()
     {
         OnFloorCleared?.Invoke(CurrentFloorIndex);
 
@@ -411,6 +476,16 @@ public class GameManager : MonoBehaviour
         AwaitingPowerupChoice = false;
     }
 
+    public void BeginTutorialHold()
+    {
+        TutorialHold = true;
+    }
+
+    public void EndTutorialHold()
+    {
+        TutorialHold = false;
+    }
+
     public void PauseTimer() => TimerRunning = false;
     public void ResumeTimer() => TimerRunning = true;
     
@@ -429,6 +504,14 @@ public class GameManager : MonoBehaviour
         spawnQueue.Clear();
         spawnTimes.Clear();
         nextSpawnIndex = 0;
+        struckClockThisRun = false;
+        awaitingGateStrike = false;
+
+        if (gateReleaseRoutine != null)
+        {
+            StopCoroutine(gateReleaseRoutine);
+            gateReleaseRoutine = null;
+        }
 
         TimeRemaining = startTime;
         TimerRunning = true;
@@ -437,6 +520,7 @@ public class GameManager : MonoBehaviour
         CurrentWaveIndexInFloor = -1;
         CurrentWaveState = WaveState.Idle;
         AwaitingPowerupChoice = false;
+        TutorialHold = false;
 
         OnRunReset?.Invoke();
 
@@ -470,7 +554,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = speed;
         while (elapsed < duration)
         {
-            if(SettingsButton.Instance == null || !SettingsButton.Instance.gamePaused)
+            bool paused = (SettingsButton.Instance != null && SettingsButton.Instance.gamePaused)
+                || TutorialDirector.WorldPaused;
+
+            if (!paused)
             {
                 elapsed += Time.unscaledDeltaTime;
             }
