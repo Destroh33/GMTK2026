@@ -121,6 +121,7 @@ public class Boss : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
+        AudioManager.Instance?.PlayBossMusic();
     }
 
     private void Update()
@@ -145,6 +146,7 @@ public class Boss : MonoBehaviour
                     for (int t = 0; t < teleportCount; t++)
                     {
                         SetAction(BossAction.Teleport);
+                        AudioManager.Instance?.PlayBossTeleportSFX();
                         Vector2 teleportPosition = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
                         transform.position = teleportPosition;
                         rb.linearVelocity = Vector2.zero;
@@ -154,6 +156,7 @@ public class Boss : MonoBehaviour
                 case 1: //spawn bats
                     SetAction(BossAction.SpawnBats);
                     yield return new WaitForSeconds(spawnDelayAfterSelection);
+                    AudioManager.Instance?.PlayBossSpawnBatsSFX();
                     int batsToSpawn = PastHalfway ? numBatsSpawnedPostHalf : numBatsSpawned;
                     for (int i = 0; i < batsToSpawn; i++)
                     {
@@ -169,6 +172,7 @@ public class Boss : MonoBehaviour
                         rb.linearVelocity = Vector2.zero;
                         Vector2 posToDashTo = (Vector2)FindAnyObjectByType<PlayerMovement>().transform.position + Random.insideUnitCircle * dashRadius;
                         rb.AddForce(dashSpeed * (posToDashTo - (Vector2)transform.position).normalized, ForceMode2D.Impulse);
+                        AudioManager.Instance?.PlayBossDashSFX();
 
                         float dashElapsed = 0f;
                         while (dashElapsed < maxDashDuration
@@ -204,6 +208,7 @@ public class Boss : MonoBehaviour
                 case 4: //spawn shield skeleton
                     SetAction(BossAction.SpawnSkeleton);
                     yield return new WaitForSeconds(spawnDelayAfterSelection);
+                    AudioManager.Instance?.PlayBossSpawnSkeletonSFX();
                     Instantiate(skeletonEnemyPrefab, (Vector2)stageCenter.position + Random.insideUnitCircle * radiusOfStage, Quaternion.identity);
                     yield return new WaitForSeconds(ScaledCooldown(cooldownAfterSkeletonSpawn));
                     break;
@@ -236,6 +241,8 @@ public class Boss : MonoBehaviour
     public virtual void TakeDamage(float amount, Vector2 knockbackImpulse)
     {
         if (healthPoints <= 0f) return;
+
+        AudioManager.Instance?.PlayBossHitSFX();
 
         healthPoints -= amount;
         timeSinceDamage = 0f;

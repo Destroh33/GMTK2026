@@ -32,6 +32,15 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip enemyDeathSFX;
     [SerializeField] private AudioClip clockHandHitSFX;
 
+    [Header("Boss")]
+    [SerializeField] private AudioClip bossMusic;
+    [SerializeField] private AudioClip bossHitSFX;
+    [SerializeField] private AudioClip bossDeathSFX;
+    [SerializeField] private AudioClip bossTeleportSFX;
+    [SerializeField] private AudioClip bossDashSFX;
+    [SerializeField] private AudioClip bossSpawnBatsSFX;
+    [SerializeField] private AudioClip bossSpawnSkeletonSFX;
+
     [Header("Gibberish (Dialogue)")]
     [SerializeField] private List<AudioClip> gibberishSFX;
     [SerializeField] private float gibberishPitch = 2f;
@@ -144,6 +153,20 @@ public class AudioManager : MonoBehaviour
     public void PlayEnemyDeathSFX(AudioClip clip = null) => PitchVariatedClip(clip != null ? clip : enemyDeathSFX);
 
     public void PlayClockHandHitSFX() => PitchVariatedClip(clockHandHitSFX, 0.5f);
+
+    public void PlayBossMusic() => PlayMusic(bossMusic);
+
+    public void PlayBossHitSFX() => PitchVariatedClip(bossHitSFX);
+
+    public void PlayBossDeathSFX() => PitchVariatedClip(bossDeathSFX);
+
+    public void PlayBossTeleportSFX() => PitchVariatedClip(bossTeleportSFX);
+
+    public void PlayBossDashSFX() => PitchVariatedClip(bossDashSFX);
+
+    public void PlayBossSpawnBatsSFX() => PitchVariatedClip(bossSpawnBatsSFX);
+
+    public void PlayBossSpawnSkeletonSFX() => PitchVariatedClip(bossSpawnSkeletonSFX);
 
     public void StartGibberish()
     {
