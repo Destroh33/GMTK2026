@@ -24,6 +24,14 @@ public class StageClock : MonoBehaviour
     [SerializeField] private float withSweepMultiplier = -1f;
     [SerializeField] private bool scaleBonusByCountdownSpeed = true;
 
+    [Header("Minute Hand Coupling")]
+    [Tooltip("Every time the minute hand is struck, the second hand also gets knocked (same strike-tween mechanic) in the same direction, by the minute hand's own StrikeJumpDegrees times this multiplier.")]
+    [SerializeField] private float secondHandKickMultiplier = 5f;
+
+    [Header("Second Hand Coupling")]
+    [Tooltip("Every time the second hand is struck, the minute hand also gets knocked (same strike-tween mechanic) in the same direction, by the second hand's own StrikeJumpDegrees times this multiplier - keep this small, the minute hand should barely move.")]
+    [SerializeField] private float minuteHandKickMultiplier = 0.1f;
+
     bool wasFrozen;
 
     void Start()
@@ -107,17 +115,30 @@ public class StageClock : MonoBehaviour
         if (minuteHand != null) minuteHand.OnStruck -= HandleMinuteHandStruck;
     }
 
-    void HandleSecondHandStruck(ClockHand hand, float againstSweep) => ApplyStrikeTime(secondHandBonus, againstSweep);
+    void HandleSecondHandStruck(ClockHand hand, float strikeDirectionSign)
+    {
+        ApplyStrikeTime(secondHandBonus, strikeDirectionSign);
 
-    void HandleMinuteHandStruck(ClockHand hand, float againstSweep) => ApplyStrikeTime(minuteHandBonus, againstSweep);
+        if (minuteHand != null && secondHand != null)
+            minuteHand.Knock(strikeDirectionSign, secondHand.StrikeJumpDegrees * minuteHandKickMultiplier);
+    }
 
-    void ApplyStrikeTime(float baseAmount, float againstSweep)
+    void HandleMinuteHandStruck(ClockHand hand, float strikeDirectionSign)
+    {
+        ApplyStrikeTime(minuteHandBonus, strikeDirectionSign);
+
+        if (secondHand != null && minuteHand != null)
+            secondHand.Knock(strikeDirectionSign, minuteHand.StrikeJumpDegrees * secondHandKickMultiplier);
+    }
+
+    void ApplyStrikeTime(float baseAmount, float strikeDirectionSign)
     {
         if (GameManager.Instance == null) return;
 
         if (!GameManager.Instance.TimerRunning) return;
 
-        float amount = baseAmount * (againstSweep > 0f ? 1f : withSweepMultiplier);
+        bool hitClockwise = clockwiseIsPositiveMotor ? strikeDirectionSign > 0f : strikeDirectionSign < 0f;
+        float amount = baseAmount * (hitClockwise ? -1f : 1f);
 
         if (scaleBonusByCountdownSpeed)
             amount *= Mathf.Max(1f, GameManager.Instance.CountdownSpeed);

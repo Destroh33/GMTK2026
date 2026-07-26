@@ -492,4 +492,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationDriver
   spriteRenderer: {fileID: 599223004781041361}
   flipToFaceMovement: 1
+  spriteFacesLeftByDefault: 1
   movingThreshold: 0.05
