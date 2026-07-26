@@ -157,7 +157,7 @@ public class ClockHand : MonoBehaviour
 
         GameObject other = collision.gameObject;
 
-        if (!IsStriking && !IsReversed && other.TryGetComponent<PlayerHealth>(out PlayerHealth p))
+        if (other.TryGetComponent<PlayerHealth>(out PlayerHealth p))
             p.TakeDamage(damageDealt);
 
         if (IsReversed && other.TryGetComponent<EnemyBase>(out EnemyBase e))
