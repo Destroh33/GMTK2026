@@ -1,0 +1,170 @@
+using System.Collections;
+using UnityEngine;
+
+public class Boss : MonoBehaviour
+{
+    [Header("Base Stats")]
+    [SerializeField] public float healthPoints;
+    [SerializeField] float contactDamage = 1f;
+    [SerializeField] float contactDamageCooldown;
+
+    private Rigidbody2D rb;
+    GameManager gameManager;
+
+    [Header("Stage Setup")]
+    [SerializeField] private Transform stageCenter;
+    [SerializeField] private int radiusOfStage;
+    [SerializeField] private float bossFightMaxTime;
+    private float bossFightTimer;
+    private bool canBeHit;
+    private float nextContactDamageTime;
+
+    [Header("=====Boss Attack Values=====")]
+    [Header("case 1: teleport")]
+    [SerializeField] private float timeBetweenTeleports;
+
+    [Header("case 2: spawn bats")]
+    [SerializeField] private GameObject batEnemyPrefab;
+    [SerializeField] int numBatsSpawned;
+    [SerializeField] float cooldownAfterBatSpawn;
+
+    [Header("case 3: dash attack")]
+    [SerializeField] float dashSpeed;
+    [SerializeField] float dashRadius;
+    [SerializeField] float cooldownAfterDash;
+
+    [Header("case 4: shoot projectiles")]
+    [SerializeField] GameObject bullet;
+    [SerializeField] float bulletForce;
+    [SerializeField] int bulletsPerCircle;
+    [SerializeField] int numberOfTurns;
+    [SerializeField] float timeBetweenShots;
+    [SerializeField] float cooldownAfterBullets;
+
+    [Header("case 5: slash attack")]
+    [SerializeField] GameObject slashAttack;
+    [SerializeField] float timeSlashIsActive;
+    [SerializeField] float cooldownAfterSlash;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        StartCoroutine(StateMachine());
+        bossFightTimer = bossFightMaxTime;
+    }
+
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+    }
+
+    public IEnumerator StateMachine()
+    {
+        while (true)
+        {
+            int choice = Random.Range(0, 5);
+            switch (choice)
+            {
+                case 0: //teleport to another spot in the stage
+                    Vector2 teleportPosition = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
+                    transform.position = teleportPosition;
+                    yield return new WaitForSeconds(timeBetweenTeleports);
+                    break;
+                case 1: //spawn bats
+                    for (int i = 0; i < numBatsSpawned; i++)
+                    {
+                        Instantiate(batEnemyPrefab, (Vector2)transform.position + Random.onUnitCircle * 3, Quaternion.identity);
+                    }
+                    yield return new WaitForSeconds(cooldownAfterBatSpawn);
+                    break;
+                case 2: //dash
+                    Vector2 posToDashTo = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
+                    rb.AddForce(dashSpeed * (posToDashTo - (Vector2)transform.position).normalized, ForceMode2D.Impulse);
+                    yield return new WaitUntil(() => Vector2.Distance(posToDashTo, (Vector2)transform.position) < 0.5f || rb.linearVelocity.magnitude < 0.1f);
+                    rb.linearVelocity = Vector2.zero;
+                    break;
+                case 3: //shoot projectiles - spiral pattern
+                    float angleBetweenShots = 360 / bulletsPerCircle;
+                    for (int _ = 0; _ < numberOfTurns; _++)
+                    {
+                        for (int i = 0; i < bulletsPerCircle; i++)
+                        {
+                            float angleToShoot = angleBetweenShots * i;
+                            EnemyProjectile b = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+                            b.Launch(new Vector2(Mathf.Cos(angleToShoot), Mathf.Sin(angleToShoot)).normalized, bulletForce);
+                            yield return new WaitForSeconds(timeBetweenShots);
+                        }
+                    }
+                    yield return new WaitForSeconds(cooldownAfterBullets);
+                    break;
+                case 4: //frontal slash attack
+                    PlayerHealth player = FindAnyObjectByType<PlayerHealth>();
+                    if (player != null)
+                    {
+                        Vector2 dirToPlayer = (player.transform.position - transform.position).normalized;
+                        float angle = Mathf.Atan2(dirToPlayer.y, dirToPlayer.x) * Mathf.Rad2Deg;
+                        slashAttack.transform.rotation = Quaternion.Euler(0, 0, angle);
+                    }
+                    slashAttack.SetActive(true);
+                    yield return new WaitForSeconds(timeSlashIsActive);
+                    slashAttack.SetActive(false);
+                    yield return new WaitForSeconds(cooldownAfterSlash);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+    }
+
+    public virtual void TakeDamage(float amount)
+    {
+        TakeDamage(amount, Vector2.zero);
+    }
+
+    public virtual void TakeDamage(float amount, Vector2 knockbackImpulse)
+    {
+        if (healthPoints <= 0f) return;
+
+        healthPoints -= amount;
+
+        if (knockbackImpulse.sqrMagnitude > 0.0001f && rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(knockbackImpulse, ForceMode2D.Impulse);
+        }
+
+        if (healthPoints <= 0f) 
+        {
+            Die();
+        }
+    }
+
+    void Die() 
+    {
+        //TODO
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TryDealContactDamage(collision);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        TryDealContactDamage(collision);
+    }
+
+    private void TryDealContactDamage(Collision2D collision)
+    {
+        if (Time.time < nextContactDamageTime) return;
+
+        PlayerHealth player = collision.collider.GetComponentInParent<PlayerHealth>();
+        if (player == null) return;
+
+        player.TakeDamage(contactDamage);
+        nextContactDamageTime = Time.time + contactDamageCooldown;
+    }
+
+}

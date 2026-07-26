@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6b1ca3ece517424ea5822fb3c53e973, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Powerup
   data: {fileID: 0}
   haloTarget: {fileID: 4411000000000000007}
@@ -113,7 +113,7 @@ MonoBehaviour:
     height: 1.5
     showRareDescription: 1
     promptKey: E
-    font: {fileID: 0}
+    font: {fileID: 11400000, guid: eaf36b6222f1d2549bed19dd875c27ef, type: 2}
     titleColor: {r: 1, g: 1, b: 1, a: 1}
     sortingOrder: 20
 --- !u!1 &4411000000000000005
@@ -297,6 +297,6 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []

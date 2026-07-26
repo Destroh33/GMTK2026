@@ -272,7 +272,7 @@ MonoBehaviour:
   dashDuration: 0.15
   dashCooldown: 0.9
   dashCoyoteTime: 0.1
-  iFrameDuration: 0.2
+  iFrameDuration: 0.45
   dashSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -409,8 +409,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxHealth: 5
-  hitStunTime: 0.5
-  hitStunStrength: 0.1
+  hitStunTime: 0.16
+  hitStunStrength: 0.35
+  invulnerabilityTime: 0.8
+  blinkInterval: 0.07
 --- !u!114 &7417009959342925159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,8 +462,17 @@ MonoBehaviour:
   damagePerStackPerLevel: 0.04
   moveSpeedPerStack: 0.04
   moveSpeedPerStackPerLevel: 0.02
-  tintTarget: {fileID: 0}
-  fullStackTint: {r: 1, g: 0.5, b: 0.5, a: 1}
+  tintTarget: {fileID: 4164905293212769660}
+  fullStackTint: {r: 1, g: 0.35, b: 0.35, a: 0.85}
+  particleSprite: {fileID: 21300000, guid: d5e6f70819293a4b5c6d7e8f90a1b2c4, type: 3}
+  particleMaterial: {fileID: 0}
+  particleColor: {r: 0.85, g: 0.05, b: 0.1, a: 1}
+  particlesPerStack: 9
+  particleLifetime: 0.7
+  particleSpeed: 1.1
+  particleSize: 0.22
+  particleRadius: 0.35
+  particleSortingOrder: 4
 --- !u!114 &3311000000000000111
 MonoBehaviour:
   m_ObjectHideFlags: 0

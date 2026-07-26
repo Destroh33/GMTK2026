@@ -1,29 +1,46 @@
+using System;
 using UnityEngine;
 
 public class PlayerHealth : PlayerBehaviors
 {
     [Header("Health")]
-    [SerializeField] float maxHealth = 5f;
+    [SerializeField] float maxHealth = 8f;
 
     [Header("Stun")]
-    [SerializeField] float hitStunTime = 0.5f;
-    [SerializeField] float hitStunStrength = 0.1f;
+    [SerializeField] float hitStunTime = 0.16f;
+    [SerializeField] float hitStunStrength = 0.35f;
+
+    [Header("Invulnerability")]
+    [SerializeField] float invulnerabilityTime = 0.8f;
+    [SerializeField] float blinkInterval = 0.07f;
 
     float health;
     float currentMax;
     bool subscribed;
+    float invulnTimer;
+    PlayerMovement movement;
+
+    public bool IsInvulnerable => invulnTimer > 0f || (movement != null && movement.IsInvulnerable);
 
     public float Health => health;
     public float MaxHealth => currentMax;
 
+    public event Action<float, float> OnHealthChanged;
+
     void Awake()
     {
+        movement = GetComponent<PlayerMovement>();
         currentMax = maxHealth;
         health = currentMax;
+        NotifyHealthChanged();
         SetFlashInfo();
         SetVignetteInfo();
     }
 
+    void NotifyHealthChanged()
+    {
+        OnHealthChanged?.Invoke(health, currentMax);
+    }
     protected override void SetFlashInfo()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -80,11 +97,35 @@ public class PlayerHealth : PlayerBehaviors
     {
         currentMax = maxHealth;
         health = currentMax;
+
+        NotifyHealthChanged();
+    }
+
+    void Update()
+    {
+        if (invulnTimer <= 0f) return;
+
+        invulnTimer -= Time.deltaTime;
+
+        if (spriteRenderer == null) return;
+
+        if (invulnTimer <= 0f)
+            spriteRenderer.enabled = true;
+        else
+            spriteRenderer.enabled = Mathf.FloorToInt(invulnTimer / blinkInterval) % 2 == 0;
     }
 
     public void TakeDamage(float amount)
     {
+        if (IsInvulnerable) return;
+
+        invulnTimer = invulnerabilityTime;
         health -= amount;
+
+        health = Mathf.Max(health, 0f);
+
+        NotifyHealthChanged();
+
         GameManager.Instance.GameSpeed(hitStunStrength, hitStunTime, true);
 
         if (health <= 0f)

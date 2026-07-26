@@ -62,10 +62,15 @@ public class Projectile : MonoBehaviour
         {
             // projectile hit enemy
             EnemyBase hitEnemy = null;
+            Boss hitBoss = null;
             if (col.collider.TryGetComponent<EnemyBase>(out var e))
             {
                 e.TakeDamage(damage, rb.linearVelocity.normalized * knockbackForce);
                 hitEnemy = e;
+            }
+            else if ((hitBoss = col.collider.GetComponentInParent<Boss>()) != null)
+            {
+                hitBoss.TakeDamage(damage, rb.linearVelocity.normalized * knockbackForce);
             }
 
             if (aoePrefab != null)
@@ -85,10 +90,15 @@ public class Projectile : MonoBehaviour
         {
             // for piercing bullets
             EnemyBase hitEnemy = null;
+            Boss hitBoss = null;
             if (collision.TryGetComponent<EnemyBase>(out var e))
             {
                 e.TakeDamage(damage, rb.linearVelocity.normalized * knockbackForce);
                 hitEnemy = e;
+            }
+            else if ((hitBoss = collision.GetComponentInParent<Boss>()) != null)
+            {
+                hitBoss.TakeDamage(damage, rb.linearVelocity.normalized * knockbackForce);
             }
 
             int bounceLayers = staticWallLayer.value | clockHandLayer.value;
