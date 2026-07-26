@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip swingSFX;
     [SerializeField] private List<AudioClip> clockTickSFX;
     [SerializeField] private float clockTickVolume = 0.5f;
+    [SerializeField] private float clockTickMaxVolumeMultiplier = 5f;
     [SerializeField] private List<AudioClip> reflectSFX;
     [SerializeField] private AudioClip enemyShootSFX;
     [SerializeField] private AudioClip enemyDeathSFX;
@@ -112,7 +113,15 @@ public class AudioManager : MonoBehaviour
         AudioClip clip = clockTickSFX[clockTickIndex % clockTickSFX.Count];
         clockTickIndex++;
 
-        PitchVariatedClip(clip, clockTickVolume);
+        PitchVariatedClip(clip, clockTickVolume * ClockTickUrgencyMultiplier());
+    }
+
+    float ClockTickUrgencyMultiplier()
+    {
+        if (GameManager.Instance == null || GameManager.Instance.StartTime <= 0f) return 1f;
+
+        float remainingFraction = Mathf.Clamp01(GameManager.Instance.TimeRemaining / GameManager.Instance.StartTime);
+        return Mathf.Lerp(clockTickMaxVolumeMultiplier, 1f, remainingFraction);
     }
 
     public void PlayReflectSFX() => PitchVariatedClip(RandomClip(reflectSFX));

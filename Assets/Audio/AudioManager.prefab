@@ -197,7 +197,8 @@ MonoBehaviour:
   clockTickSFX:
   - {fileID: 8300000, guid: 3321d0143ab8d494eac8370dac771ad0, type: 3}
   - {fileID: 8300000, guid: e9dc807fb3f229c4791e0f015bb9bc80, type: 3}
-  clockTickVolume: 0.25
+  clockTickVolume: 0.15
+  clockTickMaxVolumeMultiplier: 8
   reflectSFX:
   - {fileID: 8300000, guid: 278b315aba116aa4bb2f889381a437f6, type: 3}
   - {fileID: 8300000, guid: eb971aa26d20b9345ae30acf0bf1ceac, type: 3}
