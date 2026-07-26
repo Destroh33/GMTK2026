@@ -190,6 +190,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8e81f6a78845ee647ae2a067d3b20ce6, type: 3}
   - {fileID: 8300000, guid: e10cdece535dc27479947dea12871f47, type: 3}
   - {fileID: 8300000, guid: 2f7978f5065ed604cbd4b2686045440a, type: 3}
+  - {fileID: 8300000, guid: efe025cf37bc2a24a93e030490e47601, type: 3}
+  - {fileID: 8300000, guid: 607e7db7840ba0b4e82d52fae6a31906, type: 3}
+  - {fileID: 8300000, guid: f430dc9bb37334e498e150e1f672d9ca, type: 3}
   hitSFX: {fileID: 8300000, guid: c0e5da5bf5cd9cd4796242da6951bba3, type: 3}
   rollSFX: {fileID: 8300000, guid: 8335bfceab10b5b46a3f422f6e6934c8, type: 3}
   shootSFX: {fileID: 8300000, guid: 4d9099d45846bdb4586c00613d283084, type: 3}
@@ -206,6 +209,13 @@ MonoBehaviour:
   enemyShootSFX: {fileID: 8300000, guid: c0e5da5bf5cd9cd4796242da6951bba3, type: 3}
   enemyDeathSFX: {fileID: 8300000, guid: 9b4f9dc212828904684099264d5e869f, type: 3}
   clockHandHitSFX: {fileID: 8300000, guid: 6871e4d4d71b35840affef1a3edd155c, type: 3}
+  bossMusic: {fileID: 8300000, guid: 8d27f867253b8bf4ca47676a741dcf5b, type: 3}
+  bossHitSFX: {fileID: 8300000, guid: 7661bd02a8cbb6549b6978dfab63a42f, type: 3}
+  bossDeathSFX: {fileID: 8300000, guid: 1253f692feed473489692c73261fcc4e, type: 3}
+  bossTeleportSFX: {fileID: 8300000, guid: 9b4f9dc212828904684099264d5e869f, type: 3}
+  bossDashSFX: {fileID: 8300000, guid: 3c3df68d1bc608e43b3d7cf2309f77d4, type: 3}
+  bossSpawnBatsSFX: {fileID: 8300000, guid: 2606633817bcd584d9696a520edb1f39, type: 3}
+  bossSpawnSkeletonSFX: {fileID: 8300000, guid: 336e6488d75c942469bc9d77b48877bf, type: 3}
   gibberishSFX:
   - {fileID: 8300000, guid: 16b7df925ce43f541b74797d7bced57c, type: 3}
   - {fileID: 8300000, guid: 1253f692feed473489692c73261fcc4e, type: 3}
