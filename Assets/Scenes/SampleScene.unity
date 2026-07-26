@@ -1883,7 +1883,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1831041609639058882, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7440901014378661646, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1851897158}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02edde25969cf2f4aad0b1da8767e8db, type: 3}
 --- !u!224 &1700000011 stripped
@@ -1993,6 +1996,11 @@ PrefabInstance:
 --- !u!1 &1851897157 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 539635259269183701, guid: 9c72b02362837ba47aec9f412f9cdbdd, type: 3}
+  m_PrefabInstance: {fileID: 31836205}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1851897158 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7224707786014662981, guid: 9c72b02362837ba47aec9f412f9cdbdd, type: 3}
   m_PrefabInstance: {fileID: 31836205}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1913788977
@@ -2110,6 +2118,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3452309587475125127, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: bulletSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: minuteHandKickMultiplier
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306489909934814737, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
+      propertyPath: secondHandKickMultiplier
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6773165975672491602, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
@@ -2988,4 +3004,3 @@ SceneRoots:
   - {fileID: 1770637582}
   - {fileID: 1643929878622125195}
   - {fileID: 1913788977}
-  - {fileID: 31836205}

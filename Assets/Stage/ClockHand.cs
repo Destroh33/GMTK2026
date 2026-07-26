@@ -20,6 +20,7 @@ public class ClockHand : MonoBehaviour
     public bool IsStriking => strikeMotionRoutine != null;
     public float AngularVelocity => rb != null ? rb.angularVelocity : 0f;
     public float SweepSign => sweepSign;
+    public float StrikeJumpDegrees => strikeJumpDegrees;
 
     Rigidbody2D rb;
     HingeJoint2D hinge;
@@ -78,26 +79,35 @@ public class ClockHand : MonoBehaviour
         cooldownTimer = strikeCooldown;
 
         float sign = Mathf.Sign(alongTangent);
-        PlayStrikeMotion(sign);
+        PlayStrikeMotion(sign, strikeJumpDegrees);
         reverseTimer = reverseDuration;
 
         OnStruck?.Invoke(this, sign);
         return true;
     }
 
-    void PlayStrikeMotion(float sign)
+    // for minute hand trigger second hand movement
+    public void Knock(float sign, float degrees)
+    {
+        if (GameManager.Instance != null && GameManager.Instance.ClockFrozen) return;
+
+        PlayStrikeMotion(sign, degrees);
+        reverseTimer = reverseDuration;
+    }
+
+    void PlayStrikeMotion(float sign, float degrees)
     {
         if (strikeMotionRoutine != null)
             StopCoroutine(strikeMotionRoutine);
 
-        strikeMotionRoutine = StartCoroutine(StrikeMotion(sign));
+        strikeMotionRoutine = StartCoroutine(StrikeMotion(sign, degrees));
     }
 
-    IEnumerator StrikeMotion(float sign)
+    IEnumerator StrikeMotion(float sign, float degrees)
     {
         float duration = Mathf.Max(0.01f, strikeMotionDuration);
         float startRotation = rb.rotation;
-        float peakRotation = startRotation + sign * strikeJumpDegrees;
+        float peakRotation = startRotation + sign * degrees;
         float elapsed = 0f;
 
         while (elapsed < duration)

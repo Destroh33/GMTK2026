@@ -179,6 +179,8 @@ MonoBehaviour:
   minuteHandBonus: -45
   withSweepMultiplier: -1
   scaleBonusByCountdownSpeed: 1
+  secondHandKickMultiplier: 3
+  minuteHandKickMultiplier: 0.3
 --- !u!1 &3846774631197777686
 GameObject:
   m_ObjectHideFlags: 0
