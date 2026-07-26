@@ -16,6 +16,7 @@ public class SwordWeapon : WeaponBase
     [SerializeField] private float hitWidth = 1.05f;
     [SerializeField] private float hitDuration = 0.3f;
     [SerializeField] private bool hitboxFollowsAim = true;
+    [SerializeField] private bool lockAimDuringSwing = true;
 
     [Header("Damage")]
     [SerializeField] private float damage = 3f;
@@ -28,7 +29,7 @@ public class SwordWeapon : WeaponBase
     [SerializeField] private float riposteBaseDamage = 2f;
     [SerializeField] private float riposteDamagePerLevel = 2f;
 
-    private static readonly int SwingHash = Animator.StringToHash("swing");
+    private static readonly int SwingStateHash = Animator.StringToHash("Swing");
 
     private readonly HashSet<Object> hitThisSwing = new HashSet<Object>();
 
@@ -36,7 +37,12 @@ public class SwordWeapon : WeaponBase
     private float activeTimer;
     private bool swinging;
     private Vector3 bladeBaseScale = Vector3.one;
-    private bool hasBladeBaseScale;
+    private Vector3 bladeBasePosition;
+    private bool hasBladeBase;
+    private Quaternion pivotRestRotation = Quaternion.identity;
+    private Vector3 pivotRestPosition;
+
+    public override bool LockAim => swinging && lockAimDuringSwing;
 
     void Awake()
     {
@@ -45,21 +51,55 @@ public class SwordWeapon : WeaponBase
         if (playerCenter == null)
             playerCenter = transform.parent != null ? transform.parent.parent : null;
 
+        pivotRestRotation = transform.localRotation;
+        pivotRestPosition = transform.localPosition;
+
         if (bladeVisual != null)
         {
             bladeBaseScale = bladeVisual.localScale;
-            hasBladeBaseScale = true;
+            bladeBasePosition = bladeVisual.localPosition;
+            hasBladeBase = true;
         }
+    }
+
+    void OnEnable()
+    {
+        RestorePivotRest();
+
+        if (swingAnimator != null)
+        {
+            swingAnimator.speed = 1f;
+            swingAnimator.Rebind();
+            swingAnimator.Update(0f);
+        }
+    }
+
+    void OnDisable()
+    {
+        swinging = false;
+        activeTimer = 0f;
+        hitThisSwing.Clear();
+
+        if (slash != null) slash.Stop();
+
+        RestorePivotRest();
+    }
+
+    void RestorePivotRest()
+    {
+        transform.localRotation = pivotRestRotation;
+        transform.localPosition = pivotRestPosition;
     }
 
     void ApplyReachVisual()
     {
-        if (bladeVisual == null || !hasBladeBaseScale) return;
+        if (bladeVisual == null || !hasBladeBase) return;
 
         float reach = PlayerStats.Mult(StatId.SwordReach);
         float k = 1f + (reach - 1f) * reachVisualFactor;
 
         bladeVisual.localScale = bladeBaseScale * k;
+        bladeVisual.localPosition = bladeBasePosition * k;
     }
 
     protected override float CooldownMultiplier() => PlayerStats.Mult(StatId.SwordCooldown);
@@ -96,7 +136,7 @@ public class SwordWeapon : WeaponBase
             swingAnimator.speed = swingClipLength > 0f && swingTime > 0f
                 ? swingClipLength / swingTime
                 : 1f;
-            swingAnimator.SetTrigger(SwingHash);
+            swingAnimator.Play(SwingStateHash, 0, 0f);
         }
 
         if (aimDir.sqrMagnitude > 0.0001f)
@@ -119,9 +159,9 @@ public class SwordWeapon : WeaponBase
         float scaledDamage = PlayerStats.Damage(damage, StatId.SwordDamage);
         float scaledKnockback = knockbackForce * PlayerStats.Mult(StatId.SwordKnockback);
 
-        Vector2 origin = Origin();
+        Vector2 playerOrigin = Origin();
         Vector2 dir = CurrentDir();
-        Vector2 center = origin + dir * (length * 0.5f);
+        Vector2 center = playerOrigin + dir * (length * 0.5f);
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         Collider2D[] hits = Physics2D.OverlapBoxAll(center, new Vector2(length, width), angle, hittableLayers);
@@ -130,7 +170,7 @@ public class SwordWeapon : WeaponBase
         {
             if (hit.attachedRigidbody == null) continue;
 
-            Vector2 away = ((Vector2)hit.transform.position - origin).normalized;
+            Vector2 away = ((Vector2)hit.transform.position - playerOrigin).normalized;
             if (away.sqrMagnitude < 0.0001f) away = dir;
 
             if (hit.TryGetComponent<EnemyBase>(out EnemyBase e))
@@ -146,7 +186,7 @@ public class SwordWeapon : WeaponBase
             else if (hit.attachedRigidbody.TryGetComponent<ClockHand>(out ClockHand hand))
             {
                 if (!hitThisSwing.Add(hand)) continue;
-                hand.TryStrike(hit.ClosestPoint(center), origin);
+                hand.TryStrike(hit.ClosestPoint(center), playerOrigin);
             }
             else
             {
@@ -155,7 +195,7 @@ public class SwordWeapon : WeaponBase
             }
         }
 
-        RiposteSweep(origin, dir, length, width, angle);
+        RiposteSweep(playerOrigin, dir, length, width, angle);
     }
 
     void RiposteSweep(Vector2 origin, Vector2 dir, float length, float width, float angle)
@@ -190,10 +230,10 @@ public class SwordWeapon : WeaponBase
 
     Vector2 CurrentDir()
     {
-        if (hitboxFollowsAim && transform.parent != null)
+        if (hitboxFollowsAim)
         {
-            Vector2 aim = transform.parent.right;
-            if (aim.sqrMagnitude > 0.0001f) return aim.normalized;
+            Vector2 blade = transform.right;
+            if (blade.sqrMagnitude > 0.0001f) return blade.normalized;
         }
 
         return swingDir;
@@ -205,7 +245,7 @@ public class SwordWeapon : WeaponBase
         if (c == null) c = transform;
 
         Vector2 origin = c.position;
-        Vector2 dir = transform.parent != null ? (Vector2)transform.parent.right : (Vector2)transform.right;
+        Vector2 dir = transform.right;
         if (dir.sqrMagnitude < 0.0001f) dir = Vector2.right;
         dir = dir.normalized;
 

@@ -10,6 +10,9 @@ public class TimeLeechEnemy : EnemyBase
 
     [Header("Attacks")]
     [SerializeField] private float timeLostPerHit;
+    [SerializeField] private float drainInterval = 1.5f;
+
+    private float drainTimer;
 
     private void Start()
     {
@@ -22,8 +25,20 @@ public class TimeLeechEnemy : EnemyBase
         target = FindAnyObjectByType<ClockHand>().gameObject.transform;
         currAttackCooldown = 0f;
         state = State.Chasing;
+        drainTimer = 0f;
 
         gameManager = GameManager.Instance;
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (drainTimer > 0f)
+        {
+            drainTimer -= Time.fixedDeltaTime;
+            if (drainTimer < 0f) drainTimer = 0f;
+        }
     }
 
     protected override void Move()
@@ -35,18 +50,21 @@ public class TimeLeechEnemy : EnemyBase
 
     protected override void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.collider.TryGetComponent<ClockHand>(out ClockHand p))
-        {
-            gameManager.AddTime(-timeLostPerHit);
-        }
+        TryDrain(col);
     }
 
     protected override void OnCollisionStay2D(Collision2D col)
     {
-        if (col.collider.TryGetComponent<ClockHand>(out ClockHand p)) 
-        {
-            gameManager.AddTime(-timeLostPerHit);
-        }
+        TryDrain(col);
+    }
+
+    private void TryDrain(Collision2D col)
+    {
+        if (drainTimer > 0f) return;
+        if (!col.collider.TryGetComponent<ClockHand>(out ClockHand hand)) return;
+
+        drainTimer = Mathf.Max(0.05f, drainInterval);
+        gameManager.AddTime(-timeLostPerHit);
     }
 
 }

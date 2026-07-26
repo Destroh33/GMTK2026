@@ -20,7 +20,7 @@ public class ClockHand : MonoBehaviour
     public bool IsStriking => strikeMotionRoutine != null;
     public float AngularVelocity => rb != null ? rb.angularVelocity : 0f;
     public float SweepSign => sweepSign;
-    public float StrikeJumpDegrees => strikeJumpDegrees;
+    public float StrikeJumpDegrees => strikeJumpDegrees * strikeScale;
 
     [Header("Ticking")]
     [SerializeField] private float tickInterval = 1f;
@@ -33,6 +33,9 @@ public class ClockHand : MonoBehaviour
     float cooldownTimer;
     float sweepSign = 1f;
     float tickTimer;
+    float strikeScale = 1f;
+
+    public void SetStrikeScale(float scale) => strikeScale = Mathf.Clamp(scale, 0.05f, 1f);
 
     void Awake()
     {
@@ -103,7 +106,7 @@ public class ClockHand : MonoBehaviour
         cooldownTimer = strikeCooldown;
 
         float sign = Mathf.Sign(alongTangent);
-        PlayStrikeMotion(sign, strikeJumpDegrees);
+        PlayStrikeMotion(sign, StrikeJumpDegrees);
         reverseTimer = reverseDuration;
 
         OnStruck?.Invoke(this, sign);

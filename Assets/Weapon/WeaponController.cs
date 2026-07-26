@@ -77,6 +77,9 @@ public class WeaponController : MonoBehaviour
     {
         if (cam == null || pivot == null) return;
 
+        WeaponBase active = ActiveWeapon();
+        if (active != null && active.LockAim) return;
+
         Vector2 dir = AimDirection();
         if (dir.sqrMagnitude < 0.0001f) return;
 

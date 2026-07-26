@@ -455,7 +455,8 @@ MonoBehaviour:
     enemyLayers:
       serializedVersion: 2
       m_Bits: 256
-  timeLostPerHit: 3
+  timeLostPerHit: 1
+  drainInterval: 1.5
 --- !u!95 &6157774521098070739
 Animator:
   serializedVersion: 7
