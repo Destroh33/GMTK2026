@@ -10,17 +10,17 @@ public class GameManager : MonoBehaviour
     public enum WaveState { Idle, Spawning, Clearing, Intermission, AwaitFloorAdvance, Complete }
 
     [Serializable]
-    public class EnemySpawn
+    public class EnemyCost
     {
         public EnemyBase enemyPrefab;
-        [Min(0)] public int count = 1;
+        [Min(0)] public int cost = 1;
     }
 
     [Serializable]
     public class Wave
     {
         public string name;
-        public List<EnemySpawn> spawns = new List<EnemySpawn>();
+        [Min(0)] public int purchasingPower = 10;
         [Min(0f)] public float spawnDuration = 8f;
         [Min(0f)] public float intermission = 4f;
     }
@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     {
         public string name;
         public List<Wave> waves = new List<Wave>();
+        public List<EnemyBase> enemyPool = new List<EnemyBase>();
     }
 
     [Header("Timer")]
@@ -38,6 +39,10 @@ public class GameManager : MonoBehaviour
 
     public float StartTime => startTime;
     public float CountdownSpeed => countdownSpeed;
+
+    [Header("Enemy Costs")]
+    [Tooltip("Add enemy prefabs and their costs. this will be the pool of enemies for this wave.")]
+    [SerializeField] private List<EnemyCost> enemyCosts = new List<EnemyCost>();
 
     [Header("Floors")]
     [SerializeField] private List<Floor> floors = new List<Floor>();
@@ -68,6 +73,8 @@ public class GameManager : MonoBehaviour
     readonly List<EnemyBase> spawnQueue = new List<EnemyBase>();
     readonly List<float> spawnTimes = new List<float>();
 
+    Dictionary<EnemyBase, int> costlookup;
+
     float waveTimer;
     int nextSpawnIndex;
     private Coroutine gameSpeedCoroutine;
@@ -84,6 +91,36 @@ public class GameManager : MonoBehaviour
 
         TimeRemaining = startTime;
         TimerRunning = true;
+
+        BuildCostLookup();
+    }
+
+    void BuildCostLookup()
+    {
+        costlookup = new Dictionary<EnemyBase, int>();
+
+        foreach (EnemyCost entry in enemyCosts)
+        {
+            if (entry.enemyPrefab == null)
+            {
+                Debug.LogWarning("[GameManager] Enemy cost entry has no prefab assigned.");
+                continue;
+            }
+
+            if (costlookup.ContainsKey(entry.enemyPrefab))
+            {
+                Debug.LogWarning($"[GameManager] Duplicate cost entry for '{entry.enemyPrefab.name}'; using the first one.");
+                continue;
+            }
+
+            costlookup.Add(entry.enemyPrefab, entry.cost);
+        }
+    }
+
+    int GetCost(EnemyBase prefab)
+    {
+        if (prefab == null) return 0;
+        return costlookup != null && costlookup.TryGetValue(prefab, out int cost) ? cost : 0;
     }
 
     void Start()
@@ -234,7 +271,7 @@ public class GameManager : MonoBehaviour
         CurrentWaveIndexInFloor = waveIndex;
         Wave wave = floor.waves[waveIndex];
 
-        BuildSpawnSchedule(wave);
+        BuildSpawnSchedule(floor, wave);
 
         waveTimer = 0f;
         nextSpawnIndex = 0;
@@ -254,49 +291,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //public void StartWave(int waveIndex)
-    //{
-    //    if (waveIndex < 0 || waveIndex >= waves.Count)
-    //    {
-    //        Debug.LogWarning($"[GameManager] StartWave called with invalid index {waveIndex}.");
-    //        return;
-    //    }
-
-    //    CurrentWaveIndex = waveIndex;
-    //    Wave wave = waves[waveIndex];
-
-    //    BuildSpawnSchedule(wave);
-
-    //    waveTimer = 0f;
-    //    nextSpawnIndex = 0;
-    //    CurrentWaveState = WaveState.Spawning;
-
-    //    OnWaveStarted?.Invoke(waveIndex);
-
-    //    ReleaseDueEnemies();
-
-    //    if (nextSpawnIndex >= spawnQueue.Count)
-    //    {
-    //        CurrentWaveState = WaveState.Clearing;
-    //        CheckWaveCleared();
-    //    }
-    //}
-
-    void BuildSpawnSchedule(Wave wave)
+    void BuildSpawnSchedule(Floor floor, Wave wave)
     {
         spawnQueue.Clear();
         spawnTimes.Clear();
 
-        foreach (EnemySpawn spawn in wave.spawns)
+        if (floor.enemyPool == null || floor.enemyPool.Count == 0)
         {
-            if (spawn.enemyPrefab == null)
+            Debug.LogWarning($"[GameManager] Floor '{floor.name}' has no enemies in its pool; wave '{wave.name}' will have no spawns.");
+            return;
+        }
+
+        int wallet = wave.purchasingPower;
+
+        // loop till wallet is empty OR the cheapest enemy isnt purchaseable
+        while (wallet > 0 && CheapestAffordable(floor.enemyPool, wallet) >= 0)
+        {
+            EnemyBase browsedEnemy = floor.enemyPool[UnityEngine.Random.Range(0, floor.enemyPool.Count)];
+            int cost = GetCost(browsedEnemy);
+
+            if (cost <= 0)
             {
-                Debug.LogWarning($"[GameManager] Wave '{wave.name}' has a spawn entry with no prefab assigned.");
+                Debug.LogWarning($"[GameManager] '{(browsedEnemy != null ? browsedEnemy.name : "null")}' has no cost entry (or cost 0); it will never be purchased.");
                 continue;
             }
 
-            for (int i = 0; i < spawn.count; i++)
-                spawnQueue.Add(spawn.enemyPrefab);
+            if (cost <= wallet)
+            {
+                spawnQueue.Add(browsedEnemy);
+                wallet -= cost;
+            }
         }
 
         Shuffle(spawnQueue);
@@ -305,6 +329,20 @@ public class GameManager : MonoBehaviour
             spawnTimes.Add(UnityEngine.Random.Range(0f, wave.spawnDuration));
 
         spawnTimes.Sort();
+    }
+
+    int CheapestAffordable(List<EnemyBase> shop, int budget)
+    {
+        int cheapest = int.MaxValue;
+
+        foreach (EnemyBase e in shop)
+        {
+            int cost = GetCost(e);
+            if (cost > 0 && cost <= budget && cost < cheapest)
+                cheapest = cost;
+        }
+
+        return cheapest == int.MaxValue ? -1 : cheapest;
     }
 
     static void Shuffle(List<EnemyBase> list)
@@ -398,6 +436,7 @@ public class GameManager : MonoBehaviour
         CurrentFloorIndex = -1;
         CurrentWaveIndexInFloor = -1;
         CurrentWaveState = WaveState.Idle;
+        AwaitingPowerupChoice = false;
 
         OnRunReset?.Invoke();
 

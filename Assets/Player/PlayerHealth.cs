@@ -100,6 +100,6 @@ public class PlayerHealth : PlayerBehaviors
 
     private void Die()
     {
-        GameManager.Instance?.HandlePlayerDied();
+        //GameManager.Instance?.HandlePlayerDied();
     }
 }
