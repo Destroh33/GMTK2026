@@ -1,43 +1,19 @@
 fileFormatVersion: 2
-guid: 152a106ea3622428f94c538853ef5775
+guid: 100c0ac8d92054e54b890e81a3cc03f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1444714642315431443
-    second: mc_idle_spritesheet_0
+      213: 4103369109182573172
+    second: idle_shield_0
   - first:
-      213: -146873470945427803
-    second: mc_idle_spritesheet_1
+      213: 6032387444449227462
+    second: idle_shield_1
   - first:
-      213: -7743613398733735799
-    second: mc_idle_spritesheet_2
+      213: -5120126755843213237
+    second: idle_shield_2
   - first:
-      213: 7832964981207140007
-    second: mc_idle_spritesheet_3
-  - first:
-      213: 2646236523318801062
-    second: mc_idle_spritesheet_4
-  - first:
-      213: 7225545688630601750
-    second: mc_idle_spritesheet_5
-  - first:
-      213: 2891757292911449513
-    second: mc_idle_spritesheet_6
-  - first:
-      213: -6211637178124845213
-    second: mc_idle_spritesheet_7
-  - first:
-      213: -4195737871609098859
-    second: mc_idle_spritesheet_8
-  - first:
-      213: 3300839312144452762
-    second: mc_idle_spritesheet_9
-  - first:
-      213: -7561869210683967549
-    second: mc_idle_spritesheet_10
-  - first:
-      213: 2055590518263267150
-    second: mc_idle_spritesheet_11
+      213: -5110641447723511303
+    second: idle_shield_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 800
+  spritePixelsToUnits: 1200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -108,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -146,79 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mc_idle_spritesheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 3072
-        width: 1240
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 31e44011058ac0410800000000000000
-      internalID: 1444714642315431443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mc_idle_spritesheet_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 2048
-        width: 1240
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5ae7e593b5336fdf0800000000000000
-      internalID: -146873470945427803
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mc_idle_spritesheet_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1024
-        width: 1240
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 988358a24a8298490800000000000000
-      internalID: -7743613398733735799
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mc_idle_spritesheet_3
+      name: idle_shield_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1240
-        height: 1024
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7a60dea462844bc60800000000000000
-      internalID: 7832964981207140007
+      spriteID: 47a6327d67812f830800000000000000
+      internalID: 4103369109182573172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle_shield_1
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 2048
+        height: 2048
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c23ce57b6857b350800000000000000
+      internalID: 6032387444449227462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle_shield_2
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 0
+        width: 2048
+        height: 2048
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b48fdf8d7d7a1f8b0800000000000000
+      internalID: -5120126755843213237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle_shield_3
+      rect:
+        serializedVersion: 2
+        x: 6144
+        y: 0
+        width: 2048
+        height: 2048
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f15d0e3eaa5319b0800000000000000
+      internalID: -5110641447723511303
       vertices: []
       indices: 
       edges: []
@@ -237,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 028946b41cdb647a1bec4c62d1ecf588
+    spriteID: 460e87ad9d88542bc9e6fd1e52025285
     internalID: 0
     vertices: []
     indices: 
@@ -246,13 +222,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries:
+      - key: SpriteEditor.SliceOnImport
+        value: False
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":4.0},"gridSpriteSize":{"x":1240.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":2048.0,"y":2048.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      mc_idle_spritesheet_0: 1444714642315431443
-      mc_idle_spritesheet_1: -146873470945427803
-      mc_idle_spritesheet_2: -7743613398733735799
-      mc_idle_spritesheet_3: 7832964981207140007
+      idle_shield_0: 4103369109182573172
+      idle_shield_1: 6032387444449227462
+      idle_shield_2: -5120126755843213237
+      idle_shield_3: -5110641447723511303
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

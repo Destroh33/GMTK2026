@@ -5,16 +5,30 @@ public class ShieldEnemy : FollowerEnemy
     private float timeSinceBullet = 0f;
     private bool shieldUp = false;
 
+    private Animator animator;
+    protected override void Awake()
+    {
+        base.Awake();
+        animator = GetComponent<Animator>();
+    }
+
+    protected override void Move()
+    {
+        if (shieldUp)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        base.Move();
+    }
+
     protected void SetShield(bool state)
     {
         if (state == shieldUp) return;
 
         shieldUp = state;
 
-        if (state)
-            spriteRenderer.color = Color.blue;
-        else
-            spriteRenderer.color = baseColor;
+        animator.SetBool("shield_up", shieldUp);
     }
 
     protected override void FixedUpdate()
@@ -27,6 +41,8 @@ public class ShieldEnemy : FollowerEnemy
         {
             SetShield(false);
         }
+
+        spriteRenderer.flipX = rb.linearVelocity.x > 0;
 
     }
 

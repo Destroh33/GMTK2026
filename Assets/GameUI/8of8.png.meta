@@ -1,43 +1,31 @@
 fileFormatVersion: 2
-guid: 152a106ea3622428f94c538853ef5775
+guid: 701fc9aea1eb35048a79d1b213d89358
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1444714642315431443
-    second: mc_idle_spritesheet_0
+      213: -1537424042626845901
+    second: 8of8_0
   - first:
-      213: -146873470945427803
-    second: mc_idle_spritesheet_1
+      213: -1736992299020909979
+    second: 8of8_1
   - first:
-      213: -7743613398733735799
-    second: mc_idle_spritesheet_2
+      213: -6968637031098826204
+    second: 8of8_2
   - first:
-      213: 7832964981207140007
-    second: mc_idle_spritesheet_3
+      213: 88941007069766762
+    second: 8of8_3
   - first:
-      213: 2646236523318801062
-    second: mc_idle_spritesheet_4
+      213: -4471464580728726085
+    second: 8of8_4
   - first:
-      213: 7225545688630601750
-    second: mc_idle_spritesheet_5
+      213: 8011625749283725653
+    second: 8of8_5
   - first:
-      213: 2891757292911449513
-    second: mc_idle_spritesheet_6
+      213: 949978139484402555
+    second: 8of8_6
   - first:
-      213: -6211637178124845213
-    second: mc_idle_spritesheet_7
-  - first:
-      213: -4195737871609098859
-    second: mc_idle_spritesheet_8
-  - first:
-      213: 3300839312144452762
-    second: mc_idle_spritesheet_9
-  - first:
-      213: -7561869210683967549
-    second: mc_idle_spritesheet_10
-  - first:
-      213: 2055590518263267150
-    second: mc_idle_spritesheet_11
+      213: 2265397835719284331
+    second: 8of8_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -70,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -79,12 +67,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 800
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -146,89 +134,177 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mc_idle_spritesheet_0
+      name: 8of8_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3072
-        width: 1240
-        height: 1024
+        x: 138
+        y: 269
+        width: 121
+        height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 31e44011058ac0410800000000000000
-      internalID: 1444714642315431443
+      spriteID: 333f4169af8f9aae0800000000000000
+      internalID: -1537424042626845901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mc_idle_spritesheet_1
+      name: 8of8_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2048
-        width: 1240
-        height: 1024
+        x: 178
+        y: 287
+        width: 84
+        height: 115
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5ae7e593b5336fdf0800000000000000
-      internalID: -146873470945427803
+      spriteID: 562054ff4b6f4e7e0800000000000000
+      internalID: -1736992299020909979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mc_idle_spritesheet_2
+      name: 8of8_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1024
-        width: 1240
-        height: 1024
+        x: 263
+        y: 284
+        width: 85
+        height: 118
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 988358a24a8298490800000000000000
-      internalID: -7743613398733735799
+      spriteID: 422c8b8aa8d6a4f90800000000000000
+      internalID: -6968637031098826204
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mc_idle_spritesheet_3
+      name: 8of8_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1240
-        height: 1024
+        x: 265
+        y: 269
+        width: 122
+        height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7a60dea462844bc60800000000000000
-      internalID: 7832964981207140007
+      spriteID: a64eb5cef5bfb3100800000000000000
+      internalID: 88941007069766762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 8of8_4
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 193
+        width: 108
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbd5ce797aa22f1c0800000000000000
+      internalID: -4471464580728726085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 8of8_5
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 154
+        width: 87
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 551ed6beb230f2f60800000000000000
+      internalID: 8011625749283725653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 8of8_6
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 154
+        width: 81
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b73ba5ca5100f2d00800000000000000
+      internalID: 949978139484402555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 8of8_7
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 193
+        width: 110
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b669cf8345f407f10800000000000000
+      internalID: 2265397835719284331
       vertices: []
       indices: 
       edges: []
@@ -237,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 028946b41cdb647a1bec4c62d1ecf588
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -245,14 +321,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":4.0},"gridSpriteSize":{"x":1240.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      mc_idle_spritesheet_0: 1444714642315431443
-      mc_idle_spritesheet_1: -146873470945427803
-      mc_idle_spritesheet_2: -7743613398733735799
-      mc_idle_spritesheet_3: 7832964981207140007
+      8of8_0: -1537424042626845901
+      8of8_1: -1736992299020909979
+      8of8_2: -6968637031098826204
+      8of8_3: 88941007069766762
+      8of8_4: -4471464580728726085
+      8of8_5: 8011625749283725653
+      8of8_6: 949978139484402555
+      8of8_7: 2265397835719284331
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
