@@ -37,7 +37,7 @@ Transform:
   m_GameObject: {fileID: 8786323164523195}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.65, y: 0.89, z: 0}
+  m_LocalPosition: {x: 4.1165, y: 4.0193644, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -149,7 +149,7 @@ MonoBehaviour:
   - {fileID: 5100092422782589491}
   - {fileID: 8484373067454661272}
   - {fileID: 3311000000000000104}
-  startingWeapon: 1
+  startingWeapon: 0
   scrollDeadzone: 0.1
   invertScroll: 0
 --- !u!114 &5411417304497823862
@@ -409,11 +409,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxHealth: 5
+  maxHealth: 8
   hitStunTime: 0.16
   hitStunStrength: 0.35
   invulnerabilityTime: 0.8
   blinkInterval: 0.07
+  deathScreen: {fileID: 0}
 --- !u!114 &7417009959342925159
 MonoBehaviour:
   m_ObjectHideFlags: 0

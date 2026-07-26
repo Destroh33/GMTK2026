@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -74,6 +75,21 @@ public class PlayerMovement : MonoBehaviour
 
         defaultLayer = gameObject.layer;
         dashingLayerIndex = LayerMask.NameToLayer(dashingLayer);
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+    }
+
+    void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        cam = Camera.main;
     }
 
     public void OnMove(InputValue value)

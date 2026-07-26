@@ -4,7 +4,6 @@ using System;
 
 public class WeaponUI : MonoBehaviour
 {
-    [SerializeField] WeaponController weaponController;
     [SerializeField] Image weaponImage;
 
     [Header("Index 0 = Sword, 1 = Garlic, 2 = Pineapple")]
@@ -19,17 +18,22 @@ public class WeaponUI : MonoBehaviour
     [SerializeField] private Color selectedColor = Color.white;
     [SerializeField] private Color unselectedColor = new Color(1f, 1f, 1f, 0.5f);
 
+    WeaponController weaponController;
 
     private void OnEnable()
     {
-        weaponController.OnWeaponChanged += UpdateWeaponUI;
+        weaponController = FindAnyObjectByType<WeaponController>();
+        if (weaponController == null) return;
 
+        weaponController.OnWeaponChanged += UpdateWeaponUI;
         UpdateWeaponUI(weaponController.ActiveIndex);
     }
 
     private void OnDisable()
     {
-        weaponController.OnWeaponChanged -= UpdateWeaponUI;
+        if (weaponController != null)
+            weaponController.OnWeaponChanged -= UpdateWeaponUI;
+        weaponController = null;
     }
 
     private void UpdateWeaponUI(int weaponIndex)

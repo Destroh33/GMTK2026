@@ -7,13 +7,13 @@ public class DeathScreen : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void gameOver()
@@ -23,11 +23,20 @@ public class DeathScreen : MonoBehaviour
 
     public void Retry()
     {
+        if (SceneManager.GetActiveScene().name != "BossScene")
+        {
+            PlayerStats.Instance?.ResetForNewRun();
+            PlayerHealth.Instance?.ResetForNewRun();
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void MainMenu()
     {
+        PlayerStats.Instance?.ResetForNewRun();
+        PlayerHealth.Instance?.ResetForNewRun();
+
         SceneManager.LoadScene("Title");
     }
 }

@@ -276,14 +276,23 @@ public class GameManager : MonoBehaviour
 
     void HandleFloorCleared()
     {
-        if (gateFirstFloorRewards && CurrentFloorIndex == gateFloorIndex && !struckClockThisRun)
+        OnFloorCleared?.Invoke(CurrentFloorIndex);
+
+        if (CurrentFloorIndex + 1 >= floors.Count)
         {
-            awaitingGateStrike = true;
-            CurrentWaveState = WaveState.AwaitFloorAdvance;
+            CurrentWaveState = WaveState.Complete;
+            OnAllFloorsCleared?.Invoke();
+
+            PlayerStats.Instance?.SnapshotForBoss();
+            PlayerHealth.Instance?.SnapshotForBoss();
+
+            SceneManager.LoadScene("BossScene");
             return;
         }
 
-        CompleteFloorCleared();
+        //freeze timer until next floor
+        CurrentWaveState = WaveState.AwaitFloorAdvance;
+        PauseTimer();
     }
 
     void CompleteFloorCleared()

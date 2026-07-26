@@ -25,6 +25,11 @@ public class PlayerStats : MonoBehaviour
     public float BuffDamageMult { get; set; } = 1f;
     public float BuffMoveSpeedMult { get; set; } = 1f;
 
+    Dictionary<UpgradePath, int> snapshotLevels;
+    Dictionary<UpgradePath, int> snapshotRareLevels;
+    List<UpgradePathData> snapshotPaths;
+    bool hasBossSnapshot;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,6 +39,41 @@ public class PlayerStats : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+        Recalculate();
+    }
+
+    public void ResetForNewRun()
+    {
+        levels.Clear();
+        rareLevels.Clear();
+        paths.Clear();
+        cache.Clear();
+        BuffDamageMult = 1f;
+        BuffMoveSpeedMult = 1f;
+    }
+
+    public void SnapshotForBoss()
+    {
+        snapshotLevels = new Dictionary<UpgradePath, int>(levels);
+        snapshotRareLevels = new Dictionary<UpgradePath, int>(rareLevels);
+        snapshotPaths = new List<UpgradePathData>(paths);
+        hasBossSnapshot = true;
+    }
+
+    public void RestoreBossSnapshot()
+    {
+        if (!hasBossSnapshot) return;
+
+        levels.Clear();
+        foreach (var kv in snapshotLevels) levels[kv.Key] = kv.Value;
+
+        rareLevels.Clear();
+        foreach (var kv in snapshotRareLevels) rareLevels[kv.Key] = kv.Value;
+
+        paths.Clear();
+        paths.AddRange(snapshotPaths);
+
         Recalculate();
     }
 

@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : PlayerBehaviors
 {
+    public static PlayerHealth Instance { get; private set; }
+
     [Header("Health")]
     [SerializeField] float maxHealth = 8f;
 
@@ -30,8 +33,19 @@ public class PlayerHealth : PlayerBehaviors
     public DeathScreen deathScreen;
     private bool isDead = false;
 
+    float snapshotHealth;
+    float snapshotMax;
+    bool hasBossSnapshot;
+
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         movement = GetComponent<PlayerMovement>();
         currentMax = maxHealth;
         health = currentMax;
@@ -60,26 +74,36 @@ public class PlayerHealth : PlayerBehaviors
     void OnEnable()
     {
         TrySubscribe();
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+
+        if (deathScreen == null)
+            deathScreen = FindAnyObjectByType<DeathScreen>(FindObjectsInactive.Include);
     }
 
     void OnDisable()
     {
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+
         if (subscribed && PlayerStats.Instance != null)
             PlayerStats.Instance.OnPathUpgraded -= HandlePathUpgraded;
 
-        if (subscribed && GameManager.Instance != null)
-            GameManager.Instance.OnRunReset -= HandleRunReset;
-
         subscribed = false;
+    }
+
+    void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        subscribed = false;
+        TrySubscribe();
+
+        deathScreen = FindAnyObjectByType<DeathScreen>(FindObjectsInactive.Include);
     }
 
     void TrySubscribe()
     {
         if (subscribed) return;
-        if (PlayerStats.Instance == null || GameManager.Instance == null) return;
+        if (PlayerStats.Instance == null) return;
 
         PlayerStats.Instance.OnPathUpgraded += HandlePathUpgraded;
-        GameManager.Instance.OnRunReset += HandleRunReset;
         subscribed = true;
     }
 
@@ -96,10 +120,29 @@ public class PlayerHealth : PlayerBehaviors
         if (health > currentMax) health = currentMax;
     }
 
-    void HandleRunReset()
+    public void ResetForNewRun()
     {
         currentMax = maxHealth;
         health = currentMax;
+        isDead = false;
+
+        NotifyHealthChanged();
+    }
+
+    public void SnapshotForBoss()
+    {
+        snapshotHealth = health;
+        snapshotMax = currentMax;
+        hasBossSnapshot = true;
+    }
+
+    void RestoreBossSnapshot()
+    {
+        if (!hasBossSnapshot) return;
+
+        currentMax = snapshotMax;
+        health = snapshotHealth;
+        isDead = false;
 
         NotifyHealthChanged();
     }
@@ -145,7 +188,7 @@ public class PlayerHealth : PlayerBehaviors
         if (health <= 0f && !isDead)
         {
             Die();
-        } 
+        }
         else
         {
             FlashEntity();
@@ -156,7 +199,18 @@ public class PlayerHealth : PlayerBehaviors
     private void Die()
     {
         isDead = true;
+
+        if (SceneManager.GetActiveScene().name == "BossScene")
+        {
+            RestoreBossSnapshot();
+            PlayerStats.Instance?.RestoreBossSnapshot();
+        }
+
         deathScreen.gameOver();
-        //GameManager.Instance?.HandlePlayerDied();
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 }

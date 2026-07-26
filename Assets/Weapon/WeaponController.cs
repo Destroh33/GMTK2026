@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using System;
 
 public class WeaponController : MonoBehaviour
@@ -27,6 +28,21 @@ public class WeaponController : MonoBehaviour
         cam = Camera.main;
         if (pivot == null) pivot = transform;
         pivotBaseScale = pivot.localScale;
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+    }
+
+    void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        cam = Camera.main;
     }
 
     void Start()
