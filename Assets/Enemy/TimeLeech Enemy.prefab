@@ -433,7 +433,7 @@ MonoBehaviour:
   tintColor: {r: 1, g: 0, b: 0, a: 1}
   tintDuration: 0.05
   maxHealth: 5
-  moveSpeed: 2
+  moveSpeed: 1.6
   contactDamage: 1
   attackCooldown: 4
   acceleration: 30
@@ -455,8 +455,8 @@ MonoBehaviour:
     enemyLayers:
       serializedVersion: 2
       m_Bits: 256
-  timeLostPerHit: 1
-  drainInterval: 1.5
+  timeLostPerHit: 0.5
+  drainInterval: 2.5
 --- !u!95 &6157774521098070739
 Animator:
   serializedVersion: 7

@@ -57,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
     private float dashBufferTimer;
 
     public bool IsInvulnerable => iFrameTimer > 0f;
+    public bool IsDashing => isDashing;
+    public bool HasMoveInput => moveInput.sqrMagnitude > 0.01f;
 
     void Awake()
     {

@@ -60,7 +60,7 @@ public class TypewriterText : MonoBehaviour
 
     IEnumerator FadeRoutine()
     {
-        yield return new WaitForSeconds(fadeDelay);
+        yield return new WaitForSecondsRealtime(fadeDelay);
 
         tmpLabel.text = "";
         fadeRoutine = null;
@@ -86,7 +86,7 @@ public class TypewriterText : MonoBehaviour
                 //TODO add audiomanager integration (figuer out if it hsould be signleton or smth else)
             }
 
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSecondsRealtime(delay);
         }
 
         IsTyping = false;
