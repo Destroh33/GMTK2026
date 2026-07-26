@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
@@ -8,8 +9,14 @@ public class Boss : MonoBehaviour
     [SerializeField] float contactDamage = 1f;
     [SerializeField] float contactDamageCooldown;
 
+    [Header("UI")]
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private Image healthFill;
+
     private Rigidbody2D rb;
     GameManager gameManager;
+    private float maxHealthPoints;
+    private float timeSinceDamage;
 
     [Header("Stage Setup")]
     [SerializeField] private Transform stageCenter;
@@ -41,21 +48,40 @@ public class Boss : MonoBehaviour
     [SerializeField] float timeBetweenShots;
     [SerializeField] float cooldownAfterBullets;
 
-    [Header("case 5: slash attack")]
-    [SerializeField] GameObject slashAttack;
-    [SerializeField] float timeSlashIsActive;
-    [SerializeField] float cooldownAfterSlash;
+    [Header("case 5: spawn shield skeleton")]
+    [SerializeField] private GameObject skeletonEnemyPrefab;
+    [SerializeField] float cooldownAfterSkeletonSpawn;
+
+    //[Header("case 6: slash attack")] //implement if theres time, change the state machine
+    //[SerializeField] GameObject slashAttack;
+    //[SerializeField] float timeSlashIsActive;
+    //[SerializeField] float cooldownAfterSlash;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        maxHealthPoints = Mathf.Max(healthPoints, 1f);
+        timeSinceDamage = 0f;
         StartCoroutine(StateMachine());
         bossFightTimer = bossFightMaxTime;
+
+        if (healthBar != null) healthBar.SetActive(false);
+        if (healthFill != null) healthFill.fillAmount = 1f;
     }
 
     private void Start()
     {
         gameManager = GameManager.Instance;
+    }
+
+    private void Update()
+    {
+        timeSinceDamage += Time.deltaTime;
+
+        if (healthBar != null && timeSinceDamage > 3f && healthBar.activeSelf)
+        {
+            healthBar.SetActive(false);
+        }
     }
 
     public IEnumerator StateMachine()
@@ -97,19 +123,23 @@ public class Boss : MonoBehaviour
                     }
                     yield return new WaitForSeconds(cooldownAfterBullets);
                     break;
-                case 4: //frontal slash attack
-                    PlayerHealth player = FindAnyObjectByType<PlayerHealth>();
-                    if (player != null)
-                    {
-                        Vector2 dirToPlayer = (player.transform.position - transform.position).normalized;
-                        float angle = Mathf.Atan2(dirToPlayer.y, dirToPlayer.x) * Mathf.Rad2Deg;
-                        slashAttack.transform.rotation = Quaternion.Euler(0, 0, angle);
-                    }
-                    slashAttack.SetActive(true);
-                    yield return new WaitForSeconds(timeSlashIsActive);
-                    slashAttack.SetActive(false);
-                    yield return new WaitForSeconds(cooldownAfterSlash);
+                case 4: //spawn shield skeleton
+                    Instantiate(skeletonEnemyPrefab, (Vector2)transform.position + Random.onUnitCircle * 5, Quaternion.identity);
+                    yield return new WaitForSeconds(cooldownAfterSkeletonSpawn);
                     break;
+                //case 4: //frontal slash attack
+                //    PlayerHealth player = FindAnyObjectByType<PlayerHealth>();
+                //    if (player != null)
+                //    {
+                //        Vector2 dirToPlayer = (player.transform.position - transform.position).normalized;
+                //        float angle = Mathf.Atan2(dirToPlayer.y, dirToPlayer.x) * Mathf.Rad2Deg;
+                //        slashAttack.transform.rotation = Quaternion.Euler(0, 0, angle);
+                //    }
+                //    slashAttack.SetActive(true);
+                //    yield return new WaitForSeconds(timeSlashIsActive);
+                //    slashAttack.SetActive(false);
+                //    yield return new WaitForSeconds(cooldownAfterSlash);
+                //    break;
                 default:
                     break;
             }
@@ -128,6 +158,7 @@ public class Boss : MonoBehaviour
         if (healthPoints <= 0f) return;
 
         healthPoints -= amount;
+        timeSinceDamage = 0f;
 
         if (knockbackImpulse.sqrMagnitude > 0.0001f && rb != null)
         {
@@ -138,12 +169,26 @@ public class Boss : MonoBehaviour
         if (healthPoints <= 0f) 
         {
             Die();
+            return;
         }
+
+        UpdateHealthBar();
     }
 
     void Die() 
     {
-        //TODO
+        if (healthBar != null)
+        {
+            healthBar.SetActive(false);
+        }
+
+        Destroy(gameObject);
+    }
+
+    void UpdateHealthBar()
+    {
+        if (healthBar != null) healthBar.SetActive(true);
+        if (healthFill != null) healthFill.fillAmount = maxHealthPoints > 0f ? healthPoints / maxHealthPoints : 0f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

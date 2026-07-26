@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 599223004781041361}
   - component: {fileID: 1923809302043934845}
   - component: {fileID: 91363177267906932}
+  - component: {fileID: 1676582446960528746}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Enemy
@@ -283,8 +284,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.79, y: 2.17, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1548440416564169487}
   m_Father: {fileID: 0}
@@ -375,7 +376,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &91363177267906932
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -412,3 +413,38 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1676582446960528746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169415486020385645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33635fa376e4aac4ba80bd21b60c2d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss
+  healthPoints: 70
+  contactDamage: 1
+  contactDamageCooldown: 1
+  healthBar: {fileID: 5283243280053083174}
+  healthFill: {fileID: 3636065716767284429}
+  stageCenter: {fileID: 0}
+  radiusOfStage: 11
+  bossFightMaxTime: 120
+  timeBetweenTeleports: 0.6
+  batEnemyPrefab: {fileID: 8169415486020385645, guid: 06a00be13797bae4995df22b3381614f, type: 3}
+  numBatsSpawned: 2
+  cooldownAfterBatSpawn: 3
+  dashSpeed: 15
+  dashRadius: 6
+  cooldownAfterDash: 1
+  bullet: {fileID: 2274377172074072589, guid: 35ea389fc51f4a8da6d2b16082766cf3, type: 3}
+  bulletForce: 10
+  bulletsPerCircle: 30
+  numberOfTurns: 3
+  timeBetweenShots: 0.3
+  cooldownAfterBullets: 1
+  skeletonEnemyPrefab: {fileID: 8169415486020385645, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
+  cooldownAfterSkeletonSpawn: 2
