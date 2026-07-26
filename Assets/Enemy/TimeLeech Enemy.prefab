@@ -426,8 +426,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeLeechEnemy
   spriteRenderer: {fileID: 0}
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashMaterial: {fileID: 0}
   flashDuration: 0.05
+  tintColor: {r: 1, g: 0, b: 0, a: 1}
+  tintDuration: 0.05
   maxHealth: 5
   moveSpeed: 2
   contactDamage: 1
@@ -436,8 +438,8 @@ MonoBehaviour:
   knockbackExitSpeed: 1.5
   maxKnockbackDuration: 0.6
   knockbackDrag: 6
-  healthBar: {fileID: 0}
-  healthFill: {fileID: 0}
+  healthBar: {fileID: 5283243280053083174}
+  healthFill: {fileID: 3636065716767284429}
   steering:
     seekWeight: 1
     desiredRange: 0
