@@ -434,17 +434,19 @@ MonoBehaviour:
   radiusOfStage: 11
   bossFightMaxTime: 120
   timeBetweenTeleports: 0.6
+  spawnDelayAfterSelection: 0.5
   batEnemyPrefab: {fileID: 8169415486020385645, guid: 06a00be13797bae4995df22b3381614f, type: 3}
   numBatsSpawned: 2
   cooldownAfterBatSpawn: 3
-  dashSpeed: 15
-  dashRadius: 6
+  dashSpeed: 25
+  dashRadius: 1.5
   cooldownAfterDash: 1
-  bullet: {fileID: 2274377172074072589, guid: 35ea389fc51f4a8da6d2b16082766cf3, type: 3}
+  maxDashDuration: 1.5
+  bullet: {fileID: 3441204382309307209, guid: 27dd48028ccf84bb1accceee18f1dd40, type: 3}
   bulletForce: 10
   bulletsPerCircle: 30
-  numberOfTurns: 3
-  timeBetweenShots: 0.3
+  numberOfTurns: 1
+  timeBetweenShots: 0.1
   cooldownAfterBullets: 1
   skeletonEnemyPrefab: {fileID: 8169415486020385645, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
   cooldownAfterSkeletonSpawn: 2
