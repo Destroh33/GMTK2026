@@ -61,10 +61,11 @@ public class TutorialDirector : MonoBehaviour
         new Beat { line = "Welcome to the clock tower. Move with WASD.", condition = BeatCondition.Move },
         new Beat { line = "Space dodges. You will need it.", condition = BeatCondition.Dash },
         new Beat { line = "Left click to attack.", condition = BeatCondition.Attack },
-        new Beat { line = "Press 1, 2 or 3 to swap weapons.", condition = BeatCondition.SwitchWeapon },
+        new Beat { line = "Press 1, 2 or 3 to swap weapons. 1 is your pizza cutter.", condition = BeatCondition.SwitchWeapon },
         new Beat { line = "Now clear them out.", condition = BeatCondition.WaveCleared },
         new Beat { line = "That clock is your life. When it runs out, so do you.", condition = BeatCondition.None },
-        new Beat { line = "Strike a hand against its sweep and it pays you back in time.", condition = BeatCondition.StrikeHandForTime },
+        new Beat { line = "Bullets do nothing to it. Only the pizza cutter can move the hands.", condition = BeatCondition.None },
+        new Beat { line = "Press 1, then swing the cutter into a hand against its sweep. That pays you back in time.", condition = BeatCondition.StrikeHandForTime },
         new Beat { line = "But the tower learns. Every strike after the first is worth far less, until the next floor.", condition = BeatCondition.None, releaseFloorGate = true }
     };
 

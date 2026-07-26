@@ -2020,7 +2020,7 @@ MonoBehaviour:
   dialogueRoot: {fileID: 0}
   dialoguePrefab: {fileID: 830250050840247125, guid: 90a2dc1c8bd99f549ba1bb5e1afbba7c, type: 3}
   tutorialFloorIndex: 0
-  runOnce: 1
+  runOnce: 0
   startDelay: 0.5
   moveHoldRequired: 0.5
   conditionTimeout: 0
@@ -2045,7 +2045,7 @@ MonoBehaviour:
     holdWorldWhileReading: 1
     minReadTime: 0.4
     releaseFloorGate: 0
-  - line: Press 1, 2 or 3 to swap weapons.
+  - line: Press 1, 2 or 3 to swap weapons. 1 is your pizza cutter.
     condition: 5
     holdWorldWhileReading: 1
     minReadTime: 0.4
@@ -2060,12 +2060,19 @@ MonoBehaviour:
     holdWorldWhileReading: 1
     minReadTime: 0.6
     releaseFloorGate: 0
-  - line: Strike a hand against its sweep and it pays you back in time.
+  - line: Bullets do nothing to it. Only the pizza cutter can move the hands.
+    condition: 0
+    holdWorldWhileReading: 1
+    minReadTime: 0.6
+    releaseFloorGate: 0
+  - line: Press 1, then swing the cutter into a hand against its sweep. That pays
+      you back in time.
     condition: 6
     holdWorldWhileReading: 1
     minReadTime: 0.6
     releaseFloorGate: 0
-  - line: But the tower learns. Every strike after the first is worth far less, until the next floor.
+  - line: But the tower learns. Every strike after the first is worth far less, until
+      the next floor.
     condition: 0
     holdWorldWhileReading: 1
     minReadTime: 0.6
