@@ -10,6 +10,13 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private List<AudioClip> floorMusic;
+
+    [Header("SFX Clips")]
+    [SerializeField] private AudioClip hitSFX;
+    [SerializeField] private AudioClip rollSFX;
+    [SerializeField] private AudioClip shootSFX;
+    [SerializeField] private AudioClip swingSFX;
+
     private float pitchMin = 0.9f;
     private float pitchMax = 1.1f;
 
@@ -76,6 +83,14 @@ public class AudioManager : MonoBehaviour
     public void PlaySFX(AudioClip clip, float vol = 1f) {
         sfxSource.PlayOneShot(clip, vol);
     }
+
+    public void PlayHitSFX() => PitchVariatedClip(hitSFX);
+
+    public void PlayRollSFX() => PitchVariatedClip(rollSFX);
+
+    public void PlayShootSFX() => PitchVariatedClip(shootSFX);
+
+    public void PlaySwingSFX() => PitchVariatedClip(swingSFX);
 
     public void OnMasterVolumeChange(float value) {
         mixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);

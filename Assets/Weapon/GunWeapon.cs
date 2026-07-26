@@ -27,6 +27,8 @@ public class GunWeapon : WeaponBase
     {
         if (projectilePrefab == null) return;
 
+        AudioManager.Instance?.PlayShootSFX();
+
         Vector3 spawnPos = firePoint != null ? firePoint.position : transform.position;
         Vector2 dir = firePoint != null ? ((Vector2)firePoint.right).normalized : aimDir.normalized;
         if (dir.sqrMagnitude < 0.0001f) dir = Vector2.right;
