@@ -111,7 +111,10 @@ public class VignetteController : Flash
     {
         if (volume == null)
         {
-            volume = GameObject.Find("Global Volume").GetComponent<Volume>();
+            GameObject volumeObject = GameObject.Find("Global Volume");
+
+            if (volumeObject != null) volume = volumeObject.GetComponent<Volume>();
+            if (volume == null) volume = FindAnyObjectByType<Volume>();
         }
         volume?.profile?.TryGet(out vignette);
         if (vignette != null)
@@ -142,11 +145,15 @@ public class VignetteController : Flash
             vignette.color.value = color;
             while (elapsed < duration)
             {
-                if(SettingsButton.Instance == null || !SettingsButton.Instance.gamePaused)
+                bool paused = (SettingsButton.Instance != null && SettingsButton.Instance.gamePaused)
+                    || TutorialDirector.WorldPaused;
+
+                if (!paused)
                 {
                     elapsed += Time.unscaledDeltaTime;
                 }
-                float t = 1f - Mathf.Clamp01(elapsed / duration);
+
+                float t = Mathf.Clamp01(elapsed / duration);
                 vignette.intensity.value = intensity * vignetteIntensityCurve.Evaluate(t);
                 yield return null;
             }
