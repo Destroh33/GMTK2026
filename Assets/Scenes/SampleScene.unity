@@ -325,246 +325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
---- !u!1 &50074616
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 50074618}
-  - component: {fileID: 50074617}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &50074617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50074616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c4a945c97cada429b4b42933adbe31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  startTime: 1800
-  countdownSpeed: 10
-  enemyCosts:
-  - enemyPrefab: {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    cost: 1
-  - enemyPrefab: {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    cost: 2
-  - enemyPrefab: {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
-    cost: 3
-  - enemyPrefab: {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
-    cost: 4
-  - enemyPrefab: {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
-    cost: 6
-  floors:
-  - name: Floor 1
-    waves:
-    - name: Swarm
-      purchasingPower: 6
-      spawnDuration: 2
-      intermission: 2
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-  - name: Floor 2
-    waves:
-    - name: Flock
-      purchasingPower: 10
-      spawnDuration: 3.5
-      intermission: 2
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-  - name: Floor 3
-    waves:
-    - name: First Blood
-      purchasingPower: 14
-      spawnDuration: 4.5
-      intermission: 2
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-  - name: Floor 4
-    waves:
-    - name: Harried
-      purchasingPower: 18
-      spawnDuration: 6
-      intermission: 2
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
-  - name: Floor 5
-    waves:
-    - name: Bruisers
-      purchasingPower: 12
-      spawnDuration: 4
-      intermission: 3
-    - name: Bruisers II
-      purchasingPower: 16
-      spawnDuration: 5.5
-      intermission: 3
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
-  - name: Floor 6
-    waves:
-    - name: Shield Wall
-      purchasingPower: 15
-      spawnDuration: 5
-      intermission: 3
-    - name: Shield Wall II
-      purchasingPower: 20
-      spawnDuration: 6.5
-      intermission: 3
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
-    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
-  - name: Floor 7
-    waves:
-    - name: Pincer
-      purchasingPower: 18
-      spawnDuration: 6
-      intermission: 3
-    - name: Pincer II
-      purchasingPower: 24
-      spawnDuration: 8
-      intermission: 3
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
-    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
-  - name: Floor 8
-    waves:
-    - name: Entrenched
-      purchasingPower: 21
-      spawnDuration: 7
-      intermission: 3
-    - name: Entrenched II
-      purchasingPower: 28
-      spawnDuration: 9.5
-      intermission: 3
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
-    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
-  - name: Floor 9
-    waves:
-    - name: Blood Tide
-      purchasingPower: 18
-      spawnDuration: 6
-      intermission: 3
-    - name: Blood Tide II
-      purchasingPower: 24
-      spawnDuration: 8
-      intermission: 3
-    - name: Blood Tide III
-      purchasingPower: 30
-      spawnDuration: 10
-      intermission: 3
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
-    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
-    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
-  - name: Floor 10
-    waves:
-    - name: Phalanx
-      purchasingPower: 21
-      spawnDuration: 7
-      intermission: 3
-    - name: Phalanx II
-      purchasingPower: 28
-      spawnDuration: 9.5
-      intermission: 3
-    - name: Phalanx III
-      purchasingPower: 35
-      spawnDuration: 10
-      intermission: 3
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
-    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
-    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
-  - name: Floor 11
-    waves:
-    - name: Onslaught
-      purchasingPower: 25
-      spawnDuration: 8.5
-      intermission: 3
-    - name: Onslaught II
-      purchasingPower: 33
-      spawnDuration: 10
-      intermission: 3
-    - name: Onslaught III
-      purchasingPower: 41
-      spawnDuration: 10
-      intermission: 3
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
-    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
-    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
-  - name: Floor 12
-    waves:
-    - name: Midnight
-      purchasingPower: 30
-      spawnDuration: 10
-      intermission: 3
-    - name: Midnight II
-      purchasingPower: 40
-      spawnDuration: 10
-      intermission: 3
-    - name: Midnight III
-      purchasingPower: 50
-      spawnDuration: 10
-      intermission: 3
-    enemyPool:
-    - {fileID: 5896844373469693656, guid: 242c5bf29ef87db41a1d2dddd4cf1fc4, type: 3}
-    - {fileID: 8245840128331027373, guid: 06a00be13797bae4995df22b3381614f, type: 3}
-    - {fileID: 5805385446929751960, guid: 2a0180941590889429aef2c6d99f8f6f, type: 3}
-    - {fileID: 8029019941715456834, guid: 0b642dc68f8ee4d04b6ca25a27e00d71, type: 3}
-    - {fileID: 8068933584984837550, guid: c97e909799859a34e98801ae4a1a9d78, type: 3}
-  spawnPoints:
-  - {fileID: 1312304867}
-  - {fileID: 1624950173}
-  - {fileID: 1308595807}
-  - {fileID: 900674786}
-  autoStart: 1
-  initialDelay: 2
---- !u!4 &50074618
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50074616}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.82643, y: -1.12533, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &148826837
 GameObject:
   m_ObjectHideFlags: 0
@@ -2963,6 +2723,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e063cebf7cb4b8ca61cf3d70ff21ac, type: 3}
+--- !u!1001 &4185824014756454311
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.82643
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.12533
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982799188658606891, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: 'spawnPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: 'spawnPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: 'spawnPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268853876378702162, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: 'spawnPoints.Array.data[3]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621493921096074146, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c81444f808c83ca4292c9a497e13d1c6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2974,7 +2807,7 @@ SceneRoots:
   - {fileID: 470948379}
   - {fileID: 519420032}
   - {fileID: 2066897410}
-  - {fileID: 50074618}
+  - {fileID: 4185824014756454311}
   - {fileID: 1007832031}
   - {fileID: 2000530657}
   - {fileID: 1700000010}
