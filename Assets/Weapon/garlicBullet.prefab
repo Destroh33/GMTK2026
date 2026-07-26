@@ -111,7 +111,7 @@ MonoBehaviour:
   type: 0
   lifetime: 3
   damage: 2
-  knockbackForce: 4
+  knockbackForce: 0
   aoePrefab: {fileID: 1973442208828381589, guid: 9beba49973a018a439953ecb1aa52193, type: 3}
   staticWallLayer:
     serializedVersion: 2
