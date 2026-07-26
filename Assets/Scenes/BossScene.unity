@@ -2411,33 +2411,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 3441204382309307209, guid: 27dd48028ccf84bb1accceee18f1dd40, type: 3}
-    - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
       propertyPath: stageCenter
       value: 
       objectReference: {fileID: 1291020382}
-    - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
-      propertyPath: numberOfTurns
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
-      propertyPath: timeBetweenShots
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
-      propertyPath: cooldownAfterDash
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
-      propertyPath: cooldownAfterBatSpawn
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1676582446960528746, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
-      propertyPath: cooldownAfterSkeletonSpawn
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2759358740070269396, guid: c42bc8e2ca0acef49876e6d8cd2b7251, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.42
@@ -2543,14 +2519,6 @@ PrefabInstance:
       propertyPath: boss
       value: 
       objectReference: {fileID: 1262187193}
-    - target: {fileID: 7496829324969492170, guid: 126de945a1aaa4f72a73df818c3bfe1f, type: 3}
-      propertyPath: spawnDarkenDuration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7496829324969492170, guid: 126de945a1aaa4f72a73df818c3bfe1f, type: 3}
-      propertyPath: teleportLitDuration
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
