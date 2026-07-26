@@ -2874,15 +2874,15 @@ PrefabInstance:
     - target: {fileID: 6250577367217279421, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: sfxSlider
       value: 
-      objectReference: {fileID: 31836206}
+      objectReference: {fileID: 0}
     - target: {fileID: 6250577367217279421, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: musicSlider
       value: 
-      objectReference: {fileID: 31836207}
+      objectReference: {fileID: 0}
     - target: {fileID: 6250577367217279421, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: masterSlider
       value: 
-      objectReference: {fileID: 31836208}
+      objectReference: {fileID: 0}
     - target: {fileID: 7495165664352834303, guid: fcf46a9ae9d37b042a9b2ec42bbcdcab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 318.27332
@@ -3494,6 +3494,70 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2064863200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2064863201}
+  - component: {fileID: 2064863202}
+  m_Layer: 0
+  m_Name: PreFightDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2064863201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064863200}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2064863202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064863200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25842e634d78a3d4cbcb43c0583417ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossIntroDialogue
+  typewriter: {fileID: 0}
+  dialogueRoot: {fileID: 0}
+  dialoguePrefab: {fileID: 830250050840247125, guid: 90a2dc1c8bd99f549ba1bb5e1afbba7c, type: 3}
+  lines:
+  - text: ...
+    minReadTime: 0
+  - text: Well, you're good at your job, thats for sure. Delivered on time.
+    minReadTime: 0
+  - text: Though I could swear that took longer than 30 minutes...
+    minReadTime: 0
+  - text: Anyways, here's the money for the pizza. It's right over...
+    minReadTime: 0
+  - text: ... Or maybe this pocket...
+    minReadTime: 0
+  - text: ...
+    minReadTime: 0
+  - text: Give me that Pizza!
+    minReadTime: 0
+  allowSkipInput: 1
+  skipLockout: 0.2
 --- !u!1 &2066897408
 GameObject:
   m_ObjectHideFlags: 0
@@ -4262,3 +4326,4 @@ SceneRoots:
   - {fileID: 632884470}
   - {fileID: 801354164}
   - {fileID: 848221197}
+  - {fileID: 2064863201}
