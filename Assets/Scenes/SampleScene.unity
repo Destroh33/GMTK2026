@@ -2137,6 +2137,18 @@ PrefabInstance:
       propertyPath: dashEndMomentum
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 6550278609363969418, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550278609363969418, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550278609363969418, guid: c223c8010ac346442b6d3cb754caa97e, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2216,11 +2228,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3460052227762345938, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_Size.x
-      value: 0.97472143
+      value: 0.91
       objectReference: {fileID: 0}
     - target: {fileID: 3460052227762345938, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_Size.y
-      value: 0.498805
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 3460052227762345938, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_Offset.x
@@ -2268,19 +2280,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5764407296486626184, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.01978302
+      value: 0.12621689
       objectReference: {fileID: 0}
     - target: {fileID: 5764407296486626184, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.030245036
+      value: -0.029754966
       objectReference: {fileID: 0}
     - target: {fileID: 6190722011946274746, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.0063651404
+      value: 0.072365284
       objectReference: {fileID: 0}
     - target: {fileID: 6190722011946274746, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.0025962095
+      value: -0.045403797
       objectReference: {fileID: 0}
     - target: {fileID: 6773165975672491602, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_Layer
@@ -2304,7 +2316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7733595080079028551, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_Size.y
-      value: 0.44084832
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 7733595080079028551, guid: 37a7561660cf41045a03bd7fd9ebfadd, type: 3}
       propertyPath: m_Offset.x
