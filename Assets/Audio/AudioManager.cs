@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 //AUDIO ATTRIBUTIONS 
 //CLOCKTick-Blue Snowball Microphone, CU_Large, Alarm, Looped_Nicholas Judy_TDC by designerschoice -- https://freesound.org/s/805330/ -- License: Attribution 4.0
 //Sword 5.wav by CpawsMusic -- https://freesound.org/s/437119/ -- License: Attribution 3.0
@@ -76,12 +77,29 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnFloorStarted -= HandleFloorStarted;
+    }
+
     void Start()
     {
         if (GameManager.Instance != null)
-        {
             GameManager.Instance.OnFloorStarted += HandleFloorStarted;
-        }
+    }
+
+    void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnFloorStarted += HandleFloorStarted;
     }
 
     void HandleFloorStarted(int floorIndex)
