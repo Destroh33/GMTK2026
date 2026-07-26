@@ -136,6 +136,11 @@ public class SwordWeapon : WeaponBase
                 if (!hitThisSwing.Add(e)) continue;
                 e.TakeDamage(scaledDamage, away * scaledKnockback);
             }
+            else if (hit.GetComponentInParent<Boss>() is Boss boss)
+            {
+                if (!hitThisSwing.Add(boss)) continue;
+                boss.TakeDamage(scaledDamage, away * scaledKnockback);
+            }
             else if (hit.attachedRigidbody.TryGetComponent<ClockHand>(out ClockHand hand))
             {
                 if (!hitThisSwing.Add(hand)) continue;

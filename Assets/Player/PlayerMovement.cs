@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 0.15f;
     [SerializeField] private float dashCooldown = 0.9f;
     [SerializeField] private float dashCoyoteTime = 0.1f;
-    [SerializeField] private float iFrameDuration = 0.2f;
+    [SerializeField] private float iFrameDuration = 0.45f;
     [SerializeField] private AnimationCurve dashSpeedCurve = new AnimationCurve(
         new Keyframe(0f, 1.35f), new Keyframe(0.6f, 1f), new Keyframe(1f, 0.55f));
     [SerializeField] private float dashEndMomentum = 0.55f;
@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     private int dashingLayerIndex;
     private Vector2 velocity;
     private float dashBufferTimer;
+
+    public bool IsInvulnerable => iFrameTimer > 0f;
 
     void Awake()
     {

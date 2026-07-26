@@ -111,7 +111,7 @@ public class VignetteController : Flash
     {
         if (volume == null)
         {
-            volume = FindAnyObjectByType<Volume>();
+            volume = GameObject.Find("Global Volume").GetComponent<Volume>();
         }
         volume?.profile?.TryGet(out vignette);
         if (vignette != null)
