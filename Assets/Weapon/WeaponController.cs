@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class WeaponController : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class WeaponController : MonoBehaviour
     private int activeIndex = -1;
 
     public int ActiveIndex => activeIndex;
+
+    public event Action<int> OnWeaponChanged;
 
     void Awake()
     {
@@ -114,6 +117,8 @@ public class WeaponController : MonoBehaviour
             if (weapons[i] != null)
                 weapons[i].SetActiveWeapon(i == index);
         }
+
+        OnWeaponChanged?.Invoke(activeIndex);
     }
 
     int WeaponCount()
