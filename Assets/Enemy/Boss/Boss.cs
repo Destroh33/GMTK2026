@@ -107,12 +107,15 @@ public class Boss : MonoBehaviour
             int choice = Random.Range(0, 5);
             switch (choice)
             {
-                case 0: //teleport to another spot in the stage
-                    SetAction(BossAction.Teleport);
-                    Vector2 teleportPosition = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
-                    transform.position = teleportPosition;
-                    rb.linearVelocity = Vector2.zero;
-                    yield return new WaitForSeconds(timeBetweenTeleports);
+                case 0: //teleport to another spot in the stage - chain of 3
+                    for (int t = 0; t < 3; t++)
+                    {
+                        SetAction(BossAction.Teleport);
+                        Vector2 teleportPosition = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
+                        transform.position = teleportPosition;
+                        rb.linearVelocity = Vector2.zero;
+                        yield return new WaitForSeconds(timeBetweenTeleports);
+                    }
                     break;
                 case 1: //spawn bats
                     SetAction(BossAction.SpawnBats);
@@ -123,22 +126,26 @@ public class Boss : MonoBehaviour
                     }
                     yield return new WaitForSeconds(cooldownAfterBatSpawn);
                     break;
-                case 2: //dash
-                    SetAction(BossAction.Dash);
-                    rb.linearVelocity = Vector2.zero;
-                    Vector2 posToDashTo = (Vector2)FindAnyObjectByType<PlayerMovement>().transform.position + Random.insideUnitCircle * dashRadius;
-                    rb.AddForce(dashSpeed * (posToDashTo - (Vector2)transform.position).normalized, ForceMode2D.Impulse);
-
-                    float dashElapsed = 0f;
-                    while (dashElapsed < maxDashDuration
-                        && Vector2.Distance(posToDashTo, (Vector2)transform.position) >= 0.5f
-                        && rb.linearVelocity.magnitude >= 0.1f)
+                case 2: //dash - chain of 3
+                    for (int d = 0; d < 3; d++)
                     {
-                        dashElapsed += Time.deltaTime;
-                        yield return null;
-                    }
+                        SetAction(BossAction.Dash);
+                        rb.linearVelocity = Vector2.zero;
+                        Vector2 posToDashTo = (Vector2)FindAnyObjectByType<PlayerMovement>().transform.position + Random.insideUnitCircle * dashRadius;
+                        rb.AddForce(dashSpeed * (posToDashTo - (Vector2)transform.position).normalized, ForceMode2D.Impulse);
 
-                    rb.linearVelocity = Vector2.zero;
+                        float dashElapsed = 0f;
+                        while (dashElapsed < maxDashDuration
+                            && Vector2.Distance(posToDashTo, (Vector2)transform.position) >= 0.5f
+                            && rb.linearVelocity.magnitude >= 0.1f)
+                        {
+                            dashElapsed += Time.deltaTime;
+                            yield return null;
+                        }
+
+                        rb.linearVelocity = Vector2.zero;
+                    }
+                    yield return new WaitForSeconds(cooldownAfterDash);
                     break;
                 case 3: //shoot projectiles - spiral pattern
                     SetAction(BossAction.ShootProjectiles);
