@@ -22,6 +22,8 @@ public class EnemyProjectile : MonoBehaviour
 
     public void Launch(Vector2 direction, float speed)
     {
+        AudioManager.Instance?.PlayEnemyShootSFX();
+
         velocity = direction.normalized * speed;
         launched = true;
 
@@ -39,6 +41,8 @@ public class EnemyProjectile : MonoBehaviour
     {
         if (reflected) return false;
         if (newDirection.sqrMagnitude < 0.0001f) return false;
+
+        AudioManager.Instance?.PlayReflectSFX();
 
         reflected = true;
         reflectedDamage = Mathf.Max(0f, newDamage);

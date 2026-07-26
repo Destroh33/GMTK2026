@@ -210,6 +210,8 @@ public abstract class EnemyBase : EnemyBehaviors
         if (died) return;
         died = true;
 
+        AudioManager.Instance?.PlayEnemyDeathSFX();
+
         OnDied?.Invoke(this);
         OnAnyDied?.Invoke(this);
 

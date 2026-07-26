@@ -194,6 +194,15 @@ MonoBehaviour:
   rollSFX: {fileID: 8300000, guid: 50768be702751d549bfc18c815bd2fd7, type: 3}
   shootSFX: {fileID: 8300000, guid: 4d9099d45846bdb4586c00613d283084, type: 3}
   swingSFX: {fileID: 8300000, guid: 326649c1d3241ef41be2fcb652f20cc7, type: 3}
+  clockTickSFX:
+  - {fileID: 8300000, guid: 3321d0143ab8d494eac8370dac771ad0, type: 3}
+  - {fileID: 8300000, guid: e9dc807fb3f229c4791e0f015bb9bc80, type: 3}
+  reflectSFX:
+  - {fileID: 8300000, guid: 278b315aba116aa4bb2f889381a437f6, type: 3}
+  - {fileID: 8300000, guid: eb971aa26d20b9345ae30acf0bf1ceac, type: 3}
+  - {fileID: 8300000, guid: 358d4ffbc1f4e684b80cae604234bb6e, type: 3}
+  enemyShootSFX: {fileID: 8300000, guid: c0e5da5bf5cd9cd4796242da6951bba3, type: 3}
+  enemyDeathSFX: {fileID: 8300000, guid: 9b4f9dc212828904684099264d5e869f, type: 3}
 --- !u!114 &6250577367217279421
 MonoBehaviour:
   m_ObjectHideFlags: 0
