@@ -4,25 +4,17 @@ using UnityEngine.SceneManagement;
 public class DeathScreen : MonoBehaviour
 {
     public GameObject DeathScreenUI;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void gameOver()
     {
         DeathScreenUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void Retry()
     {
+        Time.timeScale = 1f;
+
         if (SceneManager.GetActiveScene().name != "BossScene")
         {
             PlayerStats.Instance?.ResetForNewRun();
@@ -34,6 +26,8 @@ public class DeathScreen : MonoBehaviour
 
     public void MainMenu()
     {
+        Time.timeScale = 1f;
+
         PlayerStats.Instance?.ResetForNewRun();
         PlayerHealth.Instance?.ResetForNewRun();
 

@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
             TimeRemaining = 0f;
             TimerRunning = false;
             OnTimeExpired?.Invoke();
-            ResetRun();
+            PlayerHealth.Instance?.KillPlayer();
         }
     }
 
@@ -464,7 +464,7 @@ public class GameManager : MonoBehaviour
     {
         bool wasRunning = TimerRunning;
         TimeRemaining = Mathf.Max(0f, TimeRemaining + seconds);
-
+      
         if (TimeRemaining > 0f)
         {
             TimerRunning = true;
@@ -473,7 +473,7 @@ public class GameManager : MonoBehaviour
         {
             TimerRunning = false;
             OnTimeExpired?.Invoke();
-            ResetRun();
+            PlayerHealth.Instance?.KillPlayer();
         }
     }
 

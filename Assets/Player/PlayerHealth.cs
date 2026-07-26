@@ -206,6 +206,12 @@ public class PlayerHealth : PlayerBehaviors
         }
     }
 
+    public void KillPlayer()
+    {
+        if (isDead) return;
+        Die();
+    }
+
     private void Die()
     {
         isDead = true;
