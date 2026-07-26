@@ -828,6 +828,7 @@ MonoBehaviour:
   hitWidth: 1.05
   hitDuration: 0.3
   hitboxFollowsAim: 1
+  lockAimDuringSwing: 1
   damage: 3
   knockbackForce: 4
   hittableLayers:

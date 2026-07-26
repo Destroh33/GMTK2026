@@ -27,6 +27,9 @@ public class PlayerHealth : PlayerBehaviors
 
     public event Action<float, float> OnHealthChanged;
 
+    public DeathScreen deathScreen;
+    private bool isDead = false;
+
     void Awake()
     {
         movement = GetComponent<PlayerMovement>();
@@ -139,7 +142,7 @@ public class PlayerHealth : PlayerBehaviors
 
         GameManager.Instance.GameSpeed(hitStunStrength, hitStunTime, true);
 
-        if (health <= 0f)
+        if (health <= 0f && !isDead)
         {
             Die();
         } 
@@ -152,6 +155,8 @@ public class PlayerHealth : PlayerBehaviors
 
     private void Die()
     {
+        isDead = true;
+        deathScreen.gameOver();
         //GameManager.Instance?.HandlePlayerDied();
     }
 }

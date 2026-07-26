@@ -4,6 +4,17 @@ using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
+    public enum BossAction { Teleport, SpawnBats, Dash, ShootProjectiles, SpawnSkeleton }
+
+    public BossAction CurrentAction { get; private set; }
+    public event System.Action<BossAction> OnActionChanged;
+
+    void SetAction(BossAction action)
+    {
+        CurrentAction = action;
+        OnActionChanged?.Invoke(action);
+    }
+
     [Header("Base Stats")]
     [SerializeField] public float healthPoints;
     [SerializeField] float contactDamage = 1f;
@@ -30,6 +41,9 @@ public class Boss : MonoBehaviour
     [Header("case 1: teleport")]
     [SerializeField] private float timeBetweenTeleports;
 
+    [Header("Delay between spawn trigger and spawning")]
+    [SerializeField] private float spawnDelayAfterSelection = 0.5f;
+
     [Header("case 2: spawn bats")]
     [SerializeField] private GameObject batEnemyPrefab;
     [SerializeField] int numBatsSpawned;
@@ -39,6 +53,8 @@ public class Boss : MonoBehaviour
     [SerializeField] float dashSpeed;
     [SerializeField] float dashRadius;
     [SerializeField] float cooldownAfterDash;
+    [Tooltip("Safety timeout - the dash always ends after this long even if it never gets close to its target or slows down (rb has zero linear damping, so an overshot dash can otherwise never resolve on its own).")]
+    [SerializeField] float maxDashDuration = 1.5f;
 
     [Header("case 4: shoot projectiles")]
     [SerializeField] GameObject bullet;
@@ -92,12 +108,15 @@ public class Boss : MonoBehaviour
             switch (choice)
             {
                 case 0: //teleport to another spot in the stage
+                    SetAction(BossAction.Teleport);
                     Vector2 teleportPosition = Random.insideUnitCircle * radiusOfStage + (Vector2)stageCenter.position;
                     transform.position = teleportPosition;
                     rb.linearVelocity = Vector2.zero;
                     yield return new WaitForSeconds(timeBetweenTeleports);
                     break;
                 case 1: //spawn bats
+                    SetAction(BossAction.SpawnBats);
+                    yield return new WaitForSeconds(spawnDelayAfterSelection);
                     for (int i = 0; i < numBatsSpawned; i++)
                     {
                         Instantiate(batEnemyPrefab, (Vector2)stageCenter.position + Random.insideUnitCircle * radiusOfStage, Quaternion.identity);
@@ -105,13 +124,24 @@ public class Boss : MonoBehaviour
                     yield return new WaitForSeconds(cooldownAfterBatSpawn);
                     break;
                 case 2: //dash
+                    SetAction(BossAction.Dash);
                     rb.linearVelocity = Vector2.zero;
                     Vector2 posToDashTo = (Vector2)FindAnyObjectByType<PlayerMovement>().transform.position + Random.insideUnitCircle * dashRadius;
                     rb.AddForce(dashSpeed * (posToDashTo - (Vector2)transform.position).normalized, ForceMode2D.Impulse);
-                    yield return new WaitUntil(() => Vector2.Distance(posToDashTo, (Vector2)transform.position) < 0.5f || rb.linearVelocity.magnitude < 0.1f);
+
+                    float dashElapsed = 0f;
+                    while (dashElapsed < maxDashDuration
+                        && Vector2.Distance(posToDashTo, (Vector2)transform.position) >= 0.5f
+                        && rb.linearVelocity.magnitude >= 0.1f)
+                    {
+                        dashElapsed += Time.deltaTime;
+                        yield return null;
+                    }
+
                     rb.linearVelocity = Vector2.zero;
                     break;
                 case 3: //shoot projectiles - spiral pattern
+                    SetAction(BossAction.ShootProjectiles);
                     rb.linearVelocity = Vector2.zero;
                     float angleBetweenShots = 360 / bulletsPerCircle;
                     for (int _ = 0; _ < numberOfTurns; _++)
@@ -127,6 +157,8 @@ public class Boss : MonoBehaviour
                     yield return new WaitForSeconds(cooldownAfterBullets);
                     break;
                 case 4: //spawn shield skeleton
+                    SetAction(BossAction.SpawnSkeleton);
+                    yield return new WaitForSeconds(spawnDelayAfterSelection);
                     Instantiate(skeletonEnemyPrefab, (Vector2)stageCenter.position + Random.insideUnitCircle * radiusOfStage, Quaternion.identity);
                     yield return new WaitForSeconds(cooldownAfterSkeletonSpawn);
                     break;

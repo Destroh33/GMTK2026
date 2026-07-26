@@ -8,6 +8,7 @@ public abstract class WeaponBase : MonoBehaviour
 
     public float CooldownRemaining => Mathf.Max(0f, nextUseTime - Time.time);
     public bool IsReady => Time.time >= nextUseTime;
+    public virtual bool LockAim => false;
 
     protected virtual void Update() { }
 
