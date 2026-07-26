@@ -560,6 +560,7 @@ MonoBehaviour:
   knockbackDrag: 6
   healthBar: {fileID: 5283243280053083174}
   healthFill: {fileID: 3636065716767284429}
+  deathSFX: {fileID: 8300000, guid: 40e6aec0ff1cff3498f3a7b96c51ee7f, type: 3}
   steering:
     seekWeight: 1
     desiredRange: 0
